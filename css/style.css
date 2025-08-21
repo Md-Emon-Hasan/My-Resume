@@ -947,7 +947,7 @@ body.offcanvas .colorlib-nav-toggle {
 .colorlib-services .services .desc h3 {
   font-size: 16px;
   font-weight: 700;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   min-height: 48px;
   margin-bottom: 10px;
 }
