@@ -591,6 +591,10 @@ body.offcanvas .colorlib-nav-toggle {
   margin-bottom: 30px;
 }
 
+.about-desc {
+  text-align: justify;
+}
+
 .about-desc h3 {
   font-size: 18px;
   text-transform: uppercase;
@@ -790,6 +794,7 @@ body.offcanvas .colorlib-nav-toggle {
   font-size: 20px;
   font-family: "Quicksand", Arial, sans-serif;
   font-weight: 500;
+  margin-bottom: 10px;
 }
 
 .timeline-centered .timeline-entry .timeline-entry-inner .timeline-label h2 a {
@@ -803,6 +808,10 @@ body.offcanvas .colorlib-nav-toggle {
   -ms-filter: alpha(opacity=40);
   filter: alpha(opacity=40);
   font-size: 16px;
+}
+
+.colorlib-experience .timeline-label{
+  text-align: justify;
 }
 
 /* About Section Services - Simple Icons */
