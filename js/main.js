@@ -98,24 +98,6 @@
         }, { offset: '85%' });
     };
 
-    /* ========================================
-       BURGER MENU (Mobile Menu Toggle)
-       ======================================== */
-    // var burgerMenu = function() {
-    //     $('.js-colorlib-nav-toggle').on('click', function(event){
-    //         event.preventDefault();
-    //         var $this = $(this);
-
-    //         if ($('body').hasClass('offcanvas')) {
-    //             $this.removeClass('active');
-    //             $('body').removeClass('offcanvas'); 
-    //         } else {
-    //             $this.addClass('active');
-    //             $('body').addClass('offcanvas');    
-    //         }
-    //     });
-    // };
-
     var burgerMenu = function() {
         $('.js-colorlib-nav-toggle').on('click', function(event){
             event.preventDefault();
@@ -133,28 +115,6 @@
         });
     };
 
-    /* ========================================
-       CLICK OUTSIDE OF OFFCANVAS
-       ======================================== */
-    // var mobileMenuOutsideClick = function() {
-    //     $(document).click(function (e) {
-    //         var container = $("#colorlib-aside, .js-colorlib-nav-toggle");
-    //         if (!container.is(e.target) && container.has(e.target).length === 0) {
-    //             if ($('body').hasClass('offcanvas')) {
-    //                 $('body').removeClass('offcanvas');
-    //                 $('.js-colorlib-nav-toggle').removeClass('active');
-    //             }
-    //         }
-    //     });
-
-    //     $(window).scroll(function(){
-    //         if ($('body').hasClass('offcanvas')) {
-    //             $('body').removeClass('offcanvas');
-    //             $('.js-colorlib-nav-toggle').removeClass('active');
-    //         }
-    //     });
-    // };
-
     var mobileMenuOutsideClick = function() {
         $(document).click(function (e) {
             var container = $("#colorlib-aside, .js-colorlib-nav-toggle");
@@ -166,8 +126,6 @@
                 }
             }
         });
-
-        // Scroll function remove করে দাও - এটা আর লাগবে না
     };
 
     /* ========================================
@@ -198,44 +156,6 @@
             });
         }
     };
-
-    /* ========================================
-       CLICK MENU (Navigation)
-       ======================================== */
-    // var clickMenu = function() {
-    //     $('#navbar a:not([class="external"])').click(function(event){
-    //         var section = $(this).data('nav-section'),
-    //             navbar = $('#navbar');
-            
-    //         if ($('[data-section="' + section + '"]').length) {
-    //             isClicking = true;
-                
-    //             // Remove existing animation classes from all elements in the target section
-    //             var targetElements = $('[data-section="' + section + '"]').find('.animate-box');
-    //             targetElements.each(function() {
-    //                 $(this).removeClass('animated fadeIn fadeInRight fadeInLeft fadeInUp');
-    //             });
-                
-    //             $('html, body').animate({
-    //                 scrollTop: $('[data-section="' + section + '"]').offset().top - 55
-    //             }, 500, 'easeInOutExpo', function() {
-    //                 animateSectionOnDemand(section);
-    //                 // Update active nav link after animation
-    //                 navActive(section);
-    //                 isClicking = false;
-    //             });
-    //         }
-
-    //         if (navbar.is(':visible')) {
-    //             navbar.removeClass('in');
-    //             navbar.attr('aria-expanded', 'false');
-    //             $('.js-colorlib-nav-toggle').removeClass('active');
-    //         }
-
-    //         event.preventDefault();
-    //         return false;
-    //     });
-    // };
 
     var clickMenu = function() {
         $('#navbar a:not([class="external"])').click(function(event){
