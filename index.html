@@ -558,23 +558,6 @@
 
                         <!-- Projects Grid -->
                         <div class="row" id="projects">
-                            <!-- TrueWealth-AI -->
-                            <!-- <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInLeft" data-category="artificial-intelligence">
-                                <div class="project" style="background-image: url(images/truewealthai.png);">
-                                    <div class="desc">
-                                        <div class="con">
-                                            <h3><a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git" target="_blank">TrueWealth-AI</a></h3>
-                                            <span>Your AI-Powered Financial Strategist</span>
-                                            <p class="icon">
-                                                <span><a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git" target="_blank"><i class="icon-share3"></i></a></span>
-                                                <span><a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git" target="_blank"><i class="icon-eye"></i> 72</a></span>
-                                                <span><a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git" target="_blank"><i class="icon-heart"></i> 29</a></span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
                             <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInLeft" data-category="artificial-intelligence">
                                 <div class="project" style="background-image: url(images/truewealthai.png);">
                                     <div class="desc">
@@ -734,7 +717,7 @@
                                             <p class="icon">
                                                 <span><a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git" target="_blank"><i class="icon-github"></i> Github</a></span>
                                                 <span><a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git" target="_blank"><i class="icon-share3"></i> Share</a></span>
-                                                <span><a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git" target="_blank"><i class="icon-eye"></i> 53</a></span>
+                                                <span><a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git" target="_blank"><i class="icon-eye"></i> 61</a></span>
                                                 <span><a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git" target="_blank"><i class="icon-heart"></i> 22</a></span>
                                             </p>
                                         </div>
@@ -953,6 +936,223 @@
         </div><!-- end:container-wrap -->
     </div><!-- end:colorlib-page -->
 
+    <!-- jQuery -->
+    <script src="js/jquery.min.js"></script>
+    <!-- jQuery Easing -->
+    <script src="js/jquery.easing.1.3.js"></script>
+    <!-- Bootstrap -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Waypoints -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <!-- Flexslider -->
+    <script src="js/jquery.flexslider-min.js"></script>
+    <!-- Owl carousel -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- Counters -->
+    <script src="js/jquery.countTo.js"></script>
+    <!-- MAIN JS -->
+    <script src="js/main.js"></script>
+
+    <!-- Advanced Smooth Scroll with Momentum & Inertia Physics -->
+    <script>
+        (function() {
+            'use strict';
+
+            const SmoothScroll = {
+                config: {
+                    friction: 0.88,
+                    acceleration: 0.8,
+                    touchMultiplier: 1.5,
+                    mouseMultiplier: 0.6,
+                    keyboardMultiplier: 80,
+                    smoothness: 0.08,
+                    velocityThreshold: 0.3,
+                    maxVelocity: 30,
+                    bounceIntensity: 0.05
+                },
+
+                state: {
+                    target: 0,
+                    current: 0,
+                    velocity: 0,
+                    isScrolling: false,
+                    lastTime: Date.now(),
+                    touchStartY: 0,
+                    raf: null
+                },
+
+                init: function() {
+                    this.state.current = window.pageYOffset;
+                    this.state.target = this.state.current;
+                    this.setupEventListeners();
+                    this.animate();
+                },
+
+                setupEventListeners: function() {
+                    const mainContent = document.getElementById('colorlib-main');
+                    const sidebar = document.getElementById('colorlib-aside');
+                    
+                    // Main content scroll
+                    window.addEventListener('wheel', this.handleWheel.bind(this), { passive: false });
+                    
+                    // Sidebar scroll - prevent smooth scroll interference
+                    if (sidebar) {
+                        sidebar.addEventListener('wheel', function(e) {
+                            e.stopPropagation(); // Prevent smooth scroll on sidebar
+                        }, { passive: true });
+                    }
+                    
+                    window.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: false });
+                    window.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+                    window.addEventListener('keydown', this.handleKeyboard.bind(this));
+                    this.setupNavigationLinks();
+                },
+
+                handleWheel: function(e) {
+                    e.preventDefault();
+                    const delta = e.deltaY || e.wheelDeltaY || e.wheelDelta;
+                    this.addVelocity(delta * this.config.mouseMultiplier * this.config.acceleration);
+                    this.state.isScrolling = true;
+                },
+
+                handleTouchStart: function(e) {
+                    this.state.touchStartY = e.touches[0].clientY;
+                    this.state.velocity = 0;
+                },
+
+                handleTouchMove: function(e) {
+                    if (e.touches.length > 1) return;
+                    const touchY = e.touches[0].clientY;
+                    const delta = (this.state.touchStartY - touchY) * this.config.touchMultiplier;
+                    this.addVelocity(delta);
+                    this.state.touchStartY = touchY;
+                    this.state.isScrolling = true;
+                },
+
+                handleKeyboard: function(e) {
+                    const keyMap = {
+                        38: -this.config.keyboardMultiplier,
+                        40: this.config.keyboardMultiplier,
+                        33: -window.innerHeight * 0.9,
+                        34: window.innerHeight * 0.9,
+                        36: -this.state.target,
+                        35: this.getMaxScroll() - this.state.target
+                    };
+
+                    if (keyMap[e.keyCode] !== undefined) {
+                        e.preventDefault();
+                        this.addVelocity(keyMap[e.keyCode]);
+                        this.state.isScrolling = true;
+                    }
+                },
+
+                addVelocity: function(delta) {
+                    this.state.velocity += delta;
+                    if (Math.abs(this.state.velocity) > this.config.maxVelocity) {
+                        this.state.velocity = Math.sign(this.state.velocity) * this.config.maxVelocity;
+                    }
+                },
+
+                animate: function() {
+                    const now = Date.now();
+                    const deltaTime = (now - this.state.lastTime) / 16.67;
+                    this.state.lastTime = now;
+
+                    this.state.target += this.state.velocity * deltaTime;
+                    this.clampTarget();
+                    this.state.velocity *= Math.pow(this.config.friction, deltaTime);
+
+                    if (Math.abs(this.state.velocity) < this.config.velocityThreshold) {
+                        this.state.velocity = 0;
+                        this.state.isScrolling = false;
+                    }
+
+                    this.state.current += (this.state.target - this.state.current) * this.config.smoothness * deltaTime;
+                    window.scrollTo(0, this.state.current);
+
+                    this.state.raf = requestAnimationFrame(this.animate.bind(this));
+                },
+
+                clampTarget: function() {
+                    const maxScroll = this.getMaxScroll();
+                    if (this.state.target < 0) {
+                        this.state.target = 0;
+                        this.state.velocity *= -this.config.bounceIntensity;
+                    } else if (this.state.target > maxScroll) {
+                        this.state.target = maxScroll;
+                        this.state.velocity *= -this.config.bounceIntensity;
+                    }
+                },
+
+                getMaxScroll: function() {
+                    return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+                },
+
+                setupNavigationLinks: function() {
+                    const navLinks = document.querySelectorAll('a[data-nav-section]');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const section = link.getAttribute('data-nav-section');
+                            const target = document.querySelector('[data-section="' + section + '"]');
+                            
+                            if (target) {
+                                this.scrollToElement(target);
+                            }
+                        });
+                    });
+                },
+
+                scrollToElement: function(element, offset = 55) {
+                    const targetPosition = element.offsetTop - offset;
+                    
+                    // Reset velocity এবং সরাসরি target set করুন
+                    this.state.velocity = 0;
+                    this.state.target = targetPosition;
+                    this.state.isScrolling = true;
+                    
+                    // Smooth animation
+                    const distance = Math.abs(targetPosition - this.state.current);
+                    const duration = Math.min(1500, distance * 0.8); // Max 1.5 second
+                    
+                    const startPosition = this.state.current;
+                    const startTime = Date.now();
+                    
+                    const smoothJump = () => {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        // Easing function (easeInOutCubic)
+                        const eased = progress < 0.5 
+                            ? 4 * progress * progress * progress 
+                            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                        
+                        this.state.current = startPosition + (targetPosition - startPosition) * eased;
+                        this.state.target = targetPosition;
+                        window.scrollTo(0, this.state.current);
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(smoothJump);
+                        } else {
+                            this.state.current = targetPosition;
+                            this.state.target = targetPosition;
+                        }
+                    };
+                    
+                    smoothJump();
+                }
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => SmoothScroll.init());
+            } else {
+                SmoothScroll.init();
+            }
+
+            window.SmoothScroll = SmoothScroll;
+        })();
+    </script>
+
     <!-- Project Filter Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -1005,23 +1205,6 @@
             });
         });
     </script>
-
-    <!-- jQuery -->
-    <script src="js/jquery.min.js"></script>
-    <!-- jQuery Easing -->
-    <script src="js/jquery.easing.1.3.js"></script>
-    <!-- Bootstrap -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Waypoints -->
-    <script src="js/jquery.waypoints.min.js"></script>
-    <!-- Flexslider -->
-    <script src="js/jquery.flexslider-min.js"></script>
-    <!-- Owl carousel -->
-    <script src="js/owl.carousel.min.js"></script>
-    <!-- Counters -->
-    <script src="js/jquery.countTo.js"></script>
-    <!-- MAIN JS -->
-    <script src="js/main.js"></script>
 
 </body>
 </html>

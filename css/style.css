@@ -17,6 +17,11 @@
     font-style: normal;
 }
 
+/* Smooth transitions for all elements */
+* {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
 /* ========================================
    BASIC STYLES
    ======================================== */
@@ -26,6 +31,16 @@ body {
     font-size: 15px;
     line-height: 1.8;
     color: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    cursor: default;
+}
+
+/* Advanced Smooth Scroll with Physics-Based Momentum */
+html {
+    scroll-behavior: auto;
+    height: 100%;
 }
 
 @media screen and (max-width: 992px) {
@@ -48,6 +63,11 @@ a:focus {
     outline: none;
     text-decoration: none !important;
 }
+
+a, button {
+    cursor: pointer;
+}
+
 
 p {
     margin-bottom: 1.5em;
@@ -114,7 +134,7 @@ figure figcaption {
     float: left;
     width: 300px;
     position: fixed;
-    overflow-y: auto;
+    overflow-y: auto !important;
     overflow-x: hidden;
     z-index: 1001;
     background: #f2f3f7;
@@ -123,6 +143,25 @@ figure figcaption {
     transition: 0.5s;
     height: 100vh;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+/* Sidebar scrollbar styling */
+#colorlib-aside::-webkit-scrollbar {
+    width: 6px;
+}
+
+#colorlib-aside::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+#colorlib-aside::-webkit-scrollbar-thumb {
+    background: rgba(44, 152, 240, 0.5);
+    border-radius: 3px;
+}
+
+#colorlib-aside::-webkit-scrollbar-thumb:hover {
+    background: rgba(44, 152, 240, 0.8);
 }
 
 @media screen and (max-width: 768px) {
@@ -376,6 +415,21 @@ figure figcaption {
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
+    position: relative;
+}
+
+/* Hide scrollbar while maintaining functionality */
+#colorlib-main::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+/* Prevent text selection during rapid scrolling */
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 @media screen and (max-width: 768px) {
