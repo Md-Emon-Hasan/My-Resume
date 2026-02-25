@@ -6,278 +6,178 @@
 ;(function () {
     'use strict';
 
-    /* ========================================
-       MOBILE DETECTION
-       ======================================== */
+    /* ---- Mobile detection ---- */
     var isMobile = {
-        Android: function() {
-            return navigator.userAgent.match(/Android/i);
-        },
-        BlackBerry: function() {
-            return navigator.userAgent.match(/BlackBerry/i);
-        },
-        iOS: function() {
-            return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-        },
-        Opera: function() {
-            return navigator.userAgent.match(/Opera Mini/i);
-        },
-        Windows: function() {
-            return navigator.userAgent.match(/IEMobile/i);
-        },
         any: function() {
-            return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            return /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
         }
     };
 
-    /* ========================================
-       FULL HEIGHT FUNCTION
-       ======================================== */
+    /* ---- Full-height hero ---- */
     var fullHeight = function() {
-        if (!isMobile.any()) {
-            $('.js-fullheight').css('height', $(window).height());
-            $(window).resize(function(){
-                $('.js-fullheight').css('height', $(window).height());
-            });
-        }
+        var setHeight = function() {
+            $('.js-fullheight').css('height', window.innerHeight + 'px');
+        };
+        setHeight();
+        $(window).on('resize', setHeight);
+        $(window).on('orientationchange', setHeight);
+        /* iOS address-bar show/hide changes innerHeight */
+        window.addEventListener('touchend', function() {
+            setTimeout(setHeight, 300);
+        }, { passive: true });
     };
 
-    /* ========================================
-       COUNTER FUNCTION
-       ======================================== */
+    /* ---- Counter ---- */
     var counter = function() {
         $('.js-counter').countTo({
-            formatter: function (value, options) {
+            formatter: function(value, options) {
                 return value.toFixed(options.decimals);
-            },
+            }
         });
     };
 
-    /* ========================================
-       COUNTER WAYPOINT
-       ======================================== */
     var counterWayPoint = function() {
         if ($('#colorlib-counter').length > 0) {
             $('#colorlib-counter').waypoint(function(direction) {
                 if (direction === 'down' && !$(this.element).hasClass('animated')) {
-                    setTimeout(counter, 400); 
+                    setTimeout(counter, 400);
                     $(this.element).addClass('animated');
                 }
             }, { offset: '90%' });
         }
     };
 
-    /* ========================================
-       SCROLL ANIMATIONS - CONTENT WAYPOINT
-       ======================================== */
+    /* ---- Scroll-triggered animations ---- */
+    var applyEffect = function(el) {
+        var effect = el.data('animate-effect') || 'fadeIn';
+        var cls = effect === 'fadeInLeft'  ? 'fadeInLeft'  :
+                  effect === 'fadeInRight' ? 'fadeInRight' :
+                  effect === 'fadeInTop'   ? 'fadeInUp'    : 'fadeIn';
+        el.addClass(cls + ' animated');
+    };
+
     var contentWayPoint = function() {
         var i = 0;
         $('.animate-box').waypoint(function(direction) {
             if (direction === 'down' && !$(this.element).hasClass('animated')) {
                 i++;
                 $(this.element).addClass('item-animate');
-                setTimeout(function(){
-                    $('body .animate-box.item-animate').each(function(k){
+                setTimeout(function() {
+                    $('body .animate-box.item-animate').each(function(k) {
                         var el = $(this);
                         setTimeout(function() {
-                            var effect = el.data('animate-effect');
-                            if (effect === 'fadeIn') {
-                                el.addClass('fadeIn animated');
-                            } else if (effect === 'fadeInLeft') {
-                                el.addClass('fadeInLeft animated');
-                            } else if (effect === 'fadeInRight') {
-                                el.addClass('fadeInRight animated');
-                            } else {
-                                el.addClass('fadeInUp animated');
-                            }
+                            applyEffect(el);
                             el.removeClass('item-animate');
-                        }, k * 200, 'easeInOutExpo');
+                        }, k * 200);
                     });
                 }, 100);
             }
         }, { offset: '85%' });
     };
 
-    var burgerMenu = function() {
-        $('.js-colorlib-nav-toggle').on('click', function(event){
-            event.preventDefault();
-            var $this = $(this);
-
-            if ($('body').hasClass('offcanvas')) {
-                $this.removeClass('active');
-                $('body').removeClass('offcanvas');
-                $('body').css('overflow', 'auto'); // Body scroll enable
-            } else {
-                $this.addClass('active');
-                $('body').addClass('offcanvas');
-                $('body').css('overflow', 'hidden'); // Body scroll disable
+    /* ---- Animate elements already in viewport on load ---- */
+    var checkOnLoad = function() {
+        var vpBottom = $(window).scrollTop() + $(window).height();
+        $('.animate-box').each(function() {
+            if ($(this).offset().top < vpBottom) {
+                applyEffect($(this));
             }
+        });
+    };
+
+    /* ---- Body scroll lock (iOS-safe) ---- */
+    var _scrollY = 0;
+
+    var lockBody = function() {
+        _scrollY = window.pageYOffset;
+        $('.js-fullheight').css('height', window.innerHeight + 'px');
+        document.body.style.position = 'fixed';
+        document.body.style.top = '-' + _scrollY + 'px';
+        document.body.style.width = '100%';
+        document.body.style.overflow = 'hidden';
+    };
+
+    var unlockBody = function() {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, _scrollY);
+    };
+
+    /* ---- Mobile burger menu ---- */
+    var burgerMenu = function() {
+        $('.js-colorlib-nav-toggle').on('click', function(e) {
+            e.preventDefault();
+            var isOpen = $('body').hasClass('offcanvas');
+            $('body').toggleClass('offcanvas', !isOpen);
+            $(this).toggleClass('active', !isOpen);
+            if (!isOpen) { lockBody(); } else { unlockBody(); }
         });
     };
 
     var mobileMenuOutsideClick = function() {
-        $(document).click(function (e) {
-            var container = $("#colorlib-aside, .js-colorlib-nav-toggle");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                if ($('body').hasClass('offcanvas')) {
-                    $('body').removeClass('offcanvas');
-                    $('.js-colorlib-nav-toggle').removeClass('active');
-                    $('body').css('overflow', 'auto'); // Body scroll enable
-                }
+        $(document).on('click', function(e) {
+            if ($('body').hasClass('offcanvas') &&
+                !$(e.target).closest('#colorlib-aside, .js-colorlib-nav-toggle').length) {
+                $('body').removeClass('offcanvas');
+                $('.js-colorlib-nav-toggle').removeClass('active');
+                unlockBody();
             }
         });
     };
 
-    /* ========================================
-       ANIMATE SECTION ON DEMAND (FOR CLICKS)
-       ======================================== */
-    var isClicking = false;
-
-    var animateSectionOnDemand = function(targetSection) {
-        var section = $('[data-section="' + targetSection + '"]');
-        if (section.length) {
-            // Re-initialize elements for animation
-            section.find('.animate-box.animated').removeClass('animated');
-            section.find('.animate-box.item-animate').removeClass('item-animate');
-            section.find('.animate-box').each(function(k) {
-                var el = $(this);
-                setTimeout(function() {
-                    var effect = el.data('animate-effect');
-                    if (effect === 'fadeIn') {
-                        el.addClass('fadeIn animated');
-                    } else if (effect === 'fadeInLeft') {
-                        el.addClass('fadeInLeft animated');
-                    } else if (effect === 'fadeInRight') {
-                        el.addClass('fadeInRight animated');
-                    } else {
-                        el.addClass('fadeInUp animated');
-                    }
-                }, k * 200);
-            });
-        }
+    /* ---- Active nav state ---- */
+    var navActive = function(section) {
+        var $ul = $('#navbar > ul');
+        $ul.find('li').removeClass('active');
+        $ul.find('a[data-nav-section="' + section + '"]').closest('li').addClass('active');
     };
 
+    /* ---- Click menu (Lenis handles the actual scroll — we just set active state) ---- */
     var clickMenu = function() {
-        $('#navbar a:not([class="external"])').click(function(event){
-            var section = $(this).data('nav-section'),
-                navbar = $('#navbar');
-            
-            if ($('[data-section="' + section + '"]').length) {
-                isClicking = true;
-                
-                // Remove existing animation classes from all elements in the target section
-                var targetElements = $('[data-section="' + section + '"]').find('.animate-box');
-                targetElements.each(function() {
-                    $(this).removeClass('animated fadeIn fadeInRight fadeInLeft fadeInUp');
-                });
-                
-                $('html, body').animate({
-                    scrollTop: $('[data-section="' + section + '"]').offset().top - 55
-                }, 500, 'easeInOutExpo', function() {
-                    animateSectionOnDemand(section);
-                    // Update active nav link after animation
-                    navActive(section);
-                    isClicking = false;
-                });
-            }
+        $('#navbar a:not([class="external"])').on('click', function(e) {
+            e.preventDefault();
+            var section = $(this).data('nav-section');
+            navActive(section);
 
-            // Close mobile menu if open
             if ($('body').hasClass('offcanvas')) {
                 $('body').removeClass('offcanvas');
                 $('.js-colorlib-nav-toggle').removeClass('active');
-                $('body').css('overflow', 'auto');
+                unlockBody();
             }
-
-            if (navbar.is(':visible')) {
-                navbar.removeClass('in');
-                navbar.attr('aria-expanded', 'false');
-            }
-
-            event.preventDefault();
-            return false;
         });
     };
 
-    /* ========================================
-       NAVIGATION ACTIVE STATE
-       ======================================== */
-    var navActive = function(section) {
-        if (isClicking) return;
-        var $el = $('#navbar > ul');
-        $el.find('li').removeClass('active');
-        $el.each(function(){
-            $(this).find('a[data-nav-section="'+section+'"]').closest('li').addClass('active');
-        });
-    };
-
-    /* ========================================
-       NAVIGATION SECTION (Scroll Detection)
-       ======================================== */
+    /* ---- Scroll-based nav highlighting ---- */
     var navigationSection = function() {
         var $section = $('section[data-section]');
-        
         $section.waypoint(function(direction) {
-            if (direction === 'down') {
-                navActive($(this.element).data('section'));
-            }
-        }, {
-            offset: '150px'
-        });
+            if (direction === 'down') navActive($(this.element).data('section'));
+        }, { offset: '150px' });
 
         $section.waypoint(function(direction) {
-            if (direction === 'up') {
-                navActive($(this.element).data('section'));
-            }
-        }, {
-            offset: function() { 
-                return -$(this.element).height() + 155; 
-            }
-        });
+            if (direction === 'up')  navActive($(this.element).data('section'));
+        }, { offset: function() { return -$(this.element).height() + 155; } });
     };
 
-    /* ========================================
-       CHECK ON LOAD (Animate visible sections)
-       ======================================== */
-    var checkOnLoad = function() {
-        var viewportTop = $(window).scrollTop();
-        var viewportBottom = viewportTop + $(window).height();
-
-        $('.animate-box').each(function() {
-            var el = $(this);
-            var elTop = el.offset().top;
-
-            // Animate if the element is above or within the viewport
-            if (elTop < viewportBottom) {
-                var effect = el.data('animate-effect');
-                if (effect === 'fadeIn') {
-                    el.addClass('fadeIn animated');
-                } else if (effect === 'fadeInLeft') {
-                    el.addClass('fadeInLeft animated');
-                } else if (effect === 'fadeInRight') {
-                    el.addClass('fadeInRight animated');
-                } else {
-                    el.addClass('fadeInUp animated');
-                }
-            }
-        });
-    };
-
-    /* ========================================
-       SLIDER MAIN (Hero Section)
-       ======================================== */
+    /* ---- Hero Flexslider ---- */
     var sliderMain = function() {
         $('#colorlib-hero .flexslider').flexslider({
-            animation: "fade",
+            animation: 'slide',
             slideshowSpeed: 5000,
-            directionNav: true,
-            start: function(){
-                setTimeout(function(){
+            animationSpeed: 700,
+            directionNav: false,
+            controlNav: true,
+            pauseOnHover: true,
+            start: function() {
+                setTimeout(function() {
                     $('.slider-text').removeClass('animated fadeInUp');
                     $('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
                 }, 500);
             },
-            before: function(){
-                setTimeout(function(){
+            before: function() {
+                setTimeout(function() {
                     $('.slider-text').removeClass('animated fadeInUp');
                     $('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
                 }, 500);
@@ -285,59 +185,8 @@
         });
     };
 
-    /* ========================================
-       STICKY FUNCTION (Not used in current layout but kept for future)
-       ======================================== */
-    var stickyFunction = function() {
-        var h = $('.image-content').outerHeight();
-        if ($(window).width() <= 992) {
-            $("#sticky_item").trigger("sticky_kit:detach");
-        } else {
-            $('.sticky-parent').removeClass('stick-detach');
-            $("#sticky_item").trigger("sticky_kit:detach");
-            $("#sticky_item").trigger("sticky_kit:unstick");
-        }
-        $(window).resize(function(){
-            var h = $('.image-content').outerHeight();
-            $('.sticky-parent').css('height', h);
-            if ($(window).width() <= 992) {
-                $("#sticky_item").trigger("sticky_kit:detach");
-            } else {
-                $('.sticky-parent').removeClass('stick-detach');
-                $("#sticky_item").trigger("sticky_kit:detach");
-                $("#sticky_item").trigger("sticky_kit:unstick");
-                $("#sticky_item").stick_in_parent();
-            }
-        });
-        $('.sticky-parent').css('height', h);
-        $("#sticky_item").stick_in_parent();
-    };
-
-    /* ========================================
-       OWL CAROUSEL (Not used in current layout but kept for future)
-       ======================================== */
-    var owlCrouselFeatureSlide = function() {
-        $('.owl-carousel').owlCarousel({
-            animateOut: 'fadeOut',
-            animateIn: 'fadeIn',
-            autoplay: true,
-            loop: true,
-            margin: 0,
-            nav: true,
-            dots: false,
-            autoHeight: true,
-            items: 1,
-            navText: [
-                "<i class='icon-arrow-left3 owl-direction'></i>",
-                "<i class='icon-arrow-right3 owl-direction'></i>"
-            ]
-        });
-    };
-
-    /* ========================================
-       DOCUMENT READY - INITIALIZE ALL FUNCTIONS
-       ======================================== */
-    $(function(){
+    /* ---- Init ---- */
+    $(function() {
         fullHeight();
         counter();
         counterWayPoint();
@@ -347,8 +196,6 @@
         navigationSection();
         mobileMenuOutsideClick();
         sliderMain();
-        stickyFunction();
-        owlCrouselFeatureSlide();
         checkOnLoad();
     });
 
