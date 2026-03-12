@@ -15,16 +15,13 @@
 
     /* ---- Full-height hero ---- */
     var fullHeight = function() {
+        if (isMobile.any()) return; // Skip forced height on mobile to allow natural scrolling
         var setHeight = function() {
             $('.js-fullheight').css('height', window.innerHeight + 'px');
         };
         setHeight();
         $(window).on('resize', setHeight);
         $(window).on('orientationchange', setHeight);
-        /* iOS address-bar show/hide changes innerHeight */
-        window.addEventListener('touchend', function() {
-            setTimeout(setHeight, 300);
-        }, { passive: true });
     };
 
     /* ---- Counter ---- */
@@ -85,25 +82,6 @@
         });
     };
 
-    /* ---- Body scroll lock (iOS-safe) ---- */
-    var _scrollY = 0;
-
-    var lockBody = function() {
-        _scrollY = window.pageYOffset;
-        $('.js-fullheight').css('height', window.innerHeight + 'px');
-        document.body.style.position = 'fixed';
-        document.body.style.top = '-' + _scrollY + 'px';
-        document.body.style.width = '100%';
-        document.body.style.overflow = 'hidden';
-    };
-
-    var unlockBody = function() {
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        document.body.style.overflow = '';
-        window.scrollTo(0, _scrollY);
-    };
 
     /* ---- Mobile burger menu ---- */
     var burgerMenu = function() {
@@ -112,7 +90,6 @@
             var isOpen = $('body').hasClass('offcanvas');
             $('body').toggleClass('offcanvas', !isOpen);
             $(this).toggleClass('active', !isOpen);
-            if (!isOpen) { lockBody(); } else { unlockBody(); }
         });
     };
 
@@ -122,7 +99,6 @@
                 !$(e.target).closest('#colorlib-aside, .js-colorlib-nav-toggle').length) {
                 $('body').removeClass('offcanvas');
                 $('.js-colorlib-nav-toggle').removeClass('active');
-                unlockBody();
             }
         });
     };
@@ -144,7 +120,6 @@
             if ($('body').hasClass('offcanvas')) {
                 $('body').removeClass('offcanvas');
                 $('.js-colorlib-nav-toggle').removeClass('active');
-                unlockBody();
             }
         });
     };

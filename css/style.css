@@ -191,6 +191,8 @@ h6 {
     float: left;
     width: var(--sidebar-w);
     position: fixed;
+    top: 0;
+    bottom: 0;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 1001;
@@ -200,7 +202,6 @@ h6 {
     border-right: 1px solid var(--sidebar-border);
     box-shadow: 2px 0 24px rgba(51, 65, 85, 0.08);
     transition: transform var(--trans);
-    height: 100vh;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
 }
@@ -227,10 +228,9 @@ h6 {
         width: 280px;
         transform: translateX(-280px);
         padding-top: 4em;
-        overflow-x: hidden;
-        overflow-y: scroll;
+        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
-        overscroll-behavior-y: contain;
+        left: 0; /* Pin to left on mobile only */
     }
 }
 
@@ -358,32 +358,28 @@ h6 {
 }
 
 /* Social icons */
-#colorlib-main-menu > .collapse > ul > li:nth-last-child(2) {
-    margin-top: 8em;
-    padding-top: 1.5em;
-    border-top: 1px solid rgba(255, 255, 255, 0.35);
+/* Footer */
+#colorlib-aside .colorlib-footer {
+    padding: 0 20px;
+    width: 100%;
+    text-align: center;
 }
 
-@media screen and (max-width: 768px) {
-    #colorlib-main-menu > .collapse > ul > li:nth-last-child(2) {
-        margin-top: 2em;
-    }
-}
-
-#colorlib-main-menu ul li ul {
+#colorlib-aside .colorlib-footer ul {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
-    padding: 0 0 8px;
-    margin: 0;
+    padding: 0;
+    margin: 3em 0 0 0;
+    list-style: none;
 }
 
-#colorlib-main-menu ul li ul li {
+#colorlib-aside .colorlib-footer ul li {
     display: inline-block;
 }
 
-#colorlib-main-menu ul li ul li a {
+#colorlib-aside .colorlib-footer ul li a {
     color: var(--text-muted) !important;
     font-size: 15px;
     width: 36px;
@@ -394,12 +390,11 @@ h6 {
     background: rgba(255, 255, 255, 0.50);
     border: 1px solid rgba(255, 255, 255, 0.65);
     display: inline-block;
-    padding: 0 !important;
     transition: all var(--trans);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-#colorlib-main-menu ul li ul li a:hover {
+#colorlib-aside .colorlib-footer ul li a:hover {
     color: var(--text) !important;
     background: rgba(255, 255, 255, 0.92);
     border-color: rgba(255, 255, 255, 0.85);
@@ -407,22 +402,15 @@ h6 {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
 }
 
-#colorlib-main-menu ul li ul li a::after {
-    display: none !important;
-}
-
-/* Copyright */
-#colorlib-main-menu ul li p {
+#colorlib-aside .colorlib-footer p {
     font-size: 11px;
     color: var(--text-light);
-    text-align: center;
-    margin: 12px 15px 32px;
+    margin: 12px 0 32px;
     line-height: 1.6;
 }
 
-#colorlib-main-menu ul li p small {
+#colorlib-aside .colorlib-footer p small {
     font-size: 10px;
-    font-style: normal;
 }
 
 /* ========================================
@@ -1208,127 +1196,231 @@ body.offcanvas .colorlib-nav-toggle {
 }
 
 /* ========================================
-   SKILLS — PROGRESS BARS
+   SKILLS — CATEGORISED CARDS
    ======================================== */
-.progress-wrap {
-    margin-bottom: 2.2em;
+.skill-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 1em;
 }
 
-.progress-wrap h3 {
-    font-size: 14px;
-    font-family: "Quicksand", Arial, sans-serif;
-    margin-bottom: 10px;
-    color: var(--text);
-    font-weight: 600;
+@media screen and (max-width: 768px) {
+    .skill-categories {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
 }
 
-.progress {
-    height: 8px;
-    box-shadow: none;
-    background: rgba(51, 65, 85, 0.10);
-    border-radius: 10px;
-    overflow: visible;
-}
-
-.progress-bar {
-    box-shadow: none;
-    font-size: 12px;
-    font-weight: 700;
-    text-align: right;
+.skill-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-shadow);
+    padding: 2em 1.8em 1.6em;
     position: relative;
-    overflow: visible;
-    border-radius: 10px;
-    background: var(--grad-main);
-    transition: width 1s cubic-bezier(.4, 0, .2, 1);
+    overflow: hidden;
+    transition: all var(--trans);
 }
 
-.progress-bar::after {
-    position: absolute;
-    top: -4px;
-    right: -1px;
-    width: 16px;
-    height: 16px;
-    content: '';
-    background: var(--indigo);
-    border-radius: 50%;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 8px rgba(51, 65, 85, 0.50);
+.skill-card:hover {
+    background: var(--glass-strong);
+    box-shadow: var(--glass-shadow-lg);
+    transform: translateY(-5px);
 }
 
-.progress-bar span {
+/* Top accent bar */
+.skill-card::before {
+    content: "";
     position: absolute;
-    top: -26px;
+    top: 0;
+    left: 0;
     right: 0;
-    color: var(--indigo);
-    font-size: 12px;
-    font-weight: 700;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+    background: var(--grad-main);
+    opacity: 0;
+    transition: opacity var(--trans);
 }
 
-/* Color variants */
-.progress-bar.color-2 {
+.skill-card:hover::before {
+    opacity: 1;
+}
+
+.skill-card:nth-child(1)::before { background: var(--grad-main); }
+.skill-card:nth-child(2)::before { background: var(--grad-rose); }
+.skill-card:nth-child(3)::before { background: var(--grad-amber); }
+.skill-card:nth-child(4)::before { background: linear-gradient(135deg, #a855f7, #ec4899); }
+.skill-card:nth-child(5)::before { background: var(--grad-emerald); }
+.skill-card:nth-child(6)::before { background: var(--grad-cyan); }
+
+/* Icon */
+.skill-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+    transition: all var(--trans);
+}
+
+.skill-card:hover .skill-card-icon {
+    transform: scale(1.08) rotate(-3deg);
+}
+
+.skill-card-icon i {
+    font-size: 24px;
+    color: #fff;
+}
+
+.skill-card:nth-child(1) .skill-card-icon {
+    background: var(--grad-main);
+    box-shadow: 0 6px 20px rgba(51, 65, 85, 0.28);
+}
+
+.skill-card:nth-child(2) .skill-card-icon {
     background: var(--grad-rose);
+    box-shadow: 0 6px 20px rgba(244, 63, 94, 0.25);
 }
 
-.progress-bar.color-2::after {
-    background: var(--rose);
-    box-shadow: 0 2px 8px rgba(244, 63, 94, 0.45);
-}
-
-.progress-bar.color-2 span {
-    color: var(--rose);
-}
-
-.progress-bar.color-3 {
+.skill-card:nth-child(3) .skill-card-icon {
     background: var(--grad-amber);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
 }
 
-.progress-bar.color-3::after {
-    background: var(--amber);
-    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.45);
-}
-
-.progress-bar.color-3 span {
-    color: var(--amber);
-}
-
-.progress-bar.color-4 {
+.skill-card:nth-child(4) .skill-card-icon {
     background: linear-gradient(135deg, #a855f7, #ec4899);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.25);
 }
 
-.progress-bar.color-4::after {
-    background: #a855f7;
-    box-shadow: 0 2px 8px rgba(168, 85, 247, 0.45);
-}
-
-.progress-bar.color-4 span {
-    color: #a855f7;
-}
-
-.progress-bar.color-5 {
+.skill-card:nth-child(5) .skill-card-icon {
     background: var(--grad-emerald);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
 }
 
-.progress-bar.color-5::after {
-    background: var(--emerald);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.45);
-}
-
-.progress-bar.color-5 span {
-    color: var(--emerald);
-}
-
-.progress-bar.color-6 {
+.skill-card:nth-child(6) .skill-card-icon {
     background: var(--grad-cyan);
+    box-shadow: 0 6px 20px rgba(100, 116, 139, 0.28);
 }
 
-.progress-bar.color-6::after {
-    background: var(--cyan);
-    box-shadow: 0 2px 8px rgba(100, 116, 139, 0.45);
+/* Title */
+.skill-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 1em;
+    color: var(--text);
+    font-family: "Quicksand", Arial, sans-serif;
 }
 
-.progress-bar.color-6 span {
+/* Tags container */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Pill tags */
+.skill-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: "Quicksand", Arial, sans-serif;
+    letter-spacing: 0.3px;
+    transition: all var(--trans);
+    cursor: default;
+}
+
+.skill-tag:hover {
+    transform: translateY(-2px);
+}
+
+/* Tag colour variants */
+.skill-tag.color-1 {
+    background: rgba(51, 65, 85, 0.10);
+    color: var(--indigo);
+    border: 1px solid rgba(51, 65, 85, 0.18);
+}
+
+.skill-tag.color-1:hover {
+    background: var(--grad-main);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(51, 65, 85, 0.30);
+}
+
+.skill-tag.color-2 {
+    background: rgba(244, 63, 94, 0.08);
+    color: var(--rose);
+    border: 1px solid rgba(244, 63, 94, 0.18);
+}
+
+.skill-tag.color-2:hover {
+    background: var(--grad-rose);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(244, 63, 94, 0.30);
+}
+
+.skill-tag.color-3 {
+    background: rgba(245, 158, 11, 0.08);
+    color: var(--amber);
+    border: 1px solid rgba(245, 158, 11, 0.18);
+}
+
+.skill-tag.color-3:hover {
+    background: var(--grad-amber);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.30);
+}
+
+.skill-tag.color-4 {
+    background: rgba(168, 85, 247, 0.08);
+    color: #a855f7;
+    border: 1px solid rgba(168, 85, 247, 0.18);
+}
+
+.skill-tag.color-4:hover {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.30);
+}
+
+.skill-tag.color-5 {
+    background: rgba(16, 185, 129, 0.08);
+    color: var(--emerald);
+    border: 1px solid rgba(16, 185, 129, 0.18);
+}
+
+.skill-tag.color-5:hover {
+    background: var(--grad-emerald);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.30);
+}
+
+.skill-tag.color-6 {
+    background: rgba(100, 116, 139, 0.08);
     color: var(--cyan);
+    border: 1px solid rgba(100, 116, 139, 0.18);
 }
+
+.skill-tag.color-6:hover {
+    background: var(--grad-cyan);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(100, 116, 139, 0.30);
+}
+
 
 /* ========================================
    EDUCATION — ACCORDION

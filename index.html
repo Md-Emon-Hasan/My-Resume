@@ -48,7 +48,7 @@
                 aria-expanded="false" aria-controls="navbar"><i></i></a>
 
             <!-- Sidebar -->
-            <aside id="colorlib-aside" role="complementary" class="js-fullheight">
+            <aside id="colorlib-aside" role="complementary" class="js-fullheight" data-lenis-prevent>
                 <div class="text-center">
                     <div class="author-img" style="background-image: url('images/emon(1).png');"></div>
                     <h1 id="colorlib-logo"><a href="index.html">Md. Hasan Imon</a></h1>
@@ -73,50 +73,46 @@
                             <li><a href="#" data-nav-section="blog">Blog</a></li>
                             <li><a href="#" data-nav-section="certificate">Certificates</a></li>
                             <li><a href="#" data-nav-section="contact">Contact</a></li>
-
-                            <!-- Social Icons -->
-                            <li>
-                                <ul>
-                                    <li>
-                                        <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank"
-                                            title="LinkedIn">
-                                            <i class="icon-linkedin22"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://github.com/Md-Emon-Hasan" target="_blank" title="GitHub">
-                                            <i class="icon-github"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.facebook.com/mdemon.hasan2001/" target="_blank"
-                                            title="Facebook">
-                                            <i class="icon-facebook2"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://www.instagram.com/md_emon_hasan01/" target="_blank"
-                                            title="Instagram">
-                                            <i class="icon-instagram"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="https://wa.me/8801834363533" target="_blank" title="WhatsApp">
-                                            <i class="icon-whatsapp"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Copyright -->
-                            <li>
-                                <p><small>&copy;
-                                        <script>document.write(new Date().getFullYear());</script> All rights reserved
-                                    </small></p>
-                            </li>
                         </ul>
                     </div>
                 </nav>
+
+                <div class="colorlib-footer">
+                    <!-- Social Icons -->
+                    <ul>
+                        <li>
+                            <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank"
+                                title="LinkedIn">
+                                <i class="icon-linkedin22"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Md-Emon-Hasan" target="_blank" title="GitHub">
+                                <i class="icon-github"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/mdemon.hasan2001/" target="_blank" title="Facebook">
+                                <i class="icon-facebook2"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/md_emon_hasan01/" target="_blank" title="Instagram">
+                                <i class="icon-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/8801834363533" target="_blank" title="WhatsApp">
+                                <i class="icon-whatsapp"></i>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Copyright -->
+                    <p><small>&copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved
+                        </small></p>
+                </div>
             </aside>
 
             <!-- ===================== MAIN CONTENT ===================== -->
@@ -374,78 +370,102 @@
                                     Architectures. My work focuses on intelligent planning, reasoning, and
                                     tool-augmented AI assistants.</p>
                             </div>
+                        </div>
 
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-                                <div class="progress-wrap">
-                                    <h3>Python, Scikit-Learn, TensorFlow</h3>
-                                    <div class="progress">
-                                        <div class="progress-bar color-1" role="progressbar" aria-valuenow="95"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:95%">
-                                            <span>95%</span>
-                                        </div>
-                                    </div>
+                        <div class="skill-categories">
+
+                            <!-- Programming & Data -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                                <div class="skill-card-icon"><i class="icon-code"></i></div>
+                                <h3 class="skill-card-title">Programming &amp; Data</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-1">Python</span>
+                                    <span class="skill-tag color-1">Bash / Shell</span>
+                                    <span class="skill-tag color-1">Pandas</span>
+                                    <span class="skill-tag color-1">NumPy</span>
+                                    <span class="skill-tag color-1">Matplotlib</span>
+                                    <span class="skill-tag color-1">Seaborn</span>
+                                    <span class="skill-tag color-1">Data Analytics</span>
+                                    <span class="skill-tag color-1">PySpark</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeInRight">
-                                <div class="progress-wrap">
-                                    <h3>PyTorch, Transformers (HuggingFace)</h3>
-                                    <div class="progress">
-                                        <div class="progress-bar color-2" role="progressbar" aria-valuenow="90"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:90%">
-                                            <span>90%</span>
-                                        </div>
-                                    </div>
+                            <!-- Machine Learning & Deep Learning -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                                <div class="skill-card-icon"><i class="icon-data"></i></div>
+                                <h3 class="skill-card-title">Machine &amp; Deep Learning</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-2">Supervised Learning</span>
+                                    <span class="skill-tag color-2">Unsupervised Learning</span>
+                                    <span class="skill-tag color-2">Classification &amp; Regression</span>
+                                    <span class="skill-tag color-2">Computer Vision</span>
+                                    <span class="skill-tag color-2">Time Series</span>
+                                    <span class="skill-tag color-2">PyTorch</span>
+                                    <span class="skill-tag color-2">TensorFlow</span>
+                                    <span class="skill-tag color-2">Scikit-learn</span>
+                                    <span class="skill-tag color-2">XGBoost &amp; LightGBM</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-                                <div class="progress-wrap">
-                                    <h3>LangGraph, CrewAI, Autogen, AgentOps</h3>
-                                    <div class="progress">
-                                        <div class="progress-bar color-3" role="progressbar" aria-valuenow="90"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:90%">
-                                            <span>90%</span>
-                                        </div>
-                                    </div>
+                            <!-- NLP & Large Language Models -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                                <div class="skill-card-icon"><i class="icon-pen2"></i></div>
+                                <h3 class="skill-card-title">NLP &amp; LLMs</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-3">Transformers (Hugging Face)</span>
+                                    <span class="skill-tag color-3">spaCy &amp; NLTK</span>
+                                    <span class="skill-tag color-3">Embeddings</span>
+                                    <span class="skill-tag color-3">GPT &amp; Claude</span>
+                                    <span class="skill-tag color-3">LLaMA &amp; Mistral</span>
+                                    <span class="skill-tag color-3">vLLM &amp; Ollama</span>
+                                    <span class="skill-tag color-3">Fine-Tuning (SFT, PEFT, LoRA, QLoRA)</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeInRight">
-                                <div class="progress-wrap">
-                                    <h3>Fine-Tuning (LoRA, QLoRA, PEFT, SFT)</h3>
-                                    <div class="progress">
-                                        <div class="progress-bar color-4" role="progressbar" aria-valuenow="90"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:90%">
-                                            <span>90%</span>
-                                        </div>
-                                    </div>
+                            <!-- AI Agents -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                                <div class="skill-card-icon"><i class="icon-bulb"></i></div>
+                                <h3 class="skill-card-title">AI Agents</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-4">Multi-Agent Systems</span>
+                                    <span class="skill-tag color-4">LangChain &amp; LangGraph</span>
+                                    <span class="skill-tag color-4">CrewAI &amp; Autogen</span>
+                                    <span class="skill-tag color-4">AgentOps &amp; LangSmith</span>
+                                    <span class="skill-tag color-4">Agentic RAG</span>
+                                    <span class="skill-tag color-4">Tool-Augmented Agents</span>
+                                    <span class="skill-tag color-4">Prompt Engineering</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
-                                <div class="progress-wrap">
-                                    <h3>Database, Vector DB, RAG</h3>
-                                    <div class="progress">
-                                        <div class="progress-bar color-5" role="progressbar" aria-valuenow="95"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:95%">
-                                            <span>95%</span>
-                                        </div>
-                                    </div>
+                            <!-- Databases & Vector DBs -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                                <div class="skill-card-icon"><i class="icon-layers2"></i></div>
+                                <h3 class="skill-card-title">Databases &amp; Vector DBs</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-5">MySQL &amp; PostgreSQL</span>
+                                    <span class="skill-tag color-5">MongoDB</span>
+                                    <span class="skill-tag color-5">Redis (Caching)</span>
+                                    <span class="skill-tag color-5">Pinecone &amp; Qdrant</span>
+                                    <span class="skill-tag color-5">FAISS &amp; ChromaDB</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 animate-box mb-5" data-animate-effect="fadeInRight">
-                                <div class="progress-wrap">
-                                    <h3>FastAPI, REST API, Flask</h3>
-                                    <div class="progress">
-                                        <div class="progress-bar color-6" role="progressbar" aria-valuenow="85"
-                                            aria-valuemin="0" aria-valuemax="100" style="width:85%">
-                                            <span>85%</span>
-                                        </div>
-                                    </div>
+                            <!-- MLOps & Backend -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                                <div class="skill-card-icon"><i class="icon-spanner"></i></div>
+                                <h3 class="skill-card-title">Cloud, MLOps &amp; Backend</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-6">FastAPI &amp; Flask</span>
+                                    <span class="skill-tag color-6">REST APIs &amp; OOP</span>
+                                    <span class="skill-tag color-6">AWS &amp; GCP</span>
+                                    <span class="skill-tag color-6">Docker &amp; Kubernetes</span>
+                                    <span class="skill-tag color-6">Linux &amp; Nginx</span>
+                                    <span class="skill-tag color-6">CI/CD &amp; GitHub Actions</span>
+                                    <span class="skill-tag color-6">MLflow &amp; W&amp;B</span>
+                                    <span class="skill-tag color-6">PyTest</span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </section>
@@ -593,7 +613,7 @@
                                                 <h2>
                                                     <a href="https://www.hitechparks.com/" target="_blank">Intern ML
                                                         Engineer @ Hi-TechParks</a>
-                                                    <span>June 2025 – September 2025</span>
+                                                    <span>October 2025 – December 2025</span>
                                                 </h2>
                                                 <p>Designed, developed, and deployed backend-centric AI/ML systems using
                                                     Python, integrating models into production-grade services and APIs.
