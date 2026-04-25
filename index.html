@@ -23,9 +23,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <!-- Core CSS -->
     <link rel="stylesheet" href="css/animate.css">
@@ -33,13 +31,59 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/flexslider.css">
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-minimal.min.css">
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Modernizr -->
     <script src="js/modernizr-2.6.2.min.js"></script>
+
 </head>
 
 <body>
+    <!-- AI Preloader -->
+    <div class="ai-preloader">
+        <div class="preloader-content">
+            <div class="preloader-bar-container">
+                <div class="preloader-bar"></div>
+            </div>
+            <div class="preloader-text">Initializing AI Models... <span class="preloader-percent">0</span>%</div>
+        </div>
+    </div>
+
+    <!-- Project Case Study Modal -->
+    <div id="project-modal" class="custom-modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content-wrap">
+            <button class="modal-close"><i class="icon-cross2"></i></button>
+            <div class="modal-body">
+                <div class="modal-header">
+                    <span class="modal-badge" id="modal-category">Category</span>
+                    <h2 id="modal-title">Project Title</h2>
+                </div>
+                <div class="modal-image" id="modal-image"></div>
+                <div class="modal-desc" id="modal-desc">Project Description</div>
+                <div class="modal-tags" id="modal-tags"></div>
+                <div class="modal-footer">
+                    <a href="#" id="modal-link" target="_blank" class="btn btn-primary">View on GitHub <i class="icon-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Animation Elements -->
+    <div id="scroll-progress"></div>
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+    <div id="skill-magnifier"></div>
+
+    <!-- Dynamic Morphing Overlay -->
+    <svg class="shape-overlays" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path class="shape-overlays__path"></path>
+        <path class="shape-overlays__path"></path>
+        <path class="shape-overlays__path"></path>
+    </svg>
+
     <div id="colorlib-page">
         <div class="container-wrap">
 
@@ -49,77 +93,136 @@
 
             <!-- Sidebar -->
             <aside id="colorlib-aside" role="complementary" class="js-fullheight" data-lenis-prevent>
-                <div class="text-center">
-                    <div class="author-img" style="background-image: url('images/emon(1).png');"></div>
-                    <h1 id="colorlib-logo"><a href="index.html">Md. Hasan Imon</a></h1>
-                    <span class="position">
-                        <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank">AI &amp; ML
-                            Engineer</a>
-                        &mdash; Bangladesh
-                    </span>
-                </div>
-
-                <!-- Navigation -->
-                <nav id="colorlib-main-menu" role="navigation" class="navbar">
-                    <div id="navbar" class="collapse">
-                        <ul>
-                            <li class="active"><a href="#" data-nav-section="home">Home</a></li>
-                            <li><a href="#" data-nav-section="about">About</a></li>
-                            <li><a href="#" data-nav-section="services">Services</a></li>
-                            <li><a href="#" data-nav-section="skills">Skills</a></li>
-                            <li><a href="#" data-nav-section="education">Education</a></li>
-                            <li><a href="#" data-nav-section="experience">Experience</a></li>
-                            <li><a href="#" data-nav-section="work">Projects</a></li>
-                            <li><a href="#" data-nav-section="blog">Blog</a></li>
-                            <li><a href="#" data-nav-section="certificate">Certificates</a></li>
-                            <li><a href="#" data-nav-section="contact">Contact</a></li>
-                        </ul>
+                <div class="aside-content">
+                    <div class="text-center">
+                        <div class="author-img" style="background-image: url('images/emon(1).png');"></div>
+                        <h1 id="colorlib-logo"><a href="index.html">Md. Hasan Imon</a></h1>
+                        <span class="position">
+                            <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank">AI &amp; ML
+                                Engineer</a>
+                            &mdash; Bangladesh
+                        </span>
                     </div>
-                </nav>
 
-                <div class="colorlib-footer">
-                    <!-- Social Icons -->
-                    <ul>
-                        <li>
-                            <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank"
-                                title="LinkedIn">
-                                <i class="icon-linkedin22"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/Md-Emon-Hasan" target="_blank" title="GitHub">
-                                <i class="icon-github"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/mdemon.hasan2001/" target="_blank" title="Facebook">
-                                <i class="icon-facebook2"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.instagram.com/md_emon_hasan01/" target="_blank" title="Instagram">
-                                <i class="icon-instagram"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://wa.me/8801834363533" target="_blank" title="WhatsApp">
-                                <i class="icon-whatsapp"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <!-- Navigation -->
+                    <nav id="colorlib-main-menu" role="navigation" class="navbar">
+                        <div id="navbar" class="collapse">
+                            <ul>
+                                <li class="active"><a href="#" data-nav-section="home">Home</a></li>
+                                <li><a href="#" data-nav-section="about">About</a></li>
+                                <li><a href="#" data-nav-section="services">Services</a></li>
+                                <li><a href="#" data-nav-section="skills">Skills</a></li>
+                                <li><a href="#" data-nav-section="education">Education</a></li>
+                                <li><a href="#" data-nav-section="experience">Experience</a></li>
+                                <li><a href="#" data-nav-section="work">Projects</a></li>
+                                <li><a href="#" data-nav-section="blog">Blog</a></li>
+                                <li><a href="#" data-nav-section="certificate">Certificates</a></li>
+                                <li><a href="#" data-nav-section="contact">Contact</a></li>
+                            </ul>
+                        </div>
+                    </nav>
 
-                    <!-- Copyright -->
-                    <p><small>&copy;
-                            <script>document.write(new Date().getFullYear());</script> All rights reserved
-                        </small></p>
+                    <div class="colorlib-footer">
+                        <!-- Social Icons -->
+                        <ul>
+                            <li>
+                                <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank"
+                                    title="LinkedIn">
+                                    <i class="icon-linkedin22"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/Md-Emon-Hasan" target="_blank" title="GitHub">
+                                    <i class="icon-github"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.facebook.com/mdemon.hasan2001/" target="_blank" title="Facebook">
+                                    <i class="icon-facebook2"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/md_emon_hasan01/" target="_blank" title="Instagram">
+                                    <i class="icon-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://wa.me/8801834363533" target="_blank" title="WhatsApp">
+                                    <i class="icon-whatsapp"></i>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <!-- Copyright -->
+                        <p><small>&copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved
+                            </small></p>
+                    </div>
                 </div>
             </aside>
 
             <!-- ===================== MAIN CONTENT ===================== -->
             <div id="colorlib-main">
 
+                <!-- Scroll Drawn Brain/Circuit SVG (Global) -->
+                <div class="circuit-bg-container global-circuit" style="position: fixed; top: 50%; right: 5%; width: 50vw; max-width: 600px; height: 50vw; max-height: 600px; transform: translateY(-50%); opacity: 0.15; z-index: -1; pointer-events: none;">
+                    <svg id="brain-circuit" viewBox="0 0 100 100" fill="none" stroke="url(#circuit-grad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;">
+                        <defs>
+                            <linearGradient id="circuit-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#ec4899" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Left hemisphere -->
+                        <path class="circuit-path" d="M50 10 Q30 5, 20 20 T10 40 Q5 60, 20 80 T45 95 Q50 90, 50 85" />
+                        <path class="circuit-path" d="M40 25 L30 35 L30 50 L45 65 L45 80" />
+                        <path class="circuit-path" d="M25 35 L15 45 L15 60" />
+                        <!-- Right hemisphere -->
+                        <path class="circuit-path" d="M50 10 Q70 5, 80 20 T90 40 Q95 60, 80 80 T55 95 Q50 90, 50 85" />
+                        <path class="circuit-path" d="M60 25 L70 35 L70 50 L55 65 L55 80" />
+                        <path class="circuit-path" d="M75 35 L85 45 L85 60" />
+                        <!-- Connections -->
+                        <path class="circuit-path" d="M40 25 L60 25" />
+                        <path class="circuit-path" d="M30 50 L70 50" />
+                        <path class="circuit-path" d="M45 65 L55 65" />
+                        <!-- Nodes -->
+                        <circle class="circuit-node" cx="40" cy="25" r="2" fill="#fff" />
+                        <circle class="circuit-node" cx="60" cy="25" r="2" fill="#fff" />
+                        <circle class="circuit-node" cx="30" cy="50" r="2" fill="#fff" />
+                        <circle class="circuit-node" cx="70" cy="50" r="2" fill="#fff" />
+                        <circle class="circuit-node" cx="45" cy="65" r="2" fill="#fff" />
+                        <circle class="circuit-node" cx="55" cy="65" r="2" fill="#fff" />
+                    </svg>
+                </div>
+
+                <!-- SVG Data Pipeline Background -->
+                <svg id="data-pipeline" viewBox="0 0 100 5000" preserveAspectRatio="none">
+                    <path id="pipeline-path" d="M 50 0 L 50 5000" />
+                    <!-- Data packets that will move along the path -->
+                    <circle class="data-packet" r="2" fill="#6366f1" />
+                    <circle class="data-packet" r="1.5" fill="#a855f7" />
+                    <circle class="data-packet" r="2.5" fill="#6366f1" />
+                </svg>
+
                 <!-- HOME -->
                 <section id="colorlib-hero" class="js-fullheight" data-section="home">
+                    <!-- Particles Background -->
+                    <div id="particles-js"></div>
+                    
+                    <!-- Generating Randomness -->
+                    <div class="random-box-container">
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                        <div class="random-box"></div>
+                    </div>
+                    
                     <div class="flexslider js-fullheight">
                         <ul class="slides">
                             <li style="background-image: url(images/img_bg_1.jpg);">
@@ -130,15 +233,14 @@
                                             class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
                                             <div class="slider-text-inner js-fullheight">
                                                 <div class="desc">
-                                                    <h1>Hi! <br>I'm Hasan Imon</h1>
+                                                    <h1>Hi! <br>I'm <span id="typed-1"></span></h1>
                                                     <h2>Designing full-stack AI solutions that learn, reason, and act
                                                         autonomously.</h2>
-                                                    <p>
-                                                        <a href="images/resume.pdf" target="_blank"
-                                                            class="btn btn-primary btn-learn">
-                                                            Download CV <i class="icon-download4"></i>
+                                                    <div class="hero-btn-group">
+                                                        <a href="https://github.com/Md-Emon-Hasan" target="_blank" class="btn btn-primary btn-learn">
+                                                            <span class="btn-text">View on GitHub</span> <i class="icon-github"></i>
                                                         </a>
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -154,15 +256,14 @@
                                             class="col-md-6 col-md-offset-3 col-md-pull-3 col-sm-12 col-xs-12 js-fullheight slider-text">
                                             <div class="slider-text-inner">
                                                 <div class="desc">
-                                                    <h1>I am <br>Full-Stack AI/ML Engineer.</h1>
+                                                    <h1>Hi, I am <br><span id="typed-2"></span></h1>
                                                     <h2>Empowering the future with AI that thinks, learns, and
                                                         collaborates.</h2>
-                                                    <p>
-                                                        <a href="https://github.com/Md-Emon-Hasan" target="_blank"
-                                                            class="btn btn-primary btn-learn">
-                                                            View GitHub <i class="icon-briefcase3"></i>
+                                                    <div class="hero-btn-group">
+                                                        <a href="images/resume.pdf" target="_blank" class="btn btn-primary btn-learn">
+                                                            <span class="btn-text">View Resume</span> <i class="icon-file-pdf"></i>
                                                         </a>
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,16 +275,30 @@
                 </section>
 
                 <!-- ABOUT -->
-                <section class="colorlib-about" data-section="about">
+                <section class="colorlib-about" data-section="about" style="position: relative;">
+                    <!-- Morphing Blob -->
+                    <div class="morph-blob-container">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                            <path id="morph-blob" fill="url(#grad)" d="M42.7,-74.6C56.2,-68.8,68.7,-59.5,78.2,-47.4C87.6,-35.3,94.1,-20.3,95,-5C95.9,10.3,91.3,25.8,81.3,37.6C71.3,49.4,56,57.5,41.9,64.7C27.8,71.9,14.9,78.1,-0.2,78.4C-15.3,78.7,-30.5,73.1,-43.3,64.4C-56.1,55.7,-66.4,43.9,-73.4,30.3C-80.4,16.7,-84,1.4,-82.2,-13.3C-80.4,-28,-73.2,-42,-62.4,-51.7C-51.6,-61.4,-37.2,-66.8,-23.4,-72.1C-9.6,-77.4,3.6,-82.6,15.6,-80.6C27.6,-78.6,41.4,-69.3,42.7,-74.6Z" transform="translate(100 100)" />
+                            <defs>
+                                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#6366f1" />
+                                    <stop offset="100%" stop-color="#a855f7" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    
                     <div class="colorlib-narrow-content">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
-                                    <div class="col-md-12">
+                                    <!-- Text Content -->
+                                    <div class="col-md-7">
                                         <div class="about-desc">
                                             <span class="heading-meta">About Me</span>
-                                            <h2 class="colorlib-heading">Who Am I?</h2>
-                                            <p><strong>I'm Md Hasan Imon</strong> — an experienced AI/ML Engineer from
+                                            <h2 class="colorlib-heading split-text">Who Am I?</h2>
+                                            <p class="scrub-text"><strong>I'm Md Hasan Imon</strong> — an experienced AI/ML Engineer from
                                                 Bangladesh specialising in Machine Learning, NLP, Deep Learning,
                                                 Generative AI, LLM Fine-Tuning (LoRA/QLoRA), Agentic RAG Pipelines, and
                                                 Vector Databases. Over multiple production-grade projects I've designed
@@ -196,6 +311,24 @@
                                                 deep technical design with business impact — enabling organisations to
                                                 harness AI for smarter decisions, scalable automation, and real
                                                 competitive advantage.</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Terminal CLI Easter Egg -->
+                                    <div class="col-md-5">
+                                        <div class="terminal-window">
+                                            <div class="terminal-header">
+                                                <div class="terminal-buttons">
+                                                    <span class="close-btn"></span>
+                                                    <span class="min-btn"></span>
+                                                    <span class="max-btn"></span>
+                                                </div>
+                                                <div class="terminal-title">bash — emon@ubuntu:~</div>
+                                            </div>
+                                            <div class="terminal-body">
+                                                <p class="term-line"><span class="term-prompt">emon@ubuntu:~$</span> python run_profile.py</p>
+                                                <div class="term-output" id="terminal-typed"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -255,7 +388,7 @@
 
                         <div class="row row-pt-md">
                             <div class="col-md-4 text-center animate-box">
-                                <div class="services color-1">
+                                <div class="services color-1" data-hover-img="images/img_bg_1.jpg">
                                     <span class="icon"><i class="icon-code"></i></span>
                                     <div class="desc">
                                         <h3>Full-Stack AI/ML Engineering</h3>
@@ -266,7 +399,7 @@
                             </div>
 
                             <div class="col-md-4 text-center animate-box">
-                                <div class="services color-2">
+                                <div class="services color-2" data-hover-img="images/img_bg_2.jpg">
                                     <span class="icon"><i class="icon-bulb"></i></span>
                                     <div class="desc">
                                         <h3>Generative AI &amp; Agentic Systems</h3>
@@ -277,7 +410,7 @@
                             </div>
 
                             <div class="col-md-4 text-center animate-box">
-                                <div class="services color-3">
+                                <div class="services color-3" data-hover-img="images/cover_bg_1.jpg">
                                     <span class="icon"><i class="icon-layers2"></i></span>
                                     <div class="desc">
                                         <h3>Model Fine-Tuning &amp; Optimisation</h3>
@@ -287,7 +420,7 @@
                             </div>
 
                             <div class="col-md-4 text-center animate-box">
-                                <div class="services color-4">
+                                <div class="services color-4" data-hover-img="images/img_bg_1.jpg">
                                     <span class="icon"><i class="icon-compass"></i></span>
                                     <div class="desc">
                                         <h3>Autonomous &amp; Tool-Augmented Reasoning</h3>
@@ -298,7 +431,7 @@
                             </div>
 
                             <div class="col-md-4 text-center animate-box">
-                                <div class="services color-5">
+                                <div class="services color-5" data-hover-img="images/img_bg_2.jpg">
                                     <span class="icon"><i class="icon-data"></i></span>
                                     <div class="desc">
                                         <h3>Supervised / Unsupervised DL</h3>
@@ -309,7 +442,7 @@
                             </div>
 
                             <div class="col-md-4 text-center animate-box">
-                                <div class="services color-6">
+                                <div class="services color-6" data-hover-img="images/cover_bg_1.jpg">
                                     <span class="icon"><i class="icon-phone3"></i></span>
                                     <div class="desc">
                                         <h3>Model Deployment &amp; MLOps</h3>
@@ -329,26 +462,30 @@
                     <div class="colorlib-narrow-content">
                         <div class="row">
                             <div class="col-md-3 text-center animate-box">
-                                <span class="colorlib-counter js-counter" data-from="0" data-to="192" data-speed="5000"
-                                    data-refresh-interval="50"></span>
+                                <span class="colorlib-counter odometer js-odo" data-to="192">0</span>
                                 <span class="colorlib-counter-label">Cups of Coffee</span>
                             </div>
                             <div class="col-md-3 text-center animate-box">
-                                <span class="colorlib-counter js-counter" data-from="0" data-to="31" data-speed="5000"
-                                    data-refresh-interval="50"></span>
+                                <span class="colorlib-counter odometer js-odo" data-to="31">0</span>
                                 <span class="colorlib-counter-label">Projects</span>
                             </div>
                             <div class="col-md-3 text-center animate-box">
-                                <span class="colorlib-counter js-counter" data-from="0" data-to="5" data-speed="5000"
-                                    data-refresh-interval="50"></span>
+                                <span class="colorlib-counter odometer js-odo" data-to="5">0</span>
                                 <span class="colorlib-counter-label">Clients</span>
                             </div>
                             <div class="col-md-3 text-center animate-box">
-                                <span class="colorlib-counter js-counter" data-from="0" data-to="4" data-speed="5000"
-                                    data-refresh-interval="50"></span>
+                                <span class="colorlib-counter odometer js-odo" data-to="4">0</span>
                                 <span class="colorlib-counter-label">Partners</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- INFINITE MARQUEE -->
+                <div class="marquee-section">
+                    <div class="marquee-content">
+                        <span>✦ Full-Stack AI Engineer ✦ Machine Learning ✦ NLP ✦ MLOps ✦ Agentic RAG ✦ LLM Fine-Tuning ✦ Vector Databases </span>
+                        <span>✦ Full-Stack AI Engineer ✦ Machine Learning ✦ NLP ✦ MLOps ✦ Agentic RAG ✦ LLM Fine-Tuning ✦ Vector Databases </span>
                     </div>
                 </div>
 
@@ -359,110 +496,150 @@
                             <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
                                 data-animate-effect="fadeInLeft">
                                 <span class="heading-meta">My Specialty</span>
-                                <h2 class="colorlib-heading">My Skills</h2>
+                                <h2 class="colorlib-heading split-text">My Skills</h2>
                             </div>
                         </div>
 
+                        <!-- 3D Skill Sphere -->
                         <div class="row">
-                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
-                                <p>I specialise in building full-stack, real-world AI/ML systems using cutting-edge
-                                    technologies such as Agentic AI, LangGraph, LLM Orchestration, and Multi-Agent
-                                    Architectures. My work focuses on intelligent planning, reasoning, and
-                                    tool-augmented AI assistants.</p>
+                            <div class="col-md-12 text-center animate-box" data-animate-effect="fadeInUp">
+                                <div id="skill-sphere"></div>
                             </div>
                         </div>
 
                         <div class="skill-categories">
 
-                            <!-- Programming & Data -->
+                            <!-- AI Agents & Agentic AI -->
                             <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
-                                <div class="skill-card-icon"><i class="icon-code"></i></div>
-                                <h3 class="skill-card-title">Programming &amp; Data</h3>
+                                <div class="skill-card-icon"><i class="icon-bulb"></i></div>
+                                <h3 class="skill-card-title">Artificial Intelligence &amp; Agentic AI</h3>
                                 <div class="skill-tags">
-                                    <span class="skill-tag color-1">Python</span>
-                                    <span class="skill-tag color-1">Bash / Shell</span>
-                                    <span class="skill-tag color-1">Pandas</span>
-                                    <span class="skill-tag color-1">NumPy</span>
-                                    <span class="skill-tag color-1">Matplotlib</span>
-                                    <span class="skill-tag color-1">Seaborn</span>
-                                    <span class="skill-tag color-1">Data Analytics</span>
-                                    <span class="skill-tag color-1">PySpark</span>
+                                    <span class="skill-tag color-1">LangChain</span>
+                                    <span class="skill-tag color-1">LangGraph</span>
+                                    <span class="skill-tag color-1">LangSmith</span>
+                                    <span class="skill-tag color-1">AgentOps</span>
+                                    <span class="skill-tag color-1">Agentic RAG</span>
+                                    <span class="skill-tag color-1">Multi-Agent Systems</span>
+                                    <span class="skill-tag color-1">Agent Orchestration</span>
+                                    <span class="skill-tag color-1">Reasoning &amp; Planning</span>
+                                    <span class="skill-tag color-1">Tool Calling</span>
+                                    <span class="skill-tag color-1">Long-Term Memory</span>
+                                    <span class="skill-tag color-1">CrewAI &amp; AutoGen</span>
                                 </div>
                             </div>
 
-                            <!-- Machine Learning & Deep Learning -->
+                            <!-- LLM Fine-Tuning & Training -->
                             <div class="skill-card animate-box" data-animate-effect="fadeInRight">
-                                <div class="skill-card-icon"><i class="icon-data"></i></div>
-                                <h3 class="skill-card-title">Machine &amp; Deep Learning</h3>
+                                <div class="skill-card-icon"><i class="icon-cog"></i></div>
+                                <h3 class="skill-card-title">LLM Fine-Tuning &amp; Training</h3>
                                 <div class="skill-tags">
-                                    <span class="skill-tag color-2">Supervised Learning</span>
-                                    <span class="skill-tag color-2">Unsupervised Learning</span>
-                                    <span class="skill-tag color-2">Classification &amp; Regression</span>
-                                    <span class="skill-tag color-2">Computer Vision</span>
-                                    <span class="skill-tag color-2">Time Series</span>
-                                    <span class="skill-tag color-2">PyTorch</span>
-                                    <span class="skill-tag color-2">TensorFlow</span>
-                                    <span class="skill-tag color-2">Scikit-learn</span>
-                                    <span class="skill-tag color-2">XGBoost &amp; LightGBM</span>
+                                    <span class="skill-tag color-2">PEFT</span>
+                                    <span class="skill-tag color-2">LoRA &amp; QLoRA</span>
+                                    <span class="skill-tag color-2">SFT &amp; RLHF</span>
+                                    <span class="skill-tag color-2">DPO</span>
+                                    <span class="skill-tag color-2">Quantization</span>
+                                    <span class="skill-tag color-2">Instruction Tuning</span>
+                                    <span class="skill-tag color-2">vLLM Optimization</span>
+                                    <span class="skill-tag color-2">Mixed Precision</span>
+                                    <span class="skill-tag color-2">Model Evaluation</span>
                                 </div>
                             </div>
 
-                            <!-- NLP & Large Language Models -->
+                            <!-- NLP & Representation Learning -->
                             <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
                                 <div class="skill-card-icon"><i class="icon-pen2"></i></div>
-                                <h3 class="skill-card-title">NLP &amp; LLMs</h3>
+                                <h3 class="skill-card-title">NLP &amp; Representation Learning</h3>
                                 <div class="skill-tags">
-                                    <span class="skill-tag color-3">Transformers (Hugging Face)</span>
-                                    <span class="skill-tag color-3">spaCy &amp; NLTK</span>
+                                    <span class="skill-tag color-3">Transformers</span>
+                                    <span class="skill-tag color-3">Hugging Face</span>
+                                    <span class="skill-tag color-3">SentenceTransformers</span>
                                     <span class="skill-tag color-3">Embeddings</span>
-                                    <span class="skill-tag color-3">GPT &amp; Claude</span>
-                                    <span class="skill-tag color-3">LLaMA &amp; Mistral</span>
-                                    <span class="skill-tag color-3">vLLM &amp; Ollama</span>
-                                    <span class="skill-tag color-3">Fine-Tuning (SFT, PEFT, LoRA, QLoRA)</span>
+                                    <span class="skill-tag color-3">Semantic Search</span>
+                                    <span class="skill-tag color-3">Tokenization (BPE)</span>
+                                    <span class="skill-tag color-3">Attention Mechanisms</span>
+                                    <span class="skill-tag color-3">NER &amp; POS</span>
+                                    <span class="skill-tag color-3">spaCy &amp; NLTK</span>
                                 </div>
                             </div>
 
-                            <!-- AI Agents -->
+                            <!-- Machine & Deep Learning -->
                             <div class="skill-card animate-box" data-animate-effect="fadeInRight">
-                                <div class="skill-card-icon"><i class="icon-bulb"></i></div>
-                                <h3 class="skill-card-title">AI Agents</h3>
+                                <div class="skill-card-icon"><i class="icon-chart-line"></i></div>
+                                <h3 class="skill-card-title">Machine &amp; Deep Learning</h3>
                                 <div class="skill-tags">
-                                    <span class="skill-tag color-4">Multi-Agent Systems</span>
-                                    <span class="skill-tag color-4">LangChain &amp; LangGraph</span>
-                                    <span class="skill-tag color-4">CrewAI &amp; Autogen</span>
-                                    <span class="skill-tag color-4">AgentOps &amp; LangSmith</span>
-                                    <span class="skill-tag color-4">Agentic RAG</span>
-                                    <span class="skill-tag color-4">Tool-Augmented Agents</span>
-                                    <span class="skill-tag color-4">Prompt Engineering</span>
+                                    <span class="skill-tag color-4">PyTorch</span>
+                                    <span class="skill-tag color-4">TensorFlow</span>
+                                    <span class="skill-tag color-4">Scikit-learn</span>
+                                    <span class="skill-tag color-4">CNN &amp; RNN</span>
+                                    <span class="skill-tag color-4">LSTM &amp; GRU</span>
+                                    <span class="skill-tag color-4">XGBoost &amp; LightGBM</span>
+                                    <span class="skill-tag color-4">Hyperparameter Tuning</span>
+                                    <span class="skill-tag color-4">Transfer Learning</span>
+                                    <span class="skill-tag color-4">Neural Architectures</span>
                                 </div>
                             </div>
 
-                            <!-- Databases & Vector DBs -->
+                            <!-- Data Science & Analysis -->
                             <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
-                                <div class="skill-card-icon"><i class="icon-layers2"></i></div>
-                                <h3 class="skill-card-title">Databases &amp; Vector DBs</h3>
+                                <div class="skill-card-icon"><i class="icon-chart-pie"></i></div>
+                                <h3 class="skill-card-title">Data Science &amp; Analysis</h3>
                                 <div class="skill-tags">
-                                    <span class="skill-tag color-5">MySQL &amp; PostgreSQL</span>
-                                    <span class="skill-tag color-5">MongoDB</span>
-                                    <span class="skill-tag color-5">Redis (Caching)</span>
-                                    <span class="skill-tag color-5">Pinecone &amp; Qdrant</span>
-                                    <span class="skill-tag color-5">FAISS &amp; ChromaDB</span>
+                                    <span class="skill-tag color-5">NumPy &amp; Pandas</span>
+                                    <span class="skill-tag color-5">EDA &amp; Wrangling</span>
+                                    <span class="skill-tag color-5">Statistical Analysis</span>
+                                    <span class="skill-tag color-5">Hypothesis Testing</span>
+                                    <span class="skill-tag color-5">Matplotlib &amp; Seaborn</span>
+                                    <span class="skill-tag color-5">Feature Engineering</span>
+                                    <span class="skill-tag color-5">Time Series Analysis</span>
+                                    <span class="skill-tag color-5">Plotly Interactive</span>
                                 </div>
                             </div>
 
-                            <!-- MLOps & Backend -->
+                            <!-- Vector Databases & Retrieval -->
                             <div class="skill-card animate-box" data-animate-effect="fadeInRight">
-                                <div class="skill-card-icon"><i class="icon-spanner"></i></div>
-                                <h3 class="skill-card-title">Cloud, MLOps &amp; Backend</h3>
+                                <div class="skill-card-icon"><i class="icon-database"></i></div>
+                                <h3 class="skill-card-title">Vector Databases &amp; Retrieval</h3>
                                 <div class="skill-tags">
-                                    <span class="skill-tag color-6">FastAPI &amp; Flask</span>
-                                    <span class="skill-tag color-6">REST APIs &amp; OOP</span>
-                                    <span class="skill-tag color-6">AWS &amp; GCP</span>
-                                    <span class="skill-tag color-6">Docker &amp; Kubernetes</span>
-                                    <span class="skill-tag color-6">Linux &amp; Nginx</span>
-                                    <span class="skill-tag color-6">CI/CD &amp; GitHub Actions</span>
-                                    <span class="skill-tag color-6">MLflow &amp; W&amp;B</span>
-                                    <span class="skill-tag color-6">PyTest</span>
+                                    <span class="skill-tag color-6">FAISS</span>
+                                    <span class="skill-tag color-6">ChromaDB</span>
+                                    <span class="skill-tag color-6">Pinecone</span>
+                                    <span class="skill-tag color-6">Qdrant</span>
+                                    <span class="skill-tag color-6">Milvus</span>
+                                    <span class="skill-tag color-6">Weaviate</span>
+                                    <span class="skill-tag color-6">Redis Retrieval</span>
+                                    <span class="skill-tag color-6">Hybrid Search</span>
+                                </div>
+                            </div>
+
+                            <!-- Software Engineering -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                                <div class="skill-card-icon"><i class="icon-code"></i></div>
+                                <h3 class="skill-card-title">Software Engineering</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-7">Python &amp; C++</span>
+                                    <span class="skill-tag color-7">TypeScript / JS</span>
+                                    <span class="skill-tag color-7">FastAPI &amp; Flask</span>
+                                    <span class="skill-tag color-7">PostgreSQL &amp; NoSQL</span>
+                                    <span class="skill-tag color-7">REST &amp; WebSockets</span>
+                                    <span class="skill-tag color-7">React &amp; Vite</span>
+                                    <span class="skill-tag color-7">TailwindCSS</span>
+                                    <span class="skill-tag color-7">OOP &amp; Design Patterns</span>
+                                </div>
+                            </div>
+
+                            <!-- Deployment, MLOps & AgentOps -->
+                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                                <div class="skill-card-icon"><i class="icon-cloud-storage"></i></div>
+                                <h3 class="skill-card-title">Deployment &amp; MLOps</h3>
+                                <div class="skill-tags">
+                                    <span class="skill-tag color-8">Docker &amp; Compose</span>
+                                    <span class="skill-tag color-8">CI/CD Pipelines</span>
+                                    <span class="skill-tag color-8">GitHub Actions</span>
+                                    <span class="skill-tag color-8">AgentOps</span>
+                                    <span class="skill-tag color-8">Monitoring &amp; Logging</span>
+                                    <span class="skill-tag color-8">MLflow &amp; W&amp;B</span>
+                                    <span class="skill-tag color-8">Linux / Nginx</span>
+                                    <span class="skill-tag color-8">AWS / GCP</span>
                                 </div>
                             </div>
 
@@ -571,8 +748,7 @@
                 <section class="colorlib-experience" data-section="experience">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3">
                                 <span class="heading-meta">Career</span>
                                 <h2 class="colorlib-heading">Work Experience</h2>
                             </div>
@@ -582,7 +758,30 @@
                             <div class="col-md-12">
                                 <div class="timeline-centered">
 
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeInLeft">
+                                    <article class="timeline-entry">
+                                        <div class="timeline-entry-inner">
+                                            <div class="timeline-icon color-3">
+                                                <i class="icon-pen2"></i>
+                                            </div>
+                                            <div class="timeline-label">
+                                                <h2>
+                                                    <a href="https://www.autometahq.com/" target="_blank">Machine
+                                                        Learning Engineer @ AutoMetaHQ</a>
+                                                    <span>April 2026 – Present | London, UK (Remote)</span>
+                                                </h2>
+                                                <p>Engineering high-performance data pipelines and architecting
+                                                    large-scale data handling systems for production AI environments.
+                                                    Optimizing end-to-end ML workflows, including the design and
+                                                    training of advanced neural architectures. Implementing
+                                                    state-of-the-art LLM fine-tuning and training strategies to maximize
+                                                    efficiency, accuracy, and latency. Streamlining data-centric
+                                                    optimization and deploying robust inference pipelines using
+                                                    cloud-native infrastructure.</p>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <article class="timeline-entry">
                                         <div class="timeline-entry-inner">
                                             <div class="timeline-icon color-2">
                                                 <i class="icon-pen2"></i>
@@ -591,20 +790,20 @@
                                                 <h2>
                                                     <a href="https://codixel.tech/" target="_blank">Junior ML Engineer @
                                                         Codixel</a>
-                                                    <span>January 2026 – Present</span>
+                                                    <span>January 2026 – Present | Dhaka, Bangladesh</span>
                                                 </h2>
-                                                <p>Working as a Backend AI Engineer focused on building production-grade
-                                                    multi-agent AI systems. Developed and maintained agentic workflows
-                                                    using LangGraph and AgentOps orchestration. Implemented
-                                                    tool-augmented pipelines (PDFs, Web, APIs, Databases) and integrated
-                                                    memory-driven reasoning systems. Fine-tuned large language models
-                                                    (LLMs) using LoRA, QLoRA, and PEFT for real-world AI applications
-                                                    such as intelligent financial advisors and medical assistants.</p>
+                                                <p>Architecting production-grade multi-agent AI systems and agentic
+                                                    workflows using LangGraph and AgentOps orchestration. Engineering
+                                                    tool-augmented pipelines for complex data retrieval and integrating
+                                                    memory-driven reasoning systems. Specializing in LLM fine-tuning and
+                                                    optimization for specialized domains, including intelligent
+                                                    financial advisors and medical assistants, ensuring high-fidelity
+                                                    outputs and efficient training cycles.</p>
                                             </div>
                                         </div>
                                     </article>
 
-                                    <article class="timeline-entry animate-box" data-animate-effect="fadeInRight">
+                                    <article class="timeline-entry">
                                         <div class="timeline-entry-inner">
                                             <div class="timeline-icon color-1">
                                                 <i class="icon-pen2"></i>
@@ -613,20 +812,19 @@
                                                 <h2>
                                                     <a href="https://www.hitechparks.com/" target="_blank">Intern ML
                                                         Engineer @ Hi-TechParks</a>
-                                                    <span>October 2025 – December 2025</span>
+                                                    <span>October 2025 – December 2025 | Dhaka, Bangladesh</span>
                                                 </h2>
-                                                <p>Designed, developed, and deployed backend-centric AI/ML systems using
-                                                    Python, integrating models into production-grade services and APIs.
-                                                    Built and maintained scalable, modular AI backends including RAG and
-                                                    multi-agent workflows. Implemented end-to-end data and inference
-                                                    pipelines with optimised preprocessing, model serving, and
-                                                    performance-focused backend execution.</p>
+                                                <p>Designing and deploying backend-centric AI/ML systems, focusing on
+                                                    scalable data pipelines and RAG workflows. Implementing end-to-end
+                                                    inference services, optimizing model performance, and managing
+                                                    modular AI backends using Python. Streamlining data preprocessing
+                                                    and model serving layers to ensure efficient, high-performance
+                                                    execution in production environments.</p>
                                             </div>
                                         </div>
                                     </article>
 
-                                    <article class="timeline-entry begin animate-box"
-                                        data-animate-effect="fadeInBottom">
+                                    <article class="timeline-entry begin">
                                         <div class="timeline-entry-inner">
                                             <div class="timeline-icon color-none"></div>
                                         </div>
@@ -638,19 +836,19 @@
                     </div>
                 </section>
 
+
                 <!-- PROJECTS -->
                 <section class="colorlib-work" data-section="work">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3">
                                 <span class="heading-meta">Portfolio</span>
                                 <h2 class="colorlib-heading">Recent Work</h2>
                             </div>
                         </div>
 
                         <!-- Filter Menu -->
-                        <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+                        <div class="row row-bottom-padded-sm">
                             <div class="col-md-12">
                                 <p class="work-menu">
                                     <span><a href="#" class="active" data-filter="all">All</a></span>
@@ -658,7 +856,6 @@
                                             Intelligence</a></span>
                                     <span><a href="#" data-filter="machine-learning">Machine Learning</a></span>
                                     <span><a href="#" data-filter="data-science">Data Science</a></span>
-                                    <span><a href="#" data-filter="apps">Apps</a></span>
                                 </p>
                             </div>
                         </div>
@@ -666,68 +863,8 @@
                         <!-- Projects Grid -->
                         <div class="row" id="projects">
 
-                            <!-- TrueWealth-AI -->
-                            <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInLeft"
-                                data-category="artificial-intelligence">
-                                <div class="project">
-                                    <div class="project-thumb">
-                                        <div class="project-thumb-inner"
-                                            style="background-image: url(images/truewealthai.png);"></div>
-                                        <span class="project-badge">Agentic AI</span>
-                                    </div>
-                                    <div class="project-info">
-                                        <h3><a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git"
-                                                target="_blank">TrueWealth-AI</a></h3>
-                                        <p class="project-desc">Your AI-Powered Financial Strategist — multi-agent
-                                            system with memory-driven reasoning and portfolio analysis.</p>
-                                        <p class="project-tags">
-                                            <span class="tag">Agentic-AI</span>
-                                            <span class="tag">LangGraph</span>
-                                            <span class="tag">RAG</span>
-                                            <span class="tag">Vector-DB</span>
-                                            <span class="tag">FastAPI</span>
-                                            <span class="tag">Memory</span>
-                                        </p>
-                                        <div class="project-footer">
-                                            <a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Translatica -->
-                            <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInRight"
-                                data-category="machine-learning">
-                                <div class="project">
-                                    <div class="project-thumb">
-                                        <div class="project-thumb-inner"
-                                            style="background-image: url(images/translatica.png);"></div>
-                                        <span class="project-badge">Fine-Tuning</span>
-                                    </div>
-                                    <div class="project-info">
-                                        <h3><a href="https://github.com/Md-Emon-Hasan/Translatica.git"
-                                                target="_blank">Translatica</a></h3>
-                                        <p class="project-desc">Fine-tuned English → Spanish Translation System using
-                                            Seq2Seq Transformers with LoRA/PEFT optimisation.</p>
-                                        <p class="project-tags">
-                                            <span class="tag">Transformers</span>
-                                            <span class="tag">LoRA</span>
-                                            <span class="tag">PEFT</span>
-                                            <span class="tag">Seq2Seq</span>
-                                            <span class="tag">HuggingFace</span>
-                                            <span class="tag">NLP</span>
-                                        </p>
-                                        <div class="project-footer">
-                                            <a href="https://github.com/Md-Emon-Hasan/Translatica.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- MediGenius -->
-                            <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInLeft"
+                            <!-- MediGenius — AI -->
+                            <div class="col-md-6 project-item animate-box"
                                 data-category="artificial-intelligence">
                                 <div class="project">
                                     <div class="project-thumb">
@@ -756,44 +893,14 @@
                                 </div>
                             </div>
 
-                            <!-- AutoDocThinker -->
-                            <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInRight"
-                                data-category="apps">
-                                <div class="project">
-                                    <div class="project-thumb">
-                                        <div class="project-thumb-inner"
-                                            style="background-image: url(images/autodocthinker.png);"></div>
-                                        <span class="project-badge">Agentic RAG</span>
-                                    </div>
-                                    <div class="project-info">
-                                        <h3><a href="https://github.com/Md-Emon-Hasan/AutoDocThinker.git"
-                                                target="_blank">AutoDocThinker</a></h3>
-                                        <p class="project-desc">Agentic RAG System with Intelligent Search Engine —
-                                            tool-routed document reasoning with multi-source retrieval.</p>
-                                        <p class="project-tags">
-                                            <span class="tag">ToolRouter</span>
-                                            <span class="tag">RAG</span>
-                                            <span class="tag">ChromaDB</span>
-                                            <span class="tag">LangChain</span>
-                                            <span class="tag">Agentic-AI</span>
-                                            <span class="tag">FastAPI</span>
-                                        </p>
-                                        <div class="project-footer">
-                                            <a href="https://github.com/Md-Emon-Hasan/AutoDocThinker.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- InformaTruth -->
-                            <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInLeft"
+                            <!-- InformaTruth — ML -->
+                            <div class="col-md-6 project-item animate-box"
                                 data-category="machine-learning">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
                                             style="background-image: url(images/informatruth.png);"></div>
-                                        <span class="project-badge">NLP</span>
+                                        <span class="project-badge">Fine Tuning & NLP</span>
                                     </div>
                                     <div class="project-info">
                                         <h3><a href="https://github.com/Md-Emon-Hasan/InformaTruth.git"
@@ -801,9 +908,9 @@
                                         <p class="project-desc">Fine-tuned AI-Driven News Authenticity Analyser with
                                             FAISS reranking and AgentOps trace evaluation.</p>
                                         <p class="project-tags">
-                                            <span class="tag">FLAN-T5</span>
+                                            <span class="tag">Fine-Tuned LLM</span>
                                             <span class="tag">Multi-Agent</span>
-                                            <span class="tag">FAISS</span>
+                                            <span class="tag">VectorDB</span>
                                             <span class="tag">LangGraph</span>
                                             <span class="tag">AgentOps</span>
                                             <span class="tag">NLP</span>
@@ -816,9 +923,9 @@
                                 </div>
                             </div>
 
-                            <!-- BookSage AI -->
-                            <div class="col-md-6 animate-box project-item" data-animate-effect="fadeInRight"
-                                data-category="data-science">
+                            <!-- BookSage AI — ML -->
+                            <div class="col-md-6 project-item animate-box"
+                                data-category="machine-learning">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -842,6 +949,158 @@
                                         <div class="project-footer">
                                             <a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git"
                                                 target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Translatica — ML -->
+                            <div class="col-md-6 project-item animate-box"
+                                data-category="machine-learning">
+                                <div class="project">
+                                    <div class="project-thumb">
+                                        <div class="project-thumb-inner"
+                                            style="background-image: url(images/translatica.png);"></div>
+                                        <span class="project-badge">Fine-Tuning LLM</span>
+                                    </div>
+                                    <div class="project-info">
+                                        <h3><a href="https://github.com/Md-Emon-Hasan/Translatica.git"
+                                                target="_blank">Translatica</a></h3>
+                                        <p class="project-desc">Fine-tuned English → Spanish Translation System using
+                                            Seq2Seq Transformers with LoRA/PEFT optimisation.</p>
+                                        <p class="project-tags">
+                                            <span class="tag">Transformers</span>
+                                            <span class="tag">LoRA</span>
+                                            <span class="tag">PEFT</span>
+                                            <span class="tag">Seq2Seq</span>
+                                            <span class="tag">HuggingFace</span>
+                                            <span class="tag">FINE TUNING</span>
+                                        </p>
+                                        <div class="project-footer">
+                                            <a href="https://github.com/Md-Emon-Hasan/Translatica.git"
+                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AutoDocThinker — AI -->
+                            <div class="col-md-6 project-item animate-box"
+                                data-category="artificial-intelligence">
+                                <div class="project">
+                                    <div class="project-thumb">
+                                        <div class="project-thumb-inner"
+                                            style="background-image: url(images/autodocthinker.png);"></div>
+                                        <span class="project-badge">Agentic RAG</span>
+                                    </div>
+                                    <div class="project-info">
+                                        <h3><a href="https://github.com/Md-Emon-Hasan/AutoDocThinker.git"
+                                                target="_blank">AutoDocThinker</a></h3>
+                                        <p class="project-desc">Agentic RAG System with Intelligent Search Engine
+                                            &mdash;
+                                            tool-routed document reasoning with multi-source retrieval.</p>
+                                        <p class="project-tags">
+                                            <span class="tag">ToolRouter</span>
+                                            <span class="tag">RAG</span>
+                                            <span class="tag">ChromaDB</span>
+                                            <span class="tag">LangChain</span>
+                                            <span class="tag">Agentic-AI</span>
+                                            <span class="tag">FastAPI</span>
+                                        </p>
+                                        <div class="project-footer">
+                                            <a href="https://github.com/Md-Emon-Hasan/AutoDocThinker.git"
+                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Factify — Data Science -->
+                            <div class="col-md-6 project-item animate-box"
+                                data-category="data-science">
+                                <div class="project">
+                                    <div class="project-thumb">
+                                        <div class="project-thumb-inner"
+                                            style="background-image: url(images/factify.png);"></div>
+                                        <span class="project-badge">Deep Learning</span>
+                                    </div>
+                                    <div class="project-info">
+                                        <h3><a href="https://github.com/Md-Emon-Hasan/Factify"
+                                                target="_blank">Factify</a></h3>
+                                        <p class="project-desc">Fact-checking and data verification pipeline with
+                                            statistical analysis, visualisation, and automated insight generation.</p>
+                                        <p class="project-tags">
+                                            <span class="tag">Statistical-Analysis</span>
+                                            <span class="tag">Data-Viz</span>
+                                            <span class="tag">Pandas</span>
+                                            <span class="tag">Seaborn</span>
+                                            <span class="tag">Plotly</span>
+                                            <span class="tag">Insights</span>
+                                        </p>
+                                        <div class="project-footer">
+                                            <a href="https://github.com/Md-Emon-Hasan/Factify" target="_blank"><i
+                                                    class="icon-github"></i> View on GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TrueWealth-AI — AI -->
+                            <div class="col-md-6 project-item animate-box"
+                                data-category="artificial-intelligence">
+                                <div class="project">
+                                    <div class="project-thumb">
+                                        <div class="project-thumb-inner"
+                                            style="background-image: url(images/truewealthai.png);"></div>
+                                        <span class="project-badge">Agentic AI</span>
+                                    </div>
+                                    <div class="project-info">
+                                        <h3><a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git"
+                                                target="_blank">TrueWealth-AI</a></h3>
+                                        <p class="project-desc">Your AI-Powered Financial Strategist — multi-agent
+                                            system with memory-driven reasoning and portfolio analysis.</p>
+                                        <p class="project-tags">
+                                            <span class="tag">Agentic-AI</span>
+                                            <span class="tag">LangGraph</span>
+                                            <span class="tag">RAG</span>
+                                            <span class="tag">Vector-DB</span>
+                                            <span class="tag">FastAPI</span>
+                                            <span class="tag">Memory</span>
+                                        </p>
+                                        <div class="project-footer">
+                                            <a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git"
+                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CIPS — Data Science -->
+                            <div class="col-md-6 project-item animate-box"
+                                data-category="data-science">
+                                <div class="project">
+                                    <div class="project-thumb">
+                                        <div class="project-thumb-inner"
+                                            style="background-image: url(images/cips.png);"></div>
+                                        <span class="project-badge">Classification/Regression</span>
+                                    </div>
+                                    <div class="project-info">
+                                        <h3><a href="https://github.com/Md-Emon-Hasan/CIPS" target="_blank">CIPS</a>
+                                        </h3>
+                                        <p class="project-desc">Customer Insight &amp; Predictive System &mdash;
+                                            end-to-end
+                                            data science pipeline with EDA, feature engineering, and ML modelling.</p>
+                                        <p class="project-tags">
+                                            <span class="tag">EDA</span>
+                                            <span class="tag">Feature-Engineering</span>
+                                            <span class="tag">Scikit-Learn</span>
+                                            <span class="tag">Pandas</span>
+                                            <span class="tag">Matplotlib</span>
+                                            <span class="tag">Prediction</span>
+                                        </p>
+                                        <div class="project-footer">
+                                            <a href="https://github.com/Md-Emon-Hasan/CIPS" target="_blank"><i
+                                                    class="icon-github"></i> View on GitHub</a>
                                         </div>
                                     </div>
                                 </div>
@@ -905,7 +1164,8 @@
                                             alt="InformaTruth: News Authenticity Analyser">
                                     </a>
                                     <div class="desc">
-                                        <span><small>June 30, 2025</small> &middot; <small>Fine-Tuning</small> &middot;
+                                        <span><small>June 30, 2025</small> &middot; <small>Fine-Tuning</small>
+                                            &middot;
                                             <small><i class="icon-bubble3"></i> 6</small></span>
                                         <h3><a href="blog.html">InformaTruth: Verifying News with Fine-Tuned LLMs</a>
                                         </h3>
@@ -930,28 +1190,7 @@
                             </div>
                         </div>
 
-                        <!-- Certificate Stats Bar -->
-                        <div class="cert-stats-bar animate-box" data-animate-effect="fadeInLeft">
-                            <div class="cert-stat">
-                                <span class="cert-stat-num">4</span>
-                                <span class="cert-stat-label">Certificates</span>
-                            </div>
-                            <div class="cert-stat-divider"></div>
-                            <div class="cert-stat">
-                                <span class="cert-stat-num">3</span>
-                                <span class="cert-stat-label">Issuers</span>
-                            </div>
-                            <div class="cert-stat-divider"></div>
-                            <div class="cert-stat">
-                                <span class="cert-stat-num">2</span>
-                                <span class="cert-stat-label">Specialisations</span>
-                            </div>
-                            <div class="cert-stat-divider"></div>
-                            <div class="cert-stat">
-                                <span class="cert-stat-num">Coursera</span>
-                                <span class="cert-stat-label">Platform</span>
-                            </div>
-                        </div>
+
 
                         <!-- Certificate Cards -->
                         <div class="cert-grid">
@@ -1115,61 +1354,184 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="colorlib-feature colorlib-feature-sm animate-box"
-                                    data-animate-effect="fadeInLeft">
-                                    <div class="colorlib-icon"><i class="icon-globe-outline"></i></div>
-                                    <div class="colorlib-text">
-                                        <p><a href="mailto:emon.mlengineer@gmail.com"
-                                                target="_blank">emon.mlengineer@gmail.com</a></p>
+                        <div class="contact-grid">
+
+                            <!-- Left: Direct Contact Cards Only -->
+                            <div class="contact-info-col animate-box" data-animate-effect="fadeInLeft">
+
+                                <div class="contact-info-card">
+                                    <div class="contact-info-icon ci-email">
+                                        <img src="images/gmail-logo.png" alt="Gmail" class="ci-gmail-img">
+                                    </div>
+                                    <div class="contact-info-body">
+                                        <span class="contact-info-label">Email</span>
+                                        <a href="mailto:emon.mlengineer@gmail.com"
+                                            class="contact-info-value">emon.mlengineer@gmail.com</a>
                                     </div>
                                 </div>
 
-                                <div class="colorlib-feature colorlib-feature-sm animate-box"
-                                    data-animate-effect="fadeInLeft">
-                                    <div class="colorlib-icon"><i class="icon-map"></i></div>
-                                    <div class="colorlib-text">
-                                        <p>Savar, Dhaka, Bangladesh</p>
+                                <div class="contact-info-card">
+                                    <div class="contact-info-icon ci-location">
+                                        <i class="icon-map"></i>
+                                    </div>
+                                    <div class="contact-info-body">
+                                        <span class="contact-info-label">Location</span>
+                                        <span class="contact-info-value">Savar, Dhaka, Bangladesh</span>
                                     </div>
                                 </div>
 
-                                <div class="colorlib-feature colorlib-feature-sm animate-box"
-                                    data-animate-effect="fadeInLeft">
-                                    <div class="colorlib-icon"><i class="icon-phone"></i></div>
-                                    <div class="colorlib-text">
-                                        <p><a href="tel:+8801834363533" target="_blank">+880 1834-363533</a></p>
+                                <div class="contact-info-card">
+                                    <div class="contact-info-icon ci-phone">
+                                        <i class="icon-phone"></i>
+                                    </div>
+                                    <div class="contact-info-body">
+                                        <span class="contact-info-label">Phone</span>
+                                        <a href="tel:+8801834363533" class="contact-info-value">+880 1834-363533</a>
                                     </div>
                                 </div>
 
-                                <div class="colorlib-feature colorlib-feature-sm animate-box"
-                                    data-animate-effect="fadeInLeft">
-                                    <div class="colorlib-icon"><i class="icon-whatsapp"></i></div>
-                                    <div class="colorlib-text">
-                                        <p><a href="https://wa.me/8801834363533" target="_blank">+880 1834-363533</a>
-                                        </p>
+                                <div class="contact-info-card">
+                                    <div class="contact-info-icon ci-whatsapp">
+                                        <i class="icon-whatsapp"></i>
+                                    </div>
+                                    <div class="contact-info-body">
+                                        <span class="contact-info-label">WhatsApp</span>
+                                        <a href="https://wa.me/8801834363533" target="_blank"
+                                            class="contact-info-value">+880 1834-363533</a>
                                     </div>
                                 </div>
 
-                                <div class="colorlib-feature colorlib-feature-sm animate-box"
-                                    data-animate-effect="fadeInLeft">
-                                    <div class="colorlib-icon"><i class="icon-linkedin22"></i></div>
-                                    <div class="colorlib-text">
-                                        <p><a href="https://www.linkedin.com/in/md-emon-hasan-695483237/"
-                                                target="_blank">Md Emon Hasan</a></p>
+                                <div class="contact-info-card">
+                                    <div class="contact-info-icon ci-linkedin">
+                                        <i class="icon-linkedin22"></i>
+                                    </div>
+                                    <div class="contact-info-body">
+                                        <span class="contact-info-label">LinkedIn</span>
+                                        <a href="https://www.linkedin.com/in/md-emon-hasan-695483237/" target="_blank"
+                                            class="contact-info-value">Md Emon Hasan</a>
                                     </div>
                                 </div>
 
-                                <div class="colorlib-feature colorlib-feature-sm animate-box"
-                                    data-animate-effect="fadeInLeft">
-                                    <div class="colorlib-icon"><i class="icon-github"></i></div>
-                                    <div class="colorlib-text">
-                                        <p><a href="https://github.com/Md-Emon-Hasan" target="_blank">Md Emon Hasan</a>
-                                        </p>
+                            </div>
+
+                            <!-- Right: Contact Form via Formspree -->
+                            <div class="contact-form-col animate-box" data-animate-effect="fadeInRight">
+                                <div class="contact-form-card">
+                                    <div class="contact-form-header">
+                                        <span class="contact-form-eyebrow">Send a Message</span>
+                                        <p class="contact-form-sub">I typically respond within 24 hours.</p>
                                     </div>
+                                    <form id="contactForm" class="contact-form"
+                                        action="https://formspree.io/f/xqewnedv" method="POST">
+                                        <div class="cf-row">
+                                            <div class="cf-field">
+                                                <label for="cfName">Full Name</label>
+                                                <div class="cf-input-wrap">
+                                                    <i class="icon-user cf-input-icon"></i>
+                                                    <input type="text" id="cfName" name="name"
+                                                        placeholder="Your full name" required>
+                                                </div>
+                                            </div>
+                                            <div class="cf-field">
+                                                <label for="cfEmail">Email Address</label>
+                                                <div class="cf-input-wrap">
+                                                    <i class="icon-envelope cf-input-icon"></i>
+                                                    <input type="email" id="cfEmail" name="email"
+                                                        placeholder="your@email.com" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cf-field">
+                                            <label for="cfSubject">Subject</label>
+                                            <div class="cf-input-wrap">
+                                                <i class="icon-tag cf-input-icon"></i>
+                                                <input type="text" id="cfSubject" name="subject"
+                                                    placeholder="What is this about?">
+                                            </div>
+                                        </div>
+                                        <div class="cf-field">
+                                            <label for="cfMessage">Message</label>
+                                            <textarea id="cfMessage" name="message" rows="5"
+                                                placeholder="Write your message here…" required></textarea>
+                                        </div>
+                                        <div id="cfFeedback" class="cf-feedback" aria-live="polite"></div>
+                                        <button type="submit" class="cf-submit-btn" id="cfSubmit">
+                                            <span id="cfBtnText">Send Message</span>
+                                            <i class="icon-send" id="cfBtnIcon"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
+
+                        </div><!-- /contact-grid -->
+
+                        <!-- Profiles & Social — "Find Me Online" -->
+                        <div class="contact-profiles animate-box" data-animate-effect="fadeInLeft">
+                            <div class="contact-profiles-label">
+                                <span class="contact-profiles-eyebrow">Find Me Online</span>
+                            </div>
+                            <div class="contact-profiles-grid">
+
+                                <a href="https://github.com/Md-Emon-Hasan" target="_blank" class="cp-card cp-github">
+                                    <div class="cp-icon">
+                                        <i class="icon-github"></i>
+                                    </div>
+                                    <div class="cp-body">
+                                        <span class="cp-platform">GitHub</span>
+                                        <span class="cp-handle">Md-Emon-Hasan</span>
+                                    </div>
+                                    <i class="icon-link2 cp-arrow"></i>
+                                </a>
+
+                                <a href="https://www.kaggle.com/mdhasanimon" target="_blank" class="cp-card cp-kaggle">
+                                    <div class="cp-icon">
+                                        <img src="images/kaggle-icon.png" alt="Kaggle" class="cp-img-icon">
+                                    </div>
+                                    <div class="cp-body">
+                                        <span class="cp-platform">Kaggle</span>
+                                        <span class="cp-handle">mdhasanimon</span>
+                                    </div>
+                                    <i class="icon-link2 cp-arrow"></i>
+                                </a>
+
+                                <a href="https://medium.com/@emon.mlengineer" target="_blank" class="cp-card cp-medium">
+                                    <div class="cp-icon">
+                                        <img src="images/medium-icon.png" alt="Medium" class="cp-img-icon">
+                                    </div>
+                                    <div class="cp-body">
+                                        <span class="cp-platform">Medium</span>
+                                        <span class="cp-handle">@emon.mlengineer</span>
+                                    </div>
+                                    <i class="icon-link2 cp-arrow"></i>
+                                </a>
+
+                                <a href="https://www.facebook.com/mdemon.hasan2001/" target="_blank"
+                                    class="cp-card cp-facebook">
+                                    <div class="cp-icon">
+                                        <i class="icon-facebook2"></i>
+                                    </div>
+                                    <div class="cp-body">
+                                        <span class="cp-platform">Facebook</span>
+                                        <span class="cp-handle">Md Emon Hasan</span>
+                                    </div>
+                                    <i class="icon-link2 cp-arrow"></i>
+                                </a>
+
+                                <a href="https://www.instagram.com/md_emon_hasan01/" target="_blank"
+                                    class="cp-card cp-instagram">
+                                    <div class="cp-icon">
+                                        <i class="icon-instagram"></i>
+                                    </div>
+                                    <div class="cp-body">
+                                        <span class="cp-platform">Instagram</span>
+                                        <span class="cp-handle">md_emon_hasan01</span>
+                                    </div>
+                                    <i class="icon-link2 cp-arrow"></i>
+                                </a>
+
+                            </div>
+                        </div><!-- /contact-profiles -->
+
                     </div>
                 </section>
 
@@ -1177,9 +1539,26 @@
         </div><!-- /container-wrap -->
     </div><!-- /colorlib-page -->
 
+    <!-- Hover Reveal Container -->
+    <div id="hover-reveal-container">
+        <div class="hover-reveal-img" id="hover-reveal-img"></div>
+    </div>
+
     <!-- ===================== SCRIPTS ===================== -->
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+    <!-- SplitType -->
+    <script src="https://unpkg.com/split-type"></script>
+    <!-- Odometer -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
+    <!-- TagCloud -->
+    <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <!-- Lenis smooth scroll -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
@@ -1194,30 +1573,83 @@
     <!-- Lenis + GSAP integration -->
     <script>
         const lenis = new Lenis({
-            duration: 2.2,
-            easing: t => 1 - Math.pow(1 - t, 4),
+            duration: 1.5,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential smoothing for a "bouncy/floaty" feel
             smoothWheel: true,
-            wheelMultiplier: 0.8,
+            wheelMultiplier: 1.1,
             touchMultiplier: 1.5,
         });
 
-        gsap.ticker.add(time => lenis.raf(time * 1000));
+        // Sidebar smooth scroll
+        const sidebarLenis = new Lenis({
+            wrapper: document.querySelector('#colorlib-aside'),
+            content: document.querySelector('.aside-content'),
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+        });
+
+        gsap.ticker.add(time => {
+            lenis.raf(time * 1000);
+            sidebarLenis.raf(time * 1000);
+        });
+
         gsap.ticker.lagSmoothing(0);
 
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('a[data-nav-section]').forEach(link => {
                 link.addEventListener('click', e => {
                     e.preventDefault();
-                    const target = document.querySelector(`[data-section="${link.dataset.navSection}"]`);
-                    if (target) lenis.scrollTo(target, { offset: -55, duration: 1.4 });
+                    const sectionName = link.dataset.navSection;
+                    const target = document.querySelector(`[data-section="${sectionName}"]`);
+                    if (!target) return;
+
+                    // Animate section elements immediately — content visible as scroll begins
+                    if (typeof $ !== 'undefined' && typeof animateSection === 'undefined') {
+                        // jQuery-based animateSection from main.js is in IIFE scope,
+                        // so we call it via a small inline version here
+                        const boxes = []; // Manual animation disabled to let GSAP handle it during scroll
+                        boxes.forEach((box, k) => {
+                            setTimeout(() => {
+                                const fx = box.dataset.animateEffect || 'fadeIn';
+                                const cls = fx === 'fadeInLeft'  ? 'fadeInLeft'  :
+                                            fx === 'fadeInRight' ? 'fadeInRight' :
+                                            (fx === 'fadeInTop' || fx === 'fadeInDown') ? 'fadeInDown' :
+                                            (fx === 'fadeInBottom' || fx === 'fadeInUp') ? 'fadeInUp' : 'fadeIn';
+                                box.classList.add(cls, 'animated');
+                            }, k * 80);
+                        });
+                    }
+
+                    lenis.scrollTo(target, {
+                        offset: -55,
+                        duration: 1.4,
+                        onComplete: () => {
+                            // After scroll lands, reveal any remaining un-animated items
+                            const remaining = []; // Manual reveal disabled to prevent GSAP conflict
+                            remaining.forEach((box, k) => {
+                                setTimeout(() => {
+                                    const fx = box.dataset.animateEffect || 'fadeIn';
+                                    const cls = fx === 'fadeInLeft'  ? 'fadeInLeft'  :
+                                                fx === 'fadeInRight' ? 'fadeInRight' :
+                                                (fx === 'fadeInTop' || fx === 'fadeInDown') ? 'fadeInDown' :
+                                                (fx === 'fadeInBottom' || fx === 'fadeInUp') ? 'fadeInUp' : 'fadeIn';
+                                    box.classList.add(cls, 'animated');
+                                }, k * 80);
+                            });
+                            // Also refresh Waypoints now that scroll has settled
+                            if (window.Waypoint) Waypoint.refreshAll();
+                        }
+                    });
                 });
             });
         });
     </script>
 
-    <!-- Project filter -->
+    <!-- Project filter with GSAP Flip -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(Flip);
             const buttons = document.querySelectorAll('.work-menu a');
             const items = document.querySelectorAll('.project-item');
 
@@ -1228,29 +1660,106 @@
                     btn.classList.add('active');
 
                     const cat = btn.dataset.filter;
-                    let delay = 0;
+                    
+                    // 1. Get current state of items
+                    const state = Flip.getState(items);
 
-                    items.forEach(item => {
-                        item.style.display = 'none';
-                        item.classList.remove('animated', 'fadeIn', 'fadeInLeft', 'fadeInRight', 'fadeInUp');
-                    });
-
+                    // 2. Make DOM changes
                     items.forEach(item => {
                         if (cat === 'all' || cat === item.dataset.category) {
                             item.style.display = 'block';
-                            setTimeout(() => {
-                                const fx = item.dataset.animateEffect || 'fadeIn';
-                                item.classList.add(fx === 'fadeInLeft' ? 'fadeInLeft' :
-                                    fx === 'fadeInRight' ? 'fadeInRight' :
-                                        fx === 'fadeInTop' ? 'fadeInUp' : 'fadeIn', 'animated');
-                            }, delay);
-                            delay += 100;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // 3. Animate using Flip
+                    Flip.from(state, {
+                        duration: 0.7,
+                        ease: "power2.inOut",
+                        scale: true,
+                        absolute: true, // handles absolute positioning during animation
+                        onEnter: elements => gsap.fromTo(elements, {opacity: 0, scale: 0.8}, {opacity: 1, scale: 1, duration: 0.7}),
+                        onLeave: elements => gsap.to(elements, {opacity: 0, scale: 0.8, duration: 0.7}),
+                        onComplete: () => {
+                            if (window.lenis) lenis.resize();
+                            ScrollTrigger.refresh();
                         }
                     });
                 });
             });
         });
     </script>
+
+    <!-- Formspree Contact Form -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const feedback = document.getElementById('cfFeedback');
+            const btn = document.getElementById('cfSubmit');
+            const btnText = document.getElementById('cfBtnText');
+            const btnIcon = document.getElementById('cfBtnIcon');
+
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // --- Loading state ---
+                btn.disabled = true;
+                btnText.textContent = 'Sending…';
+                btnIcon.className = '';
+                feedback.className = 'cf-feedback';
+                feedback.textContent = '';
+
+                try {
+                    const data = new FormData(form);
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (res.ok) {
+                        // --- Success ---
+                        feedback.className = 'cf-feedback cf-success';
+                        feedback.innerHTML = '✓ Message sent! I\'ll get back to you within 24 hours.';
+                        form.reset();
+                        btnText.textContent = 'Message Sent!';
+                        btnIcon.className = 'icon-check';
+                        btn.style.background = 'var(--grad-emerald)';
+                        setTimeout(() => {
+                            btnText.textContent = 'Send Message';
+                            btnIcon.className = 'icon-send';
+                            btn.style.background = '';
+                            btn.disabled = false;
+                        }, 4000);
+                    } else {
+                        throw new Error('server');
+                    }
+                } catch (err) {
+                    // --- Error with mailto fallback ---
+                    const subject = encodeURIComponent(form.querySelector('#cfSubject')?.value || 'Message from portfolio');
+                    const body = encodeURIComponent(form.querySelector('#cfMessage')?.value || '');
+                    const mailto = `mailto:emon.mlengineer@gmail.com?subject=${subject}&body=${body}`;
+                    feedback.className = 'cf-feedback cf-error';
+                    feedback.innerHTML = `Couldn't send via form. <a href="${mailto}">Click here to email directly</a>.`;
+                    btnText.textContent = 'Send Message';
+                    btnIcon.className = 'icon-send';
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+
+    <!-- Premium Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme">
+        <i class="icon-moon"></i>
+    </button>
 
 </body>
 
