@@ -34,6 +34,8 @@
     <!-- Odometer CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-minimal.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <!-- AOS – Animate On Scroll -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
 
     <!-- Modernizr -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -65,7 +67,7 @@
                 <div class="modal-desc" id="modal-desc">Project Description</div>
                 <div class="modal-tags" id="modal-tags"></div>
                 <div class="modal-footer">
-                    <a href="#" id="modal-link" target="_blank" class="btn btn-primary">View on GitHub <i class="icon-github"></i></a>
+                    <a href="#" id="modal-link" target="_blank" class="btn btn-primary glitch-btn"><span class="btn-text">View on GitHub</span> <i class="icon-github"></i></a>
                 </div>
             </div>
         </div>
@@ -274,6 +276,14 @@
                     </div>
                 </section>
 
+                <!-- INFINITE MARQUEE -->
+                <div class="marquee-section marquee-hero">
+                    <div class="marquee-content">
+                        <span>✦ Full-Stack AI Engineer ✦ Machine Learning ✦ NLP ✦ MLOps ✦ Agentic RAG ✦ LLM Fine-Tuning ✦ Vector Databases </span>
+                        <span>✦ Full-Stack AI Engineer ✦ Machine Learning ✦ NLP ✦ MLOps ✦ Agentic RAG ✦ LLM Fine-Tuning ✦ Vector Databases </span>
+                    </div>
+                </div>
+
                 <!-- ABOUT -->
                 <section class="colorlib-about" data-section="about" style="position: relative;">
                     <!-- Morphing Blob -->
@@ -292,9 +302,9 @@
                     <div class="colorlib-narrow-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="row row-bottom-padded-sm animate-box" data-animate-effect="fadeInLeft">
+                                <div class="row row-bottom-padded-sm">
                                     <!-- Text Content -->
-                                    <div class="col-md-7">
+                                    <div class="col-md-7" data-aos="fade-right" data-aos-duration="1300">
                                         <div class="about-desc">
                                             <span class="heading-meta">About Me</span>
                                             <h2 class="colorlib-heading split-text">Who Am I?</h2>
@@ -315,7 +325,7 @@
                                     </div>
                                     
                                     <!-- Terminal CLI Easter Egg -->
-                                    <div class="col-md-5">
+                                    <div class="col-md-5" data-aos="fade-left" data-aos-duration="1300" data-aos-delay="200">
                                         <div class="terminal-window">
                                             <div class="terminal-header">
                                                 <div class="terminal-buttons">
@@ -335,25 +345,25 @@
 
                                 <!-- Role Cards -->
                                 <div class="row">
-                                    <div class="col-md-3 animate-box" data-animate-effect="fadeInRight">
+                                    <div class="col-md-3" data-aos="fade-right" data-aos-duration="1400" data-aos-delay="0">
                                         <div class="services color-1">
                                             <span class="icon2"><i class="icon-globe-outline"></i></span>
                                             <h3>AI Engineer</h3>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="col-md-3" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="100">
                                         <div class="services color-2">
                                             <span class="icon2"><i class="icon-bulb"></i></span>
                                             <h3>ML Engineer</h3>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 animate-box" data-animate-effect="fadeInTop">
+                                    <div class="col-md-3" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200">
                                         <div class="services color-3">
                                             <span class="icon2"><i class="icon-data"></i></span>
                                             <h3>NLP Engineer</h3>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 animate-box" data-animate-effect="fadeInBottom">
+                                    <div class="col-md-3" data-aos="fade-left" data-aos-duration="1400" data-aos-delay="300">
                                         <div class="services color-4">
                                             <span class="icon2"><i class="icon-phone3"></i></span>
                                             <h3>Backend &amp; MLOps</h3>
@@ -363,10 +373,10 @@
 
                                 <!-- Hire Banner -->
                                 <div class="row">
-                                    <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                                    <div class="col-md-12" data-aos="zoom-in" data-aos-duration="1200">
                                         <div class="hire">
                                             <h2>30+ projects delivered successfully — let's build something great!</h2>
-                                            <a href="mailto:emon.mlengineer@gmail.com" class="btn-hire">Hire Me</a>
+                                            <a href="mailto:emon.mlengineer@gmail.com" class="btn-hire"><span class="btn-text">Hire Me</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -379,15 +389,14 @@
                 <section class="colorlib-services" data-section="services">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">What I Do</span>
                                 <h2 class="colorlib-heading">My Expertise</h2>
                             </div>
                         </div>
 
                         <div class="row row-pt-md">
-                            <div class="col-md-4 text-center animate-box">
+                            <div class="col-md-4 text-center" data-aos="fade-right" data-aos-duration="1400" data-aos-delay="0">
                                 <div class="services color-1" data-hover-img="images/img_bg_1.jpg">
                                     <span class="icon"><i class="icon-code"></i></span>
                                     <div class="desc">
@@ -398,7 +407,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 text-center animate-box">
+                            <div class="col-md-4 text-center" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="100">
                                 <div class="services color-2" data-hover-img="images/img_bg_2.jpg">
                                     <span class="icon"><i class="icon-bulb"></i></span>
                                     <div class="desc">
@@ -409,7 +418,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 text-center animate-box">
+                            <div class="col-md-4 text-center" data-aos="fade-left" data-aos-duration="1400" data-aos-delay="200">
                                 <div class="services color-3" data-hover-img="images/cover_bg_1.jpg">
                                     <span class="icon"><i class="icon-layers2"></i></span>
                                     <div class="desc">
@@ -419,7 +428,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 text-center animate-box">
+                            <div class="col-md-4 text-center" data-aos="fade-right" data-aos-duration="1400" data-aos-delay="100">
                                 <div class="services color-4" data-hover-img="images/img_bg_1.jpg">
                                     <span class="icon"><i class="icon-compass"></i></span>
                                     <div class="desc">
@@ -430,7 +439,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 text-center animate-box">
+                            <div class="col-md-4 text-center" data-aos="fade-up" data-aos-duration="1400" data-aos-delay="200">
                                 <div class="services color-5" data-hover-img="images/img_bg_2.jpg">
                                     <span class="icon"><i class="icon-data"></i></span>
                                     <div class="desc">
@@ -441,7 +450,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 text-center animate-box">
+                            <div class="col-md-4 text-center" data-aos="fade-left" data-aos-duration="1400" data-aos-delay="300">
                                 <div class="services color-6" data-hover-img="images/cover_bg_1.jpg">
                                     <span class="icon"><i class="icon-phone3"></i></span>
                                     <div class="desc">
@@ -461,19 +470,19 @@
                     <div class="overlay"></div>
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-3 text-center animate-box">
+                            <div class="col-md-3 text-center">
                                 <span class="colorlib-counter odometer js-odo" data-to="192">0</span>
                                 <span class="colorlib-counter-label">Cups of Coffee</span>
                             </div>
-                            <div class="col-md-3 text-center animate-box">
+                            <div class="col-md-3 text-center">
                                 <span class="colorlib-counter odometer js-odo" data-to="31">0</span>
                                 <span class="colorlib-counter-label">Projects</span>
                             </div>
-                            <div class="col-md-3 text-center animate-box">
+                            <div class="col-md-3 text-center">
                                 <span class="colorlib-counter odometer js-odo" data-to="5">0</span>
                                 <span class="colorlib-counter-label">Clients</span>
                             </div>
-                            <div class="col-md-3 text-center animate-box">
+                            <div class="col-md-3 text-center">
                                 <span class="colorlib-counter odometer js-odo" data-to="4">0</span>
                                 <span class="colorlib-counter-label">Partners</span>
                             </div>
@@ -481,20 +490,13 @@
                     </div>
                 </div>
 
-                <!-- INFINITE MARQUEE -->
-                <div class="marquee-section">
-                    <div class="marquee-content">
-                        <span>✦ Full-Stack AI Engineer ✦ Machine Learning ✦ NLP ✦ MLOps ✦ Agentic RAG ✦ LLM Fine-Tuning ✦ Vector Databases </span>
-                        <span>✦ Full-Stack AI Engineer ✦ Machine Learning ✦ NLP ✦ MLOps ✦ Agentic RAG ✦ LLM Fine-Tuning ✦ Vector Databases </span>
-                    </div>
-                </div>
+
 
                 <!-- SKILLS -->
                 <section class="colorlib-skills" data-section="skills">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">My Specialty</span>
                                 <h2 class="colorlib-heading split-text">My Skills</h2>
                             </div>
@@ -502,7 +504,7 @@
 
                         <!-- 3D Skill Sphere -->
                         <div class="row">
-                            <div class="col-md-12 text-center animate-box" data-animate-effect="fadeInUp">
+                            <div class="col-md-12 text-center" data-aos="zoom-in" data-aos-duration="1400">
                                 <div id="skill-sphere"></div>
                             </div>
                         </div>
@@ -510,7 +512,7 @@
                         <div class="skill-categories">
 
                             <!-- AI Agents & Agentic AI -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                            <div class="skill-card" data-aos="fade-right" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-bulb"></i></div>
                                 <h3 class="skill-card-title">Artificial Intelligence &amp; Agentic AI</h3>
                                 <div class="skill-tags">
@@ -529,7 +531,7 @@
                             </div>
 
                             <!-- LLM Fine-Tuning & Training -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                            <div class="skill-card" data-aos="fade-left" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-cog"></i></div>
                                 <h3 class="skill-card-title">LLM Fine-Tuning &amp; Training</h3>
                                 <div class="skill-tags">
@@ -546,7 +548,7 @@
                             </div>
 
                             <!-- NLP & Representation Learning -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                            <div class="skill-card" data-aos="fade-right" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-pen2"></i></div>
                                 <h3 class="skill-card-title">NLP &amp; Representation Learning</h3>
                                 <div class="skill-tags">
@@ -563,7 +565,7 @@
                             </div>
 
                             <!-- Machine & Deep Learning -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                            <div class="skill-card" data-aos="fade-left" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-chart-line"></i></div>
                                 <h3 class="skill-card-title">Machine &amp; Deep Learning</h3>
                                 <div class="skill-tags">
@@ -580,7 +582,7 @@
                             </div>
 
                             <!-- Data Science & Analysis -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                            <div class="skill-card" data-aos="fade-right" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-chart-pie"></i></div>
                                 <h3 class="skill-card-title">Data Science &amp; Analysis</h3>
                                 <div class="skill-tags">
@@ -596,7 +598,7 @@
                             </div>
 
                             <!-- Vector Databases & Retrieval -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                            <div class="skill-card" data-aos="fade-left" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-database"></i></div>
                                 <h3 class="skill-card-title">Vector Databases &amp; Retrieval</h3>
                                 <div class="skill-tags">
@@ -612,7 +614,7 @@
                             </div>
 
                             <!-- Software Engineering -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInLeft">
+                            <div class="skill-card" data-aos="fade-right" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-code"></i></div>
                                 <h3 class="skill-card-title">Software Engineering</h3>
                                 <div class="skill-tags">
@@ -628,7 +630,7 @@
                             </div>
 
                             <!-- Deployment, MLOps & AgentOps -->
-                            <div class="skill-card animate-box" data-animate-effect="fadeInRight">
+                            <div class="skill-card" data-aos="fade-left" data-aos-duration="1200">
                                 <div class="skill-card-icon"><i class="icon-cloud-storage"></i></div>
                                 <h3 class="skill-card-title">Deployment &amp; MLOps</h3>
                                 <div class="skill-tags">
@@ -651,15 +653,14 @@
                 <section class="colorlib-education" data-section="education">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">Background</span>
                                 <h2 class="colorlib-heading">Education</h2>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12 animate-box" data-animate-effect="fadeInLeft">
+                            <div class="col-md-12" data-aos="fade-up" data-aos-duration="1300" data-aos-delay="200">
                                 <div class="fancy-collapse-panel">
                                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
@@ -748,7 +749,7 @@
                 <section class="colorlib-experience" data-section="experience">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">Career</span>
                                 <h2 class="colorlib-heading">Work Experience</h2>
                             </div>
@@ -758,7 +759,7 @@
                             <div class="col-md-12">
                                 <div class="timeline-centered">
 
-                                    <article class="timeline-entry">
+                                    <article class="timeline-entry" data-aos="fade-right" data-aos-duration="1300">
                                         <div class="timeline-entry-inner">
                                             <div class="timeline-icon color-3">
                                                 <i class="icon-pen2"></i>
@@ -781,7 +782,7 @@
                                         </div>
                                     </article>
 
-                                    <article class="timeline-entry">
+                                    <article class="timeline-entry" data-aos="fade-left" data-aos-duration="1300">
                                         <div class="timeline-entry-inner">
                                             <div class="timeline-icon color-2">
                                                 <i class="icon-pen2"></i>
@@ -803,7 +804,7 @@
                                         </div>
                                     </article>
 
-                                    <article class="timeline-entry">
+                                    <article class="timeline-entry" data-aos="fade-right" data-aos-duration="1300">
                                         <div class="timeline-entry-inner">
                                             <div class="timeline-icon color-1">
                                                 <i class="icon-pen2"></i>
@@ -841,14 +842,14 @@
                 <section class="colorlib-work" data-section="work">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">Portfolio</span>
                                 <h2 class="colorlib-heading">Recent Work</h2>
                             </div>
                         </div>
 
                         <!-- Filter Menu -->
-                        <div class="row row-bottom-padded-sm">
+                        <div class="row row-bottom-padded-sm" data-aos="fade-up" data-aos-duration="1300" data-aos-delay="200">
                             <div class="col-md-12">
                                 <p class="work-menu">
                                     <span><a href="#" class="active" data-filter="all">All</a></span>
@@ -864,8 +865,7 @@
                         <div class="row" id="projects">
 
                             <!-- MediGenius — AI -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="artificial-intelligence">
+                            <div class="col-md-6 project-item" data-category="artificial-intelligence">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -886,16 +886,14 @@
                                             <span class="tag">LLM</span>
                                         </p>
                                         <div class="project-footer">
-                                            <a href="https://github.com/Md-Emon-Hasan/MediGenius.git" target="_blank"><i
-                                                    class="icon-github"></i> View on GitHub</a>
+                                            <a href="https://github.com/Md-Emon-Hasan/MediGenius.git" target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- InformaTruth — ML -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="machine-learning">
+                            <div class="col-md-6 project-item" data-category="machine-learning">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -917,15 +915,14 @@
                                         </p>
                                         <div class="project-footer">
                                             <a href="https://github.com/Md-Emon-Hasan/InformaTruth.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                                target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- BookSage AI — ML -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="machine-learning">
+                            <div class="col-md-6 project-item" data-category="machine-learning">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -948,15 +945,14 @@
                                         </p>
                                         <div class="project-footer">
                                             <a href="https://github.com/Md-Emon-Hasan/BookSage-AI.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                                target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Translatica — ML -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="machine-learning">
+                            <div class="col-md-6 project-item" data-category="machine-learning">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -978,15 +974,14 @@
                                         </p>
                                         <div class="project-footer">
                                             <a href="https://github.com/Md-Emon-Hasan/Translatica.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                                target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- AutoDocThinker — AI -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="artificial-intelligence">
+                            <div class="col-md-6 project-item" data-category="artificial-intelligence">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -1009,15 +1004,14 @@
                                         </p>
                                         <div class="project-footer">
                                             <a href="https://github.com/Md-Emon-Hasan/AutoDocThinker.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                                target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Factify — Data Science -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="data-science">
+                            <div class="col-md-6 project-item" data-category="data-science">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -1038,16 +1032,14 @@
                                             <span class="tag">Insights</span>
                                         </p>
                                         <div class="project-footer">
-                                            <a href="https://github.com/Md-Emon-Hasan/Factify" target="_blank"><i
-                                                    class="icon-github"></i> View on GitHub</a>
+                                            <a href="https://github.com/Md-Emon-Hasan/Factify" target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- TrueWealth-AI — AI -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="artificial-intelligence">
+                            <div class="col-md-6 project-item" data-category="artificial-intelligence">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -1069,15 +1061,14 @@
                                         </p>
                                         <div class="project-footer">
                                             <a href="https://github.com/Md-Emon-Hasan/TrueWealth-AI.git"
-                                                target="_blank"><i class="icon-github"></i> View on GitHub</a>
+                                                target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- CIPS — Data Science -->
-                            <div class="col-md-6 project-item animate-box"
-                                data-category="data-science">
+                            <div class="col-md-6 project-item" data-category="data-science">
                                 <div class="project">
                                     <div class="project-thumb">
                                         <div class="project-thumb-inner"
@@ -1099,8 +1090,7 @@
                                             <span class="tag">Prediction</span>
                                         </p>
                                         <div class="project-footer">
-                                            <a href="https://github.com/Md-Emon-Hasan/CIPS" target="_blank"><i
-                                                    class="icon-github"></i> View on GitHub</a>
+                                            <a href="https://github.com/Md-Emon-Hasan/CIPS" target="_blank" class="glitch-btn"><i class="icon-github"></i><span class="btn-text"> View on GitHub</span></a>
                                         </div>
                                     </div>
                                 </div>
@@ -1114,15 +1104,14 @@
                 <section class="colorlib-blog" data-section="blog">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">Articles</span>
                                 <h2 class="colorlib-heading">Recent Blog</h2>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                            <div class="col-md-4 col-sm-6" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="0">
                                 <div class="blog-entry">
                                     <a href="blog.html" class="blog-img">
                                         <img src="images/blog-1.png" class="img-responsive"
@@ -1140,7 +1129,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInRight">
+                            <div class="col-md-4 col-sm-6" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="150">
                                 <div class="blog-entry">
                                     <a href="blog.html" class="blog-img">
                                         <img src="images/blog-2.png" class="img-responsive"
@@ -1157,7 +1146,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                            <div class="col-md-4 col-sm-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
                                 <div class="blog-entry">
                                     <a href="blog.html" class="blog-img">
                                         <img src="images/blog-3.png" class="img-responsive"
@@ -1183,8 +1172,7 @@
                 <section class="colorlib-certificates" data-section="certificate">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">Credentials</span>
                                 <h2 class="colorlib-heading">Certifications</h2>
                             </div>
@@ -1196,7 +1184,7 @@
                         <div class="cert-grid">
 
                             <!-- Machine Learning Specialisation -->
-                            <div class="cert-card cert-c1 animate-box" data-animate-effect="fadeInLeft">
+                            <div class="cert-card cert-c1" data-aos="flip-left" data-aos-duration="1200" data-aos-delay="0">
                                 <div class="cert-accent"></div>
                                 <div class="cert-thumb">
                                     <div class="cert-thumb-inner" style="background-image: url(images/ml.png);"></div>
@@ -1224,15 +1212,13 @@
                                     </div>
                                     <div class="cert-actions">
                                         <a href="https://www.coursera.org/account/accomplishments/specialization/W5FZ8XQJZFP3"
-                                            target="_blank" class="cert-btn cert-btn-primary">
-                                            <i class="icon-link2"></i> Verify Credential
-                                        </a>
+                                            target="_blank" class="cert-btn cert-btn-primary glitch-btn"><i class="icon-link2"></i><span class="btn-text"> Verify Credential</span></a>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Programming for Everybody -->
-                            <div class="cert-card cert-c2 animate-box" data-animate-effect="fadeInRight">
+                            <div class="cert-card cert-c2" data-aos="flip-left" data-aos-duration="1200" data-aos-delay="150">
                                 <div class="cert-accent"></div>
                                 <div class="cert-thumb">
                                     <div class="cert-thumb-inner" style="background-image: url(images/py.PNG);"></div>
@@ -1260,15 +1246,13 @@
                                     </div>
                                     <div class="cert-actions">
                                         <a href="https://www.coursera.org/account/accomplishments/verify/YB3ZZTJ8WE7Y"
-                                            target="_blank" class="cert-btn cert-btn-primary">
-                                            <i class="icon-link2"></i> Verify Credential
-                                        </a>
+                                            target="_blank" class="cert-btn cert-btn-primary glitch-btn"><i class="icon-link2"></i><span class="btn-text"> Verify Credential</span></a>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Google UX Design -->
-                            <div class="cert-card cert-c3 animate-box" data-animate-effect="fadeInLeft">
+                            <div class="cert-card cert-c3" data-aos="flip-left" data-aos-duration="1200" data-aos-delay="300">
                                 <div class="cert-accent"></div>
                                 <div class="cert-thumb">
                                     <div class="cert-thumb-inner" style="background-image: url(images/ux.PNG);"></div>
@@ -1296,15 +1280,13 @@
                                     </div>
                                     <div class="cert-actions">
                                         <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/BDZVJW5D94HT"
-                                            target="_blank" class="cert-btn cert-btn-primary">
-                                            <i class="icon-link2"></i> Verify Credential
-                                        </a>
+                                            target="_blank" class="cert-btn cert-btn-primary glitch-btn"><i class="icon-link2"></i><span class="btn-text"> Verify Credential</span></a>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Google IT Support -->
-                            <div class="cert-card cert-c4 animate-box" data-animate-effect="fadeInRight">
+                            <div class="cert-card cert-c4" data-aos="flip-left" data-aos-duration="1200" data-aos-delay="450">
                                 <div class="cert-accent"></div>
                                 <div class="cert-thumb">
                                     <div class="cert-thumb-inner" style="background-image: url(images/it.PNG);"></div>
@@ -1332,9 +1314,7 @@
                                     </div>
                                     <div class="cert-actions">
                                         <a href="https://www.coursera.org/account/accomplishments/specialization/certificate/E5WWVDFEAM6S"
-                                            target="_blank" class="cert-btn cert-btn-primary">
-                                            <i class="icon-link2"></i> Verify Credential
-                                        </a>
+                                            target="_blank" class="cert-btn cert-btn-primary glitch-btn"><i class="icon-link2"></i><span class="btn-text"> Verify Credential</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -1347,8 +1327,7 @@
                 <section class="colorlib-contact" data-section="contact">
                     <div class="colorlib-narrow-content">
                         <div class="row">
-                            <div class="col-md-6 col-md-offset-3 col-md-pull-3 animate-box"
-                                data-animate-effect="fadeInLeft">
+                            <div class="col-md-6 col-md-offset-3 col-md-pull-3" data-aos="fade-up" data-aos-duration="1400">
                                 <span class="heading-meta">Get in Touch</span>
                                 <h2 class="colorlib-heading">Contact</h2>
                             </div>
@@ -1357,7 +1336,7 @@
                         <div class="contact-grid">
 
                             <!-- Left: Direct Contact Cards Only -->
-                            <div class="contact-info-col animate-box" data-animate-effect="fadeInLeft">
+                            <div class="contact-info-col" data-aos="fade-right" data-aos-duration="1300">
 
                                 <div class="contact-info-card">
                                     <div class="contact-info-icon ci-email">
@@ -1415,7 +1394,7 @@
                             </div>
 
                             <!-- Right: Contact Form via Formspree -->
-                            <div class="contact-form-col animate-box" data-animate-effect="fadeInRight">
+                            <div class="contact-form-col" data-aos="fade-left" data-aos-duration="1300" data-aos-delay="100">
                                 <div class="contact-form-card">
                                     <div class="contact-form-header">
                                         <span class="contact-form-eyebrow">Send a Message</span>
@@ -1466,7 +1445,7 @@
                         </div><!-- /contact-grid -->
 
                         <!-- Profiles & Social — "Find Me Online" -->
-                        <div class="contact-profiles animate-box" data-animate-effect="fadeInLeft">
+                        <div class="contact-profiles" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
                             <div class="contact-profiles-label">
                                 <span class="contact-profiles-eyebrow">Find Me Online</span>
                             </div>
@@ -1562,6 +1541,8 @@
     <!-- Lenis smooth scroll -->
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
+    <!-- AOS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.easing.1.3.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -1589,12 +1570,28 @@
             smoothWheel: true,
         });
 
+        // Sync Lenis scroll with GSAP ScrollTrigger (required for triggers to fire correctly)
+        lenis.on('scroll', ScrollTrigger.update);
+
         gsap.ticker.add(time => {
             lenis.raf(time * 1000);
             sidebarLenis.raf(time * 1000);
         });
 
         gsap.ticker.lagSmoothing(0);
+
+        // Initialize AOS – Animate On Scroll
+        AOS.init({
+            duration: 1200,
+            easing: 'ease-out-quart',
+            once: true,
+            offset: 80,
+            mirror: false,
+            anchorPlacement: 'top-bottom'
+        });
+
+        // NOTE: Do NOT call AOS.refresh() on every scroll frame — it resets animation
+        // state and causes elements to flash/flicker. AOS handles scroll natively.
 
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('a[data-nav-section]').forEach(link => {
@@ -1639,51 +1636,6 @@
                             });
                             // Also refresh Waypoints now that scroll has settled
                             if (window.Waypoint) Waypoint.refreshAll();
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-
-    <!-- Project filter with GSAP Flip -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(Flip);
-            const buttons = document.querySelectorAll('.work-menu a');
-            const items = document.querySelectorAll('.project-item');
-
-            buttons.forEach(btn => {
-                btn.addEventListener('click', e => {
-                    e.preventDefault();
-                    buttons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    const cat = btn.dataset.filter;
-                    
-                    // 1. Get current state of items
-                    const state = Flip.getState(items);
-
-                    // 2. Make DOM changes
-                    items.forEach(item => {
-                        if (cat === 'all' || cat === item.dataset.category) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-
-                    // 3. Animate using Flip
-                    Flip.from(state, {
-                        duration: 0.7,
-                        ease: "power2.inOut",
-                        scale: true,
-                        absolute: true, // handles absolute positioning during animation
-                        onEnter: elements => gsap.fromTo(elements, {opacity: 0, scale: 0.8}, {opacity: 1, scale: 1, duration: 0.7}),
-                        onLeave: elements => gsap.to(elements, {opacity: 0, scale: 0.8, duration: 0.7}),
-                        onComplete: () => {
-                            if (window.lenis) lenis.resize();
-                            ScrollTrigger.refresh();
                         }
                     });
                 });
