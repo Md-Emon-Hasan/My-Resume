@@ -523,27 +523,7 @@
         }
     };
 
-    var initDataPipeline = function() {
-        if ($('#pipeline-path').length && typeof gsap !== 'undefined') {
-            var path = document.querySelector('#pipeline-path');
-            var pathLength = path.getTotalLength();
-            
-            // Set initial dash offset
-            path.style.strokeDasharray = pathLength;
-            path.style.strokeDashoffset = pathLength;
-            
-            gsap.to(path, {
-                strokeDashoffset: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#colorlib-main",
-                    start: "top top",
-                    end: "bottom bottom",
-                    scrub: 1
-                }
-            });
-        }
-    };
+
 
     var initSkillSphere = function() {
         if ($('#skill-sphere').length && typeof TagCloud !== 'undefined') {
@@ -828,105 +808,8 @@
         }
     };
 
-    /* ---- Init ---- */
-    
-    var initDynamicMorphing = function() {
-        if (typeof gsap === 'undefined') return;
-        var overlay = document.querySelector(".shape-overlays");
-        var paths = document.querySelectorAll(".shape-overlays__path");
-        if (!overlay || paths.length === 0) return;
-        
-        var numPoints = 10;
-        var numPaths = paths.length;
-        var delayPointsMax = 0.3;
-        var delayPerPath = 0.25;
-        var duration = 0.9;
-        var isOpened = false;
-        var pointsDelay = [];
-        var allPoints = [];
-        
-        var tl = gsap.timeline({ onUpdate: render, defaults: { ease: "power2.inOut", duration: 0.9 }});
-        
-        for (var i = 0; i < numPaths; i++) {
-            var points = [];
-            allPoints.push(points);
-            for (var j = 0; j < numPoints; j++) {
-                points.push(100);
-            }
-        }
-        
-        function render() {
-            if (!overlay.classList.contains("is-opened") && !tl.isActive()) return;
-            for (var i = 0; i < numPaths; i++) {
-                var path = paths[i];
-                var points = allPoints[i];
-                var d = "";
-                d += isOpened ? "M 0 0 V " + points[0] + " C" : "M 0 " + points[0] + " C";
-                for (var j = 0; j < numPoints - 1; j++) {
-                    var p = (j + 1) / (numPoints - 1) * 100;
-                    var cp = p - (1 / (numPoints - 1) * 100) / 2;
-                    d += " " + cp + " " + points[j] + " " + cp + " " + points[j+1] + " " + p + " " + points[j+1];
-                }
-                d += isOpened ? " V 100 H 0" : " V 0 H 0";
-                path.setAttribute("d", d);
-            }
-        }
-        
-        function toggle() {
-            tl.progress(0).clear();
-            for (var i = 0; i < numPoints; i++) {
-                pointsDelay[i] = Math.random() * delayPointsMax;
-            }
-            for (var i = 0; i < numPaths; i++) {
-                var points = allPoints[i];
-                var pathDelay = delayPerPath * (isOpened ? i : (numPaths - i - 1));
-                for (var j = 0; j < numPoints; j++) {
-                    var delay = pointsDelay[j];
-                    tl.to(points, {
-                        [j]: 0
-                    }, delay + pathDelay);
-                }
-            }
-        }
-        
-        // Trigger morphing when user clicks main nav links (not the hamburger toggle)
-        $('#colorlib-main-menu ul li a').on('click', function() {
-            if (!tl.isActive()) {
-                isOpened = true;
-                overlay.classList.add("is-opened");
-                toggle();
-                setTimeout(function() {
-                    isOpened = false;
-                    toggle();
-                    setTimeout(function() {
-                        overlay.classList.remove("is-opened");
-                    }, duration * 1000 + (numPaths * delayPerPath * 1000));
-                }, 900);
-            }
-        });
-    };
 
-    var initRandomness = function() {
-        if (typeof gsap === 'undefined') return;
-        var colors = ["#0ae448", "#fec5fb", "#ff8709", "#9d95ff", "#abff84", "#00bae2", "#6366f1", "#a855f7"];
-        var boxes = document.querySelectorAll(".random-box");
-        if (boxes.length === 0) return;
-        
-        boxes.forEach(function(box) {
-            gsap.to(box, {
-                x: function() { return gsap.utils.random(-800, 800, 5) },
-                y: function() { return gsap.utils.random(-400, 400, 5) },
-                backgroundColor: function() { return gsap.utils.random(colors) },
-                scale: function() { return gsap.utils.random(0.5, 2.5) },
-                rotation: function() { return gsap.utils.random(0, 360) },
-                repeat: -1,
-                repeatRefresh: true,
-                duration: function() { return gsap.utils.random(3, 8) },
-                repeatDelay: function() { return gsap.utils.random(0.1, 0.5) },
-                ease: "sine.inOut"
-            });
-        });
-    };
+
 
     var initThemeToggle = function() {
         var themeToggleBtn = document.getElementById('theme-toggle');
@@ -1410,29 +1293,7 @@
         });
     };
 
-    var initDataFlow = function() {
-        if (typeof gsap === 'undefined' || typeof MotionPathPlugin === 'undefined') return;
-        
-        const packets = document.querySelectorAll('.data-packet');
-        const path = document.querySelector('#pipeline-path');
-        
-        if (!path || packets.length === 0) return;
-        
-        packets.forEach((packet, index) => {
-            gsap.to(packet, {
-                duration: 4 + (index * 2),
-                repeat: -1,
-                ease: "none",
-                motionPath: {
-                    path: path,
-                    align: path,
-                    autoRotate: true,
-                    alignOrigin: [0.5, 0.5]
-                },
-                delay: index * 1.5
-            });
-        });
-    };
+
 
     var initProjectGridReveal = function() {
         // Disabled: Managed centrally by contentScrollTrigger via .animate-box to avoid double-animation overlap
@@ -1472,7 +1333,6 @@
             initTerminal();
             initMarquee();
             initParticles();
-            initDataPipeline();
             initSkillSphere();
             initProjectModals();
             initScrubText();
@@ -1483,7 +1343,6 @@
             initProjectFilterFlip();
             initMorphingBlob();
             initTextScramble();
-            initDataFlow();
             initProfessionalReveals();
             initHeroEntrance();
             initSectionDividers();
@@ -1495,10 +1354,11 @@
             initSkillMagnifier();
             
             // GSAP Dynamic Examples
-            initDynamicMorphing();
-            initRandomness();
             
             // AI Futuristic Animated Additions
+
+
+
             initThemeToggle();
             initSpotlightHover();
             initScrollSVG();

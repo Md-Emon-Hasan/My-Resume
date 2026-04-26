@@ -628,6 +628,14 @@ body.offcanvas .colorlib-nav-toggle {
     border-color: rgba(165, 180, 252, 0.25);
 }
 
+/* Dark mode fix for mobile menu toggle */
+[data-theme="dark"] .js-colorlib-nav-toggle i,
+[data-theme="dark"] .js-colorlib-nav-toggle i::before,
+[data-theme="dark"] .js-colorlib-nav-toggle i::after {
+    background: #f8fafc;
+}
+
+
 .colorlib-heading {
     font-size: 28px;
     margin-bottom: 3em;
@@ -745,6 +753,11 @@ body.offcanvas .colorlib-nav-toggle {
     background: transparent;
     border: 2px solid var(--indigo);
 }
+
+[data-theme="dark"] #colorlib-hero .flexslider .flex-control-nav li a.flex-active {
+    border-color: #f8fafc;
+}
+
 
 #colorlib-hero .flexslider .slider-text {
     display: table;
@@ -1156,6 +1169,7 @@ body.offcanvas .colorlib-nav-toggle {
             rgba(51, 65, 85, 0.78) 0%,
             rgba(71, 85, 105, 0.72) 50%,
             rgba(100, 116, 139, 0.65) 100%);
+
     backdrop-filter: blur(2px);
     z-index: 0;
 }
@@ -3228,7 +3242,7 @@ a.contact-info-value:hover {
     left: 0;
     width: 60px;
     height: 60px;
-    border: 1.5px solid rgba(99, 102, 241, 0.2);
+    border: 1.5px solid rgba(99, 102, 241, 0.4);
     background-color: rgba(99, 102, 241, 0.05);
     border-radius: 50%;
     pointer-events: none;
@@ -3240,7 +3254,7 @@ a.contact-info-value:hover {
 
 /* Cursor Hover States */
 #cursor.hovered {
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(2);
 }
 
 #cursor-follower.hovered {
@@ -3257,7 +3271,7 @@ a.contact-info-value:hover {
 
 /* Dark mode — follower ring default */
 [data-theme="dark"] #cursor-follower {
-    border-color: rgba(165, 180, 252, 0.4);
+    border-color: rgba(165, 180, 252, 0.2);
     background-color: rgba(165, 180, 252, 0.05);
     box-shadow: 0 0 18px rgba(165, 180, 252, 0.15);
 }
@@ -4077,28 +4091,8 @@ a.contact-info-value:hover {
 /* ========================================
    DATA PIPELINE & PACKETS
    ======================================== */
-#data-pipeline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.2;
-}
 
-#pipeline-path {
-    fill: none;
-    stroke: var(--indigo);
-    stroke-width: 0.5px;
-    stroke-dasharray: 4, 8;
-}
 
-.data-packet {
-    filter: drop-shadow(0 0 5px currentColor);
-    opacity: 0.8;
-}
 
 /* ========================================
    TEXT SCRAMBLE UTILITIES
@@ -4163,58 +4157,11 @@ a.contact-info-value:hover {
     border-radius: 0 0 16px 16px;
 }
 
-/* ---- Dynamic Morphing Overlay ---- */
-.shape-overlays {
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-}
 
-.shape-overlays.is-opened {
-    pointer-events: auto;
-}
 
-.shape-overlays__path:nth-of-type(1) {
-    fill: var(--bg-mesh-2);
-    opacity: 0.8;
-}
 
-.shape-overlays__path:nth-of-type(2) {
-    fill: #a855f7;
-    opacity: 0.9;
-}
 
-.shape-overlays__path:nth-of-type(3) {
-    fill: #6366f1;
-    opacity: 1;
-}
 
-/* ---- Generating Randomness ---- */
-.random-box-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-}
-
-.random-box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    opacity: 0.6;
-    filter: blur(2px);
-}
 
 @keyframes spin {
     from {
@@ -4278,7 +4225,7 @@ a.contact-info-value:hover {
     box-shadow: none !important;
     transition: none !important;
     will-change: transform;
-    
+
     /* Force solid background to block the original blurry text underneath */
     background: #ffffff !important;
     backdrop-filter: none !important;
@@ -4388,6 +4335,7 @@ a.contact-info-value:hover {
         transform: translate(0)
     }
 }
+
 /* ========================================
    DARK MODE FIXES — comprehensive overrides
    ======================================== */
@@ -4552,3 +4500,5 @@ a.contact-info-value:hover {
     transform: scale(1.15) rotate(15deg);
 }
 
+
+
