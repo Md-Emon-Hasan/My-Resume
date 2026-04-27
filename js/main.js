@@ -24,377 +24,15 @@
         $(window).on('orientationchange', setHeight);
     };
 
-    var prefersReducedMotion = function() {
-        return false;
-    };
-
-    var registerGsapPlugins = function() {
-        if (typeof gsap === 'undefined') return false;
-
-        var plugins = [];
-        if (typeof ScrollTrigger !== 'undefined') plugins.push(ScrollTrigger);
-        if (typeof TextPlugin !== 'undefined') plugins.push(TextPlugin);
-        if (typeof MotionPathPlugin !== 'undefined') plugins.push(MotionPathPlugin);
-        if (typeof Flip !== 'undefined') plugins.push(Flip);
-
-        if (plugins.length) gsap.registerPlugin.apply(gsap, plugins);
-        return true;
-    };
-
-    var siblingCardIndex = function(el) {
-        var parent = el.parentElement;
-        if (!parent) return 0;
-
-        return Array.prototype.indexOf.call(parent.children, el);
-    };
-
-    var shouldAlternateFromSides = function(el) {
-        return el.matches(
-            '.colorlib-services .animate-box, ' +
-            '.colorlib-about .col-md-3.animate-box, ' +
-            '.colorlib-counters .animate-box, ' +
-            '.skill-card.animate-box, ' +
-            '.colorlib-blog .animate-box, ' +
-            '.cert-card.animate-box, ' +
-            '.project-item.animate-box'
-        );
-    };
-
-    var revealVarsFor = function(effect, el) {
-        var distance = isMobile.any() ? 40 : 100;
-
-        // Custom staggered entrance depending on layout
-        if (el && shouldAlternateFromSides(el)) {
-            var sideIndex = siblingCardIndex(el);
-            var xOffset = -distance; // default left
-            var yOffset = distance * 0.8;
-            
-            var is3Col = el.classList.contains('col-md-4') || el.closest('.col-md-4') || (el.parentElement && el.parentElement.classList.contains('project-grid'));
-            var is2Col = el.classList.contains('col-md-6') || el.closest('.col-md-6');
-            var is4Col = el.classList.contains('col-md-3') || el.closest('.col-md-3');
-
-            if (is3Col) {
-                // 3 columns: Left, Bottom, Right
-                if (sideIndex % 3 === 0) { xOffset = -distance * 1.5; yOffset = 20; }
-                else if (sideIndex % 3 === 1) { xOffset = 0; yOffset = distance * 1.5; }
-                else { xOffset = distance * 1.5; yOffset = 20; }
-            } else if (is4Col) {
-                // 4 columns: Left, Bottom, Bottom, Right
-                if (sideIndex % 4 === 0) { xOffset = -distance * 1.5; yOffset = 20; }
-                else if (sideIndex % 4 === 1 || sideIndex % 4 === 2) { xOffset = 0; yOffset = distance * 1.5; }
-                else { xOffset = distance * 1.5; yOffset = 20; }
-            } else {
-                // Default to 2 columns or anything else: Left, Right
-                if (sideIndex % 2 === 0) { xOffset = -distance * 1.5; yOffset = 20; }
-                else { xOffset = distance * 1.5; yOffset = 20; }
-            }
-            
-            return { x: xOffset, y: yOffset };
-        }
-
-        switch (effect) {
-            case 'fadeInLeft':
-                return { x: -distance, y: 15 };
-            case 'fadeInRight':
-                return { x: distance, y: 15 };
-            case 'fadeInTop':
-            case 'fadeInDown':
-                return { x: 0, y: -distance };
-            case 'fadeInBottom':
-            case 'fadeInUp':
-                return { x: 0, y: distance };
-            default:
-                return { x: 0, y: 35 };
-        }
-    };
-
-    var animateCssClassFor = function(effect) {
-        return effect === 'fadeInLeft' ? 'fadeInLeft' :
-               effect === 'fadeInRight' ? 'fadeInRight' :
-               effect === 'fadeInTop' || effect === 'fadeInDown' ? 'fadeInDown' :
-               effect === 'fadeInBottom' || effect === 'fadeInUp' ? 'fadeInUp' :
-               'fadeIn';
-    };
-
-    var revealWithFallback = function(el, delay) {
-        var effect = el.getAttribute('data-animate-effect') || 'fadeIn';
-        var cls = animateCssClassFor(effect);
-
-        setTimeout(function() {
-            el.classList.add(cls, 'animated');
-        }, delay || 0);
-    };
-
-    /* ---- GSAP Scroll-triggered animations (disabled — AOS handles this now) ---- */
-    var contentScrollTrigger = function() {
-        return; // AOS handles scroll animations
-        var boxes = document.querySelectorAll('.animate-box');
-
-        if (!boxes.length) return;
-
-        if (prefersReducedMotion()) {
-            boxes.forEach(function(el) {
-                el.classList.add('animated');
-            });
-            return;
-        }
-
-        if (!registerGsapPlugins() || typeof ScrollTrigger === 'undefined') {
-            boxes.forEach(function(el, index) {
-                revealWithFallback(el, index * 70);
-            });
-            return;
-        }
-
-        ScrollTrigger.batch('.animate-box', {
-            interval: 0.12,
-            batchMax: 5,
-            start: "top 90%",
-            once: true,
-            onEnter: function(batch) {
-                batch.forEach(function(el, index) {
-                    if (el.classList.contains('animated') || el.classList.contains('animating')) return;
-
-                    var fromVars = revealVarsFor(el.getAttribute('data-animate-effect') || 'fadeIn', el);
-                    var delay = Math.min(index * 0.14, 0.7);
-                    var effect = el.getAttribute('data-animate-effect') || 'fadeIn';
-                    var rotation = effect.includes('Left') ? -4 : effect.includes('Right') ? 4 : 0;
-
-                    el.classList.add('animating');
-
-                    gsap.fromTo(el,
-                        {
-                            autoAlpha: 0,
-                            x: fromVars.x,
-                            y: fromVars.y,
-                            scale: 0.90,
-                            rotation: rotation,
-                            filter: 'blur(5px)'
-                        },
-                        {
-                            autoAlpha: 1,
-                            x: 0,
-                            y: 0,
-                            scale: 1,
-                            rotation: 0,
-                            filter: 'blur(0px)',
-                            duration: 1.0,
-                            delay: delay,
-                            ease: 'power3.out',
-                            clearProps: 'all',
-                            onComplete: function() {
-                                el.classList.remove('animating');
-                                el.classList.add('animated');
-                            }
-                        }
-                    );
-                });
-            }
-        });
-    };
-
-    var initProfessionalReveals = function() {
-        return; // AOS handles scroll animations
-        if (prefersReducedMotion() || !registerGsapPlugins() || typeof ScrollTrigger === 'undefined') return;
-
-        var revealGroup = function(selector, options) {
-            var elements = gsap.utils.toArray(selector);
-            if (!elements.length) return;
-
-            options = options || {};
-            gsap.fromTo(elements,
-                {
-                    autoAlpha: 0,
-                    x: options.x || 0,
-                    y: options.y || 60,
-                    scale: options.scale || 0.95,
-                    filter: options.filter || 'blur(10px)'
-                },
-                {
-                    autoAlpha: 1,
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    filter: 'blur(0px)',
-                    duration: options.duration || 0.72,
-                    stagger: options.stagger || 0.08,
-                    ease: options.ease || 'power3.out',
-                    clearProps: 'transform,filter,visibility',
-                    scrollTrigger: {
-                        trigger: options.trigger || elements[0],
-                        start: options.start || 'top 86%',
-                        once: true
-                    }
-                }
-            );
-        };
-
-        // ---- Experience section headings (no animate-box parent) ----
-        revealGroup('.colorlib-experience .heading-meta, .colorlib-experience .colorlib-heading', {
-            trigger: '.colorlib-experience',
-            y: 40,
-            stagger: 0.12
-        });
-
-        // ---- Timeline entries: alternating left/right slide ----
-        gsap.utils.toArray('.timeline-entry:not(.begin)').forEach(function(entry, index) {
-            gsap.fromTo(entry,
-                {
-                    autoAlpha: 0,
-                    x: index % 2 === 0 ? -140 : 140,
-                    y: 40,
-                    scale: 0.92,
-                    filter: 'blur(8px)'
-                },
-                {
-                    autoAlpha: 1,
-                    x: 0,
-                    y: 0,
-                    scale: 1,
-                    filter: 'blur(0px)',
-                    duration: 1.1,
-                    ease: 'power3.out',
-                    clearProps: 'all',
-                    scrollTrigger: {
-                        trigger: entry,
-                        start: 'top 90%',
-                        once: true
-                    }
-                }
-            );
-        });
-
-        // ---- Work section headings + filter menu (no animate-box parent) ----
-        revealGroup('.colorlib-work .heading-meta, .colorlib-work .colorlib-heading, .work-menu', {
-            trigger: '.colorlib-work',
-            y: 40,
-            stagger: 0.11
-        });
-
-        // ---- Skill tags: scatter in after their parent card reveals ----
-        // (skill-card IS animate-box; tags are children animated with extra stagger)
-        gsap.utils.toArray('.skill-card').forEach(function(card) {
-            var tags = card.querySelectorAll('.skill-tag');
-            if (!tags.length) return;
-
-            gsap.fromTo(tags,
-                { autoAlpha: 0, y: 18, scale: 0.82 },
-                {
-                    autoAlpha: 1,
-                    y: 0,
-                    scale: 1,
-                    duration: 0.50,
-                    delay: 0.55,
-                    stagger: 0.04,
-                    ease: 'back.out(1.5)',
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 88%',
-                        once: true
-                    }
-                }
-            );
-        });
-    };
-
-    var initHeroEntrance = function() {
-        return; // disabled
-        if (typeof gsap === 'undefined') return;
-        var hero = document.querySelector('#colorlib-hero');
-        if (!hero) return;
-
-        // Stagger hero text blocks in on load (after preloader)
-        var tl = gsap.timeline({ delay: 2.0 });
-        tl.fromTo('.author-img',
-            { autoAlpha: 0, scale: 0.7, y: -30 },
-            { autoAlpha: 1, scale: 1, y: 0, duration: 0.9, ease: 'back.out(1.4)' }
-        );
-        tl.fromTo('#colorlib-logo, .position',
-            { autoAlpha: 0, y: 25 },
-            { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out' },
-            '-=0.4'
-        );
-        tl.fromTo('#colorlib-main-menu li',
-            { autoAlpha: 0, x: -30 },
-            { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.06, ease: 'power2.out' },
-            '-=0.3'
-        );
-    };
-
-    var initSectionDividers = function() {
-        return; // disabled
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-
-        // Animate each section's narrow content as a whole when entering viewport
-        gsap.utils.toArray('section[data-section]').forEach(function(section) {
-            var narrowContent = section.querySelector('.colorlib-narrow-content');
-            if (!narrowContent) return;
-
-            // Only animate sections that haven't already been set up individually
-            // We'll use a very subtle parallax on the section background
-            if (!isMobile.any()) {
-                gsap.to(narrowContent, {
-                    yPercent: -5,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: section,
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 1.5
-                    }
-                });
-            }
-        });
-    };
 
     var initSplitText = function() {
-        if (typeof SplitType !== 'undefined' && typeof gsap !== 'undefined') {
-            var splits = new SplitType('.split-text', { types: 'chars' });
-            
-            $('.split-text').each(function() {
-                var el = this;
-                var chars = $(el).find('.char');
-                gsap.fromTo(chars, 
-                    { y: '115%' },
-                    {
-                        y: '0%',
-                        duration: 0.6,
-                        stagger: 0.02,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 90%',
-                            once: true
-                        }
-                    }
-                );
-            });
+        if (typeof SplitType !== 'undefined') {
+            new SplitType('.split-text', { types: 'chars' });
         }
     };
 
     var initOdometer = function() {
         if (typeof Odometer !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-            // Animate entire counter section upward from below
-            var counterSection = document.querySelector('#colorlib-counter');
-            if (counterSection) {
-                var cols = counterSection.querySelectorAll('.col-md-3');
-                gsap.fromTo(cols,
-                    { y: 80, opacity: 0 },
-                    {
-                        y: 0,
-                        opacity: 1,
-                        duration: 0.9,
-                        stagger: 0.15,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: counterSection,
-                            start: 'top 82%',
-                            once: true
-                        }
-                    }
-                );
-            }
-
             $('.js-odo').each(function() {
                 var el = this;
                 var targetVal = $(el).data('to');
@@ -674,12 +312,13 @@
 
     // 1. Scroll Progress Bar
     var scrollProgress = function() {
-        $(window).on('scroll', function() {
+        var bar = document.getElementById('scroll-progress');
+        if (!bar) return;
+        window.addEventListener('scroll', function() {
             var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            $('#scroll-progress').css('width', scrolled + '%');
-        });
+            bar.style.width = ((winScroll / height) * 100) + '%';
+        }, { passive: true });
     };
 
     // 2. Custom Cursor
@@ -917,6 +556,8 @@
         var hideTimeout = null;
         var clone = null;
         var activeCard = null;
+        var cursorEl = document.getElementById('cursor');
+        var followerEl = document.getElementById('cursor-follower');
 
         function buildClone(card) {
             if (clone) { clone.remove(); clone = null; }
@@ -955,10 +596,8 @@
                 mag.style.display = 'block';
                 void mag.offsetWidth;
                 mag.style.opacity = '1';
-                var c = document.getElementById('cursor');
-                if (c) c.style.opacity = '0';
-                var f = document.getElementById('cursor-follower');
-                if (f) f.style.opacity = '0';
+                if (cursorEl) cursorEl.style.opacity = '0';
+                if (followerEl) followerEl.style.opacity = '0';
             });
 
             card.addEventListener('mousemove', function(e) {
@@ -974,10 +613,8 @@
                     if (clone) { clone.remove(); clone = null; }
                     activeCard = null;
                 }, 200);
-                var c = document.getElementById('cursor');
-                if (c) c.style.opacity = '1';
-                var f = document.getElementById('cursor-follower');
-                if (f) f.style.opacity = '1';
+                if (cursorEl) cursorEl.style.opacity = '1';
+                if (followerEl) followerEl.style.opacity = '1';
             });
         });
     };
@@ -1041,9 +678,6 @@
 
         initPreloader();
         fullHeight();
-        
-        contentScrollTrigger();
-        
         burgerMenu();
         clickMenu();
         navigationSection();
@@ -1154,13 +788,6 @@
         var isAnimating = false;
         var currentFilter = 'all';
 
-        // Animate all projects in on first load
-        gsap.fromTo(projects,
-            { opacity: 0, y: 40, scale: 0.94 },
-            { opacity: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-              scrollTrigger: { trigger: projectsContainer, start: 'top 85%', once: true } }
-        );
-
         filters.forEach(function(filter) {
             filter.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1193,13 +820,11 @@
 
                     if (entering.length) {
                         entering.forEach(function(item) {
-                            gsap.set(item, { display: 'block', opacity: 0, y: 50, scale: 0.93 });
+                            gsap.set(item, { display: 'block', opacity: 0 });
                         });
 
                         gsap.to(entering, {
                             opacity: 1,
-                            y: 0,
-                            scale: 1,
                             duration: 0.55,
                             stagger: 0.1,
                             ease: 'power3.out',
@@ -1220,8 +845,6 @@
                 if (leaving.length) {
                     gsap.to(leaving, {
                         opacity: 0,
-                        y: -25,
-                        scale: 0.92,
                         duration: 0.3,
                         stagger: 0.05,
                         ease: 'power2.in',
@@ -1295,34 +918,6 @@
 
 
 
-    var initProjectGridReveal = function() {
-        // Disabled: Managed centrally by contentScrollTrigger via .animate-box to avoid double-animation overlap
-        return;
-    };
-
-    var initProjectTilt = function() {
-        return; // Disabled per user request
-    };
-
-    var initSkillProgress = function() {
-        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-        
-        $('.skill-progress-bar').each(function() {
-            var el = this;
-            var progress = $(el).data('progress');
-            
-            gsap.to(el, {
-                width: progress + '%',
-                duration: 1.5,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                    once: true
-                }
-            });
-        });
-    };
 
         // Wait slightly for external scripts to load if needed
         setTimeout(function() {
@@ -1343,14 +938,8 @@
             initProjectFilterFlip();
             initMorphingBlob();
             initTextScramble();
-            initProfessionalReveals();
-            initHeroEntrance();
-            initSectionDividers();
 
             // Premium Added Features
-            initProjectGridReveal();
-            initProjectTilt();
-            initSkillProgress();
             initSkillMagnifier();
             
             // GSAP Dynamic Examples

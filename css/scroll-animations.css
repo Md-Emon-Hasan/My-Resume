@@ -1,0 +1,113 @@
+/**
+ * ══════════════════════════════════════════════════════════════════
+ *  SCROLL ANIMATION SYSTEM  –  Intersection Observer powered
+ * ══════════════════════════════════════════════════════════════════
+ *
+ *  HOW TO USE
+ *  ──────────
+ *  1. Add .scroll-animate to any element you want to animate.
+ *  2. Add ONE direction modifier:
+ *       .animate-left   →  slides in from the left
+ *       .animate-right  →  slides in from the right
+ *       .animate-up     →  slides up from below
+ *       .animate-fade   →  fades in only (no transform)
+ *
+ *  3. (Optional) Stagger a group of sibling elements by putting
+ *     data-stagger="0.08" on their parent wrapper. Each child
+ *     with .scroll-animate will receive an incremental delay.
+ *
+ *  4. Per-element options (HTML attributes):
+ *       data-delay="0.2"    extra delay in seconds
+ *       data-repeat         re-animate every time it re-enters viewport
+ *
+ *  EXAMPLES
+ *  ────────
+ *  <div class="scroll-animate animate-left">...</div>
+ *
+ *  <div data-stagger="0.1">
+ *    <div class="scroll-animate animate-up">Card 1</div>
+ *    <div class="scroll-animate animate-up">Card 2</div>
+ *    <div class="scroll-animate animate-up">Card 3</div>
+ *  </div>
+ * ══════════════════════════════════════════════════════════════════
+ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   1. BASE STATE  ─  hidden before animation fires
+───────────────────────────────────────────────────────────────── */
+.scroll-animate {
+    opacity: 0;
+
+    /* GPU-composited properties only → no layout thrashing */
+    will-change: transform, opacity;
+
+    transition:
+        opacity   1.5s cubic-bezier(0.25, 1, 0.3, 1),
+        transform 1.5s cubic-bezier(0.25, 1, 0.3, 1);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   2. DIRECTION OFFSETS  ─  starting positions before entry
+───────────────────────────────────────────────────────────────── */
+
+/* Slide in from left */
+.scroll-animate.animate-left {
+    transform: translateX(-140px) scale(0.94);
+}
+
+/* Slide in from right */
+.scroll-animate.animate-right {
+    transform: translateX(140px) scale(0.94);
+}
+
+/* Slide up from below */
+.scroll-animate.animate-up {
+    transform: translateY(100px) scale(0.94);
+}
+
+/* Fade only — no directional movement */
+.scroll-animate.animate-fade {
+    transform: scale(0.94);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   3. VISIBLE STATE  ─  added by JS when element enters viewport
+      The .sa-in class is the single trigger: both opacity and
+      transform resolve to their resting values via CSS transition.
+───────────────────────────────────────────────────────────────── */
+.scroll-animate.sa-in {
+    opacity:   1;
+    transform: translate(0, 0) scale(1);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   4. DURATION MODIFIERS  ─  optional overrides
+───────────────────────────────────────────────────────────────── */
+
+/* Snappier — good for small UI chips / tags */
+.scroll-animate.dur-fast {
+    transition-duration: 2.4s;
+}
+
+/* More cinematic — good for hero text or large panels */
+.scroll-animate.dur-slow {
+    transition-duration: 5.52s;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   5. REDUCED MOTION  ─  respect user accessibility preference
+      When this media query is active, every .scroll-animate element
+      is immediately visible with no movement or timing.
+───────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .scroll-animate {
+        opacity:    1 !important;
+        transform:  none !important;
+        transition: none !important;
+    }
+}
