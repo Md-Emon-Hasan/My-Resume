@@ -46,14 +46,12 @@
     var CFG = {
         /* % of the element that must be visible before the animation fires.
            Lower values = trigger earlier (element barely visible).
-           0.12 = fire when ~12% of the element is in the viewport. */
-        threshold: 0.12,
+           0.08 = fire when ~8% of the element is in the viewport. */
+        threshold: 0.05,
 
-        /* rootMargin shrinks the detection zone on the bottom edge.
-           '-60px' means the trigger line is 60 px ABOVE the bottom of the
-           viewport → elements animate just as they scroll into comfortable view,
-           not right at the edge. */
-        rootMargin: '0px 0px -60px 0px',
+        /* positive bottom margin means trigger fires BEFORE element reaches
+           viewport bottom — animation is already in progress when user sees it */
+        rootMargin: '0px 0px 60px 0px',
 
         /* CSS class toggled by JS to trigger the visible-state transition */
         activeClass: 'sa-in'

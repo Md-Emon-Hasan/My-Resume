@@ -1561,29 +1561,35 @@
 
     <!-- Lenis + GSAP integration -->
     <script>
-        const lenis = new Lenis({
-            duration: 1.5,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential smoothing for a "bouncy/floaty" feel
-            smoothWheel: true,
-            wheelMultiplier: 1.1,
-            touchMultiplier: 1.5,
-        });
+        var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-        // Sidebar smooth scroll
-        const sidebarLenis = new Lenis({
-            wrapper: document.querySelector('#colorlib-aside'),
-            content: document.querySelector('.aside-content'),
-            duration: 1.2,
+        const lenis = new Lenis({
+            duration: isTouchDevice ? 1.4 : 1.8,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
+            smoothTouch: false,
+            wheelMultiplier: 1.0,
+            touchMultiplier: isTouchDevice ? 1.0 : 1.5,
         });
+
+        // Sidebar smooth scroll — only on desktop (sidebar is hidden on mobile)
+        var sidebarLenis = null;
+        if (!isTouchDevice) {
+            sidebarLenis = new Lenis({
+                wrapper: document.querySelector('#colorlib-aside'),
+                content: document.querySelector('.aside-content'),
+                duration: 1.5,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+            });
+        }
 
         // Sync Lenis scroll with GSAP ScrollTrigger (required for triggers to fire correctly)
         lenis.on('scroll', ScrollTrigger.update);
 
         gsap.ticker.add(time => {
             lenis.raf(time * 1000);
-            sidebarLenis.raf(time * 1000);
+            if (sidebarLenis) sidebarLenis.raf(time * 1000);
         });
 
         gsap.ticker.lagSmoothing(0);

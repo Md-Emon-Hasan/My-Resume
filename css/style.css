@@ -142,6 +142,18 @@ body::after {
     left: -100px;
 }
 
+/* Mobile performance: disable expensive fixed/blur effects */
+@media screen and (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    body::before,
+    body::after {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 992px) {
     body {
         font-size: 15px;
@@ -254,7 +266,8 @@ h6 {
         overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         left: 0;
-        /* Pin to left on mobile only */
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
     }
 }
 
@@ -509,7 +522,6 @@ body.offcanvas #colorlib-aside {
 
 body.offcanvas #colorlib-main,
 body.offcanvas .colorlib-nav-toggle {
-    top: 0;
     transform: translateX(280px);
 }
 
@@ -570,6 +582,21 @@ body.offcanvas .colorlib-nav-toggle {
 
 .js-colorlib-nav-toggle i::after {
     top: 6px;
+}
+
+/* Hamburger → X animation when active */
+.js-colorlib-nav-toggle.active i {
+    background: transparent;
+}
+
+.js-colorlib-nav-toggle.active i::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.js-colorlib-nav-toggle.active i::after {
+    top: 0;
+    transform: rotate(-45deg);
 }
 
 /* ========================================
@@ -1505,10 +1532,21 @@ body.offcanvas .colorlib-nav-toggle {
     margin-top: 10px;
 }
 
+/* Ensure panel-title covers the full clickable area */
+.panel-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block;
+    width: 100%;
+    font-size: inherit;
+}
+
 .panel-heading a {
     padding: 18px 22px;
     display: block;
     width: 100%;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0,0,0,0.1);
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.8px;
@@ -3843,6 +3881,18 @@ a.contact-info-value:hover {
     cursor: pointer;
     z-index: 9999;
     transition: all var(--trans);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+    .theme-toggle-btn {
+        bottom: 18px;
+        right: 18px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
 }
 
 .theme-toggle-btn:hover {
@@ -4503,6 +4553,44 @@ a.contact-info-value:hover {
     border-color: rgba(255, 255, 255, 0.5);
     box-shadow: 0 0 30px rgba(99, 102, 241, 0.8);
     transform: scale(1.15) rotate(15deg);
+}
+
+/* ========================================
+   MOBILE PERFORMANCE OVERRIDES
+   ======================================== */
+@media screen and (max-width: 768px) {
+    /* Disable heavy backdrop-filter on most elements */
+    .glass-card,
+    .panel-heading a,
+    .panel-heading a.collapsed,
+    .panel-body,
+    .skill-card,
+    .cert-card,
+    .project,
+    .blog-entry,
+    .contact-info-card,
+    .contact-form-card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Disable hover transforms on touch for performance */
+    .glass-card:hover {
+        transform: none;
+    }
+
+    /* Hide fixed circuit SVG on mobile (not visible anyway, saves paint) */
+    .global-circuit {
+        display: none !important;
+    }
+
+    /* Disable magnetic/glitch JS hover effects - already done in JS,
+       but ensure no stray transforms on mobile */
+    .btn-hire,
+    .btn-learn,
+    .glitch-btn {
+        transform: none !important;
+    }
 }
 
 

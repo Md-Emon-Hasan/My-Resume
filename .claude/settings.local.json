@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const fs = require\\('fs'\\); try { new Function\\(fs.readFileSync\\('c:/Users/codix/OneDrive/Desktop/LLM/My-Resume/js/main.js', 'utf8'\\)\\); console.log\\('main.js: OK'\\); } catch\\(e\\) { console.error\\('main.js ERROR:', e.message\\); }\")"
+    ]
+  }
+}

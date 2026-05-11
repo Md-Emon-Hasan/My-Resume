@@ -117,20 +117,28 @@
 
     var initParticles = function() {
         if ($('#particles-js').length && typeof particlesJS !== 'undefined') {
+            var mobile = isMobile.any() || window.innerWidth < 768;
+            // Disable particles entirely on small mobile devices for performance
+            if (window.innerWidth < 480) {
+                $('#particles-js').hide();
+                return;
+            }
+            var particleCount = mobile ? 40 : 90;
+            var lineLinked = !mobile;
             particlesJS('particles-js', {
                 "particles": {
-                    "number": { "value": 126, "density": { "enable": true, "value_area": 1000 } },
+                    "number": { "value": particleCount, "density": { "enable": true, "value_area": 1000 } },
                     "color": { "value": ["#6366f1", "#ec4899", "#10b981", "#8b5cf6"] },
                     "shape": { "type": "circle" },
-                    "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false } },
-                    "size": { "value": 4.5, "random": true, "anim": { "enable": true, "speed": 1.5, "size_min": 0.1, "sync": false } },
-                    "line_linked": { "enable": true, "distance": 180, "color": "#64748b", "opacity": 0.3, "width": 1.2 },
-                    "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false } }
+                    "opacity": { "value": 0.5, "random": true, "anim": { "enable": !mobile, "speed": 0.5, "opacity_min": 0.1, "sync": false } },
+                    "size": { "value": mobile ? 3 : 4.5, "random": true, "anim": { "enable": false, "speed": 1.5, "size_min": 0.1, "sync": false } },
+                    "line_linked": { "enable": lineLinked, "distance": 180, "color": "#64748b", "opacity": 0.3, "width": 1.2 },
+                    "move": { "enable": true, "speed": mobile ? 0.8 : 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false } }
                 },
                 "interactivity": {
                     "detect_on": "window",
                     "events": {
-                        "onhover": { "enable": true, "mode": "grab" },
+                        "onhover": { "enable": !mobile, "mode": "grab" },
                         "onclick": { "enable": false },
                         "resize": true
                     },
@@ -138,7 +146,7 @@
                         "grab": { "distance": 250, "line_linked": { "opacity": 0.6 } }
                     }
                 },
-                "retina_detect": true
+                "retina_detect": false
             });
 
             $('#particles-js').on('click', function() {
@@ -452,6 +460,7 @@
 
     var initThemeToggle = function() {
         var themeToggleBtn = document.getElementById('theme-toggle');
+        if (!themeToggleBtn) return;
         var icon = themeToggleBtn.querySelector('i');
         
         // Check for saved theme
@@ -501,6 +510,7 @@
     };
 
     var initScrollSVG = function() {
+        if (isMobile.any() || window.innerWidth < 768) return;
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
         var paths = document.querySelectorAll('.circuit-path');
@@ -674,6 +684,17 @@
         });
     };
 
+    /* ---- Ensure accordion links are always clickable (Bootstrap collapse fix) ---- */
+    var fixAccordion = function() {
+        // Ensure the full panel-heading area triggers collapse, not just the icon
+        $(document).on('click', '.panel-heading', function(e) {
+            var $a = $(this).find('a[data-toggle="collapse"]');
+            if ($a.length && !$(e.target).is('a')) {
+                $a.trigger('click');
+            }
+        });
+    };
+
     $(function(){
 
         initPreloader();
@@ -682,6 +703,7 @@
         clickMenu();
         navigationSection();
         mobileMenuOutsideClick();
+        fixAccordion();
         sliderMain();
         
         // Premium Animations
@@ -691,6 +713,7 @@
         
 
     var initScrubText = function() {
+        if (isMobile.any() || window.innerWidth < 768) return;
         if ($('.scrub-text').length && typeof SplitType !== 'undefined' && typeof gsap !== 'undefined') {
             const scrubText = new SplitType('.scrub-text', { types: 'words' });
             
@@ -858,6 +881,7 @@
     };
 
     var initMorphingBlob = function() {
+        if (isMobile.any() || window.innerWidth < 768) return;
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
         
         var blobPath = document.getElementById('morph-blob');
@@ -879,6 +903,7 @@
     };
 
     var initTextScramble = function() {
+        if (isMobile.any() || window.innerWidth < 768) return;
         if (typeof gsap === 'undefined') return;
         
         $('.colorlib-heading').each(function() {

@@ -42,9 +42,18 @@
     /* GPU-composited properties only → no layout thrashing */
     will-change: transform, opacity;
 
+    /* opacity fades in gently; transform glides in with a smooth ease-in-out */
     transition:
-        opacity   1.5s cubic-bezier(0.25, 1, 0.3, 1),
-        transform 1.5s cubic-bezier(0.25, 1, 0.3, 1);
+        opacity   2.0s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 2.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media screen and (max-width: 768px) {
+    .scroll-animate {
+        transition:
+            opacity   1.6s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 1.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 }
 
 
@@ -54,22 +63,29 @@
 
 /* Slide in from left */
 .scroll-animate.animate-left {
-    transform: translateX(-140px) scale(0.94);
+    transform: translateX(-120px) scale(0.93);
 }
 
 /* Slide in from right */
 .scroll-animate.animate-right {
-    transform: translateX(140px) scale(0.94);
+    transform: translateX(120px) scale(0.93);
 }
 
 /* Slide up from below */
 .scroll-animate.animate-up {
-    transform: translateY(100px) scale(0.94);
+    transform: translateY(100px) scale(0.93);
 }
 
-/* Fade only — no directional movement */
+/* Fade — still travels a noticeable distance upward */
 .scroll-animate.animate-fade {
-    transform: scale(0.94);
+    transform: translateY(60px) scale(0.93);
+}
+
+@media screen and (max-width: 768px) {
+    .scroll-animate.animate-left  { transform: translateX(-80px) scale(0.94); }
+    .scroll-animate.animate-right { transform: translateX(80px) scale(0.94); }
+    .scroll-animate.animate-up    { transform: translateY(65px) scale(0.94); }
+    .scroll-animate.animate-fade  { transform: translateY(40px) scale(0.94); }
 }
 
 
