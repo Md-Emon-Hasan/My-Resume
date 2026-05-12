@@ -296,7 +296,7 @@
     var sliderMain = function() {
         $('#colorlib-hero .flexslider').flexslider({
             animation: 'slide',
-            slideshowSpeed: 5000,
+            slideshowSpeed: 8000,
             animationSpeed: 700,
             directionNav: false,
             controlNav: true,
