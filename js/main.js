@@ -747,6 +747,342 @@
         customCursor();
         magneticElements();
 
+    /* ─────────────────────────────────────────────────────────────────
+       SKILL RADAR CHART
+    ───────────────────────────────────────────────────────────────── */
+    var initRadarChart = function () {
+        var canvas = document.getElementById('skill-radar');
+        if (!canvas || typeof Chart === 'undefined') return;
+
+        /* ── Domain data ─────────────────────────────────────── */
+        var DOMAINS = [
+            { label: 'AI & Agents',     knowledge: 95, production: 90 },
+            { label: 'LLM Fine-Tuning', knowledge: 88, production: 85 },
+            { label: 'NLP',             knowledge: 87, production: 82 },
+            { label: 'ML & DL',         knowledge: 92, production: 88 },
+            { label: 'Data Science',    knowledge: 83, production: 78 },
+            { label: 'Vector DBs',      knowledge: 87, production: 82 },
+            { label: 'Software Eng.',   knowledge: 80, production: 75 },
+            { label: 'MLOps',           knowledge: 82, production: 78 },
+        ];
+
+        /* Per-label accent colors — match skill card palette */
+        var LABEL_COLORS = [
+            '#6366f1', '#a855f7', '#f43f5e', '#f59e0b',
+            '#10b981', '#06b6d4', '#3b82f6', '#ec4899'
+        ];
+
+        var DATASETS = {
+            knowledge:  { label: 'Knowledge Depth',  fill: 'rgba(99,102,241,0.18)', stroke: 'rgba(99,102,241,0.9)',  point: '#6366f1' },
+            production: { label: 'Production Usage',  fill: 'rgba(168,85,247,0.13)', stroke: 'rgba(168,85,247,0.8)', point: '#a855f7' }
+        };
+
+        /* ── Theme-aware grid/label colors ───────────────────── */
+        function gridColor(dark) {
+            return dark ? 'rgba(255,255,255,0.08)' : 'rgba(99,102,241,0.12)';
+        }
+
+        /* ── Custom plugin: per-label colored text ───────────── */
+        var coloredLabelsPlugin = {
+            id: 'coloredLabels',
+            afterDraw: function (chart) {
+                var scale = chart.scales.r;
+                if (!scale) return;
+                var ctx   = chart.ctx;
+                var dark  = document.documentElement.getAttribute('data-theme') === 'dark';
+                scale.ticks; // ensure scale is ready
+                var labels = chart.data.labels;
+                labels.forEach(function (label, i) {
+                    var angle = scale.getIndexAngle(i) - Math.PI / 2;
+                    var r     = scale.drawingArea + 18;
+                    var x     = scale.xCenter + Math.cos(angle) * r;
+                    var y     = scale.yCenter + Math.sin(angle) * r;
+                    ctx.save();
+                    ctx.fillStyle = LABEL_COLORS[i % LABEL_COLORS.length];
+                    ctx.font      = '700 11px Inter, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.shadowColor  = LABEL_COLORS[i % LABEL_COLORS.length];
+                    ctx.shadowBlur   = dark ? 6 : 0;
+                    ctx.fillText(label, x, y);
+                    ctx.restore();
+                });
+            }
+        };
+
+        /* ── Level fill plugin: concentric rings with opacity ── */
+        var levelFillPlugin = {
+            id: 'levelFill',
+            beforeDraw: function (chart) {
+                var scale = chart.scales.r;
+                if (!scale) return;
+                var ctx   = chart.ctx;
+                var steps = [100, 75, 50, 25];
+                var dark  = document.documentElement.getAttribute('data-theme') === 'dark';
+                steps.forEach(function (val, i) {
+                    var alpha = dark ? (0.03 + i * 0.015) : (0.025 + i * 0.01);
+                    var r     = scale.getDistanceFromCenterForValue(val);
+                    ctx.save();
+                    ctx.beginPath();
+                    chart.data.labels.forEach(function (_, idx) {
+                        var angle = scale.getIndexAngle(idx) - Math.PI / 2;
+                        var x = scale.xCenter + Math.cos(angle) * r;
+                        var y = scale.yCenter + Math.sin(angle) * r;
+                        idx === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    });
+                    ctx.closePath();
+                    ctx.fillStyle = 'rgba(99,102,241,' + alpha + ')';
+                    ctx.fill();
+                    ctx.restore();
+                });
+            }
+        };
+
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+        var chart = new Chart(canvas, {
+            type: 'radar',
+            plugins: [levelFillPlugin, coloredLabelsPlugin],
+            data: {
+                labels: DOMAINS.map(function (d) { return d.label; }),
+                datasets: [
+                    {
+                        label:                DATASETS.knowledge.label,
+                        data:                 DOMAINS.map(function (d) { return d.knowledge; }),
+                        backgroundColor:      DATASETS.knowledge.fill,
+                        borderColor:          DATASETS.knowledge.stroke,
+                        borderWidth:          2.5,
+                        pointBackgroundColor: LABEL_COLORS,
+                        pointBorderColor:     '#fff',
+                        pointBorderWidth:     2,
+                        pointRadius:          6,
+                        pointHoverRadius:     9,
+                    },
+                    {
+                        label:                DATASETS.production.label,
+                        data:                 DOMAINS.map(function (d) { return d.production; }),
+                        backgroundColor:      DATASETS.production.fill,
+                        borderColor:          DATASETS.production.stroke,
+                        borderWidth:          2,
+                        borderDash:           [5, 4],
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor:     LABEL_COLORS,
+                        pointBorderWidth:     2.5,
+                        pointRadius:          4,
+                        pointHoverRadius:     7,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                animation: { duration: 1400, easing: 'easeInOutQuart' },
+                layout: { padding: { top: 24, bottom: 8, left: 24, right: 24 } },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyleWidth: 10,
+                            padding: 18,
+                            color: dark ? '#94a3b8' : '#334155',
+                            font: { size: 12, family: 'Inter, sans-serif', weight: '500' }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(15,23,42,0.92)',
+                        titleColor: '#a5b4fc',
+                        bodyColor:  '#e2e8f0',
+                        padding: 12,
+                        cornerRadius: 10,
+                        callbacks: {
+                            title: function (items) { return items[0].label; },
+                            label: function (ctx) {
+                                var icon = ctx.datasetIndex === 0 ? '◆' : '◇';
+                                return '  ' + icon + ' ' + ctx.dataset.label + ': ' + ctx.raw + ' / 100';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 100,
+                        ticks: { stepSize: 25, display: false, backdropPadding: 0 },
+                        grid:       { color: gridColor(dark), lineWidth: 1 },
+                        angleLines: { color: gridColor(dark), lineWidth: 1 },
+                        pointLabels: {
+                            /* labels drawn by coloredLabelsPlugin — hide default */
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        /* ── Theme-change observer ───────────────────────────── */
+        new MutationObserver(function () {
+            var d  = document.documentElement.getAttribute('data-theme') === 'dark';
+            var gc = gridColor(d);
+            chart.options.scales.r.grid.color       = gc;
+            chart.options.scales.r.angleLines.color  = gc;
+            chart.options.plugins.legend.labels.color = d ? '#94a3b8' : '#334155';
+            chart.update();
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    };
+
+    /* ─────────────────────────────────────────────────────────────────
+       AI CHATBOT  (Groq API — llama-3.3-70b-versatile)
+       Replace GROQ_API_KEY with your actual key from console.groq.com
+    ───────────────────────────────────────────────────────────────── */
+    var initChatbot = function () {
+        /* ── Config ──────────────────────────────────────────────
+           Point CHAT_SERVER at wherever server.py is running.
+           Local dev:  'http://localhost:5000'
+           Deployed:   'https://your-server.com'
+        ─────────────────────────────────────────────────────── */
+        /* Auto-detect: full URL on localhost, relative URL on Vercel */
+        var isLocal      = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+        var CHAT_SERVER  = isLocal ? 'http://localhost:5000' : '';
+        var MAX_HISTORY  = 20;   /* message objects to keep in memory */
+
+        /* ── DOM refs ─────────────────────────────────────────── */
+        var panel      = document.getElementById('chat-panel');
+        var toggle     = document.getElementById('chat-toggle');
+        var closeBtn   = document.getElementById('chat-close');
+        var messagesEl = document.getElementById('chat-messages');
+        var inputEl    = document.getElementById('chat-input');
+        var sendBtn    = document.getElementById('chat-send');
+        var suggestions = document.querySelectorAll('.chat-suggest');
+
+        if (!panel || !toggle) return;
+
+        var history = [];   /* [{role:'user'|'assistant', content:'...'}] */
+        var isOpen  = false;
+
+        /* ── Panel open / close ───────────────────────────────── */
+        function openPanel() {
+            isOpen = true;
+            panel.classList.add('open');
+            panel.setAttribute('aria-hidden', 'false');
+            inputEl.focus();
+        }
+
+        function closePanel() {
+            isOpen = false;
+            panel.classList.remove('open');
+            panel.setAttribute('aria-hidden', 'true');
+        }
+
+        toggle.addEventListener('click', function () {
+            isOpen ? closePanel() : openPanel();
+        });
+        closeBtn.addEventListener('click', closePanel);
+
+        /* ── Message rendering ────────────────────────────────── */
+        function appendMsg(role, html) {
+            var div = document.createElement('div');
+            div.className = 'chat-msg ' + role;
+            var isBot = role === 'bot' || role === 'bot typing';
+            div.innerHTML = isBot
+                ? '<div class="msg-avatar"><i class="icon-bulb"></i></div><div class="msg-bubble">' + html + '</div>'
+                : '<div class="msg-bubble">' + html + '</div>';
+            messagesEl.appendChild(div);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            return div;
+        }
+
+        function showTyping() {
+            return appendMsg('bot typing',
+                '<div class="typing-dots"><span></span><span></span><span></span></div>');
+        }
+
+        function escHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function formatResponse(text) {
+            return escHtml(text)
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g,     '<em>$1</em>')
+                .replace(/`(.*?)`/g,       '<code style="background:rgba(99,102,241,0.12);padding:1px 5px;border-radius:4px;font-size:0.9em">$1</code>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function hideSuggestions() {
+            var el = document.getElementById('chat-suggestions');
+            if (el) el.style.display = 'none';
+        }
+
+        /* ── Core: send message to Python backend ─────────────── */
+        async function sendMessage(text) {
+            text = text.trim();
+            if (!text || sendBtn.disabled) return;
+
+            hideSuggestions();
+            appendMsg('user', escHtml(text));
+
+            /* Add to history BEFORE the fetch so the server sees it */
+            history.push({ role: 'user', content: text });
+            if (history.length > MAX_HISTORY) history = history.slice(-MAX_HISTORY);
+
+            inputEl.value    = '';
+            sendBtn.disabled = true;
+            var typingEl     = showTyping();
+
+            try {
+                var res = await fetch(CHAT_SERVER + '/api/chat', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body:    JSON.stringify({
+                        message: text,
+                        /* send history EXCLUDING the current message we just pushed */
+                        history: history.slice(0, -1)
+                    })
+                });
+
+                if (!res.ok) throw new Error('Server responded ' + res.status);
+
+                var data  = await res.json();
+                var reply = (data.reply || '').trim();
+
+                typingEl.remove();
+                appendMsg('bot', formatResponse(reply));
+                history.push({ role: 'assistant', content: reply });
+
+            } catch (err) {
+                typingEl.remove();
+                /* Pop the unanswered user turn so history stays clean */
+                history.pop();
+                appendMsg('bot',
+                    'The AI server isn\'t reachable right now. '
+                    + 'Make sure <code style="font-size:0.9em">python run.py</code> is running locally, '
+                    + 'or email <a href="mailto:emon.mlengineer@gmail.com" style="color:#6366f1">emon.mlengineer@gmail.com</a>.'
+                );
+            }
+
+            sendBtn.disabled = false;
+            inputEl.focus();
+        }
+
+        /* ── Event bindings ───────────────────────────────────── */
+        sendBtn.addEventListener('click', function () { sendMessage(inputEl.value); });
+
+        inputEl.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(inputEl.value);
+            }
+        });
+
+        suggestions.forEach(function (btn) {
+            btn.addEventListener('click', function () { sendMessage(btn.textContent.trim()); });
+        });
+    };
+
         setTimeout(function () {
             initTyped();
             initTilt();
@@ -766,6 +1102,8 @@
             initSpotlightHover();
             initScrollSVG();
             initGlitchTypewriter();
+            initRadarChart();
+            initChatbot();
         }, 100);
     });
 

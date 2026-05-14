@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Scroll Animation System -->
     <link rel="stylesheet" href="css/scroll-animations.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
 
 </head>
@@ -493,6 +495,16 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 <div id="skill-sphere"></div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Radar Chart -->
+                        <div class="row scroll-animate animate-up" data-delay="0.1">
+                            <div class="col-md-8 col-md-offset-2">
+                                <div class="radar-chart-wrap">
+                                    <p class="radar-chart-label">Skill Proficiency Radar</p>
+                                    <canvas id="skill-radar"></canvas>
+                                </div>
                             </div>
                         </div>
 
@@ -1674,6 +1686,41 @@
     <!-- Premium Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- AI Chatbot Widget -->
+    <div id="chat-widget">
+        <button id="chat-toggle" title="Ask Imon's AI Assistant" aria-label="Open AI Chat">
+            <i class="icon-bubble3"></i>
+            <span class="chat-badge">AI</span>
+        </button>
+        <div id="chat-panel" aria-hidden="true">
+            <div class="chat-header">
+                <div class="chat-avatar-wrap">
+                    <i class="icon-bulb"></i>
+                </div>
+                <div class="chat-header-info">
+                    <h4>Imon's AI</h4>
+                    <span class="chat-status"><span class="status-dot"></span>Online</span>
+                </div>
+                <button id="chat-close" aria-label="Close chat"><i class="icon-cross2"></i></button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-msg bot">
+                    <div class="msg-bubble">Hi! I'm Imon's AI assistant. Ask me anything about his skills, projects, or experience. 🤖</div>
+                </div>
+            </div>
+            <div class="chat-suggestions" id="chat-suggestions">
+                <button class="chat-suggest">What are Imon's top skills?</button>
+                <button class="chat-suggest">Tell me about MediGenius</button>
+                <button class="chat-suggest">How to contact Imon?</button>
+            </div>
+            <div class="chat-input-row">
+                <input type="text" id="chat-input" placeholder="Ask about Imon's work…" autocomplete="off" maxlength="300">
+                <button id="chat-send" aria-label="Send"><i class="icon-send"></i></button>
+            </div>
+            <div class="chat-footer">Powered by <strong>Groq</strong> · llama‑3.3‑70b</div>
+        </div>
+    </div>
 
     <!-- Theme Toggle Button -->
     <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme">
