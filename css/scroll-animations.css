@@ -1,129 +1,112 @@
-/**
- * ══════════════════════════════════════════════════════════════════
- *  SCROLL ANIMATION SYSTEM  –  Intersection Observer powered
- * ══════════════════════════════════════════════════════════════════
+/*
+ * SCROLL ANIMATION SYSTEM — animate.css powered
  *
- *  HOW TO USE
- *  ──────────
- *  1. Add .scroll-animate to any element you want to animate.
- *  2. Add ONE direction modifier:
- *       .animate-left   →  slides in from the left
- *       .animate-right  →  slides in from the right
- *       .animate-up     →  slides up from below
- *       .animate-fade   →  fades in only (no transform)
+ * Usage:
+ *   <div class="scroll-animate animate-left">...</div>
+ *   <div class="scroll-animate animate-right">...</div>
+ *   <div class="scroll-animate animate-up">...</div>
+ *   <div class="scroll-animate animate-fade">...</div>
  *
- *  3. (Optional) Stagger a group of sibling elements by putting
- *     data-stagger="0.08" on their parent wrapper. Each child
- *     with .scroll-animate will receive an incremental delay.
- *
- *  4. Per-element options (HTML attributes):
- *       data-delay="0.2"    extra delay in seconds
- *       data-repeat         re-animate every time it re-enters viewport
- *
- *  EXAMPLES
- *  ────────
- *  <div class="scroll-animate animate-left">...</div>
- *
- *  <div data-stagger="0.1">
- *    <div class="scroll-animate animate-up">Card 1</div>
- *    <div class="scroll-animate animate-up">Card 2</div>
- *    <div class="scroll-animate animate-up">Card 3</div>
- *  </div>
- * ══════════════════════════════════════════════════════════════════
+ * Stagger:  data-stagger="0.08" on parent wrapper
+ * Delay:    data-delay="0.2" on the element (seconds)
+ * Repeat:   data-repeat — re-animate every time it enters viewport
  */
 
 
-/* ─────────────────────────────────────────────────────────────────
-   1. BASE STATE  ─  hidden before animation fires
-───────────────────────────────────────────────────────────────── */
-.scroll-animate {
-    opacity: 0;
-
-    /* GPU-composited properties only → no layout thrashing */
-    will-change: transform, opacity;
-
-    /* opacity fades in gently; transform glides in with a smooth ease-in-out */
-    transition:
-        opacity   2.0s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 2.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* ── 1. OVERRIDE animate.css keyframes ────────────────────────────
+   All four directions travel the exact same 120px distance.
+   This file loads AFTER animate.css so these definitions win.
+   ──────────────────────────────────────────────────────────────── */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-120px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
 }
 
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translate3d(120px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 120px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+
+/* ── 2. BASE HIDDEN STATE ─────────────────────────────────────────
+   Elements start invisible before JS fires.
+   ──────────────────────────────────────────────────────────────── */
+.scroll-animate {
+    opacity: 0;
+    will-change: opacity, transform;
+}
+
+
+/* ── 3. ACTIVE STATE — force uniform duration & easing ───────────
+   !important forces our values to win over animate.css .animated
+   class (which sets 1s) regardless of specificity order.
+   cubic-bezier(0.22, 1, 0.36, 1) = snappy start, slow settle.
+   ──────────────────────────────────────────────────────────────── */
+.scroll-animate.animated {
+    animation-duration:        1.4s !important;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+    animation-fill-mode:       both !important;
+    opacity: 1;
+}
+
+
+/* ── 4. MOBILE: shorter travel & slightly faster ─────────────────*/
 @media screen and (max-width: 768px) {
-    .scroll-animate {
-        transition:
-            opacity   1.6s cubic-bezier(0.4, 0, 0.2, 1),
-            transform 1.9s cubic-bezier(0.4, 0, 0.2, 1);
+    @keyframes fadeInLeft  { from { opacity: 0; transform: translate3d(-70px, 0, 0); } to { opacity: 1; transform: none; } }
+    @keyframes fadeInRight { from { opacity: 0; transform: translate3d(70px,  0, 0); } to { opacity: 1; transform: none; } }
+    @keyframes fadeInUp    { from { opacity: 0; transform: translate3d(0, 70px,  0); } to { opacity: 1; transform: none; } }
+
+    .scroll-animate.animated {
+        animation-duration: 0.9s !important;
     }
 }
 
 
-/* ─────────────────────────────────────────────────────────────────
-   2. DIRECTION OFFSETS  ─  starting positions before entry
-───────────────────────────────────────────────────────────────── */
-
-/* Slide in from left */
-.scroll-animate.animate-left {
-    transform: translateX(-120px) scale(0.93);
+/* ── 5. MARQUEE — CSS replaces GSAP for zero JS overhead ─────────
+   .marquee-content has display:inline-flex in style.css.
+   Two identical spans + translateX(-50%) = seamless loop.
+   ──────────────────────────────────────────────────────────────── */
+@keyframes marquee-scroll {
+    to { transform: translateX(-50%); }
 }
-
-/* Slide in from right */
-.scroll-animate.animate-right {
-    transform: translateX(120px) scale(0.93);
-}
-
-/* Slide up from below */
-.scroll-animate.animate-up {
-    transform: translateY(100px) scale(0.93);
-}
-
-/* Fade — still travels a noticeable distance upward */
-.scroll-animate.animate-fade {
-    transform: translateY(60px) scale(0.93);
-}
-
-@media screen and (max-width: 768px) {
-    .scroll-animate.animate-left  { transform: translateX(-80px) scale(0.94); }
-    .scroll-animate.animate-right { transform: translateX(80px) scale(0.94); }
-    .scroll-animate.animate-up    { transform: translateY(65px) scale(0.94); }
-    .scroll-animate.animate-fade  { transform: translateY(40px) scale(0.94); }
+.marquee-content {
+    animation: marquee-scroll 25s linear infinite;
 }
 
 
-/* ─────────────────────────────────────────────────────────────────
-   3. VISIBLE STATE  ─  added by JS when element enters viewport
-      The .sa-in class is the single trigger: both opacity and
-      transform resolve to their resting values via CSS transition.
-───────────────────────────────────────────────────────────────── */
-.scroll-animate.sa-in {
-    opacity:   1;
-    transform: translate(0, 0) scale(1);
-}
-
-
-/* ─────────────────────────────────────────────────────────────────
-   4. DURATION MODIFIERS  ─  optional overrides
-───────────────────────────────────────────────────────────────── */
-
-/* Snappier — good for small UI chips / tags */
-.scroll-animate.dur-fast {
-    transition-duration: 2.4s;
-}
-
-/* More cinematic — good for hero text or large panels */
-.scroll-animate.dur-slow {
-    transition-duration: 5.52s;
-}
-
-
-/* ─────────────────────────────────────────────────────────────────
-   5. REDUCED MOTION  ─  respect user accessibility preference
-      When this media query is active, every .scroll-animate element
-      is immediately visible with no movement or timing.
-───────────────────────────────────────────────────────────────── */
+/* ── 6. ACCESSIBILITY ─────────────────────────────────────────────*/
 @media (prefers-reduced-motion: reduce) {
     .scroll-animate {
-        opacity:    1 !important;
-        transform:  none !important;
+        opacity: 1 !important;
+        animation: none !important;
         transition: none !important;
     }
 }

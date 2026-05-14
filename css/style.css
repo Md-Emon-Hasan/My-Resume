@@ -99,14 +99,24 @@ html {
     height: 100%;
 }
 
+/* Fixed viewport background — position:fixed on a pseudo-element is the only
+   approach that works on iOS Safari, Android Chrome, and all desktop browsers.
+   html::before inherits --bg-mesh from html (where data-theme is now set). */
+html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--bg-mesh);
+    z-index: -1;
+    pointer-events: none;
+}
+
 body {
     font-family: "Inter", "Quicksand", Arial, sans-serif;
     font-weight: 400;
     font-size: 15px;
     line-height: 1.8;
     color: var(--text);
-    background: var(--bg-mesh);
-    background-attachment: fixed;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -142,10 +152,18 @@ body::after {
     left: -100px;
 }
 
-/* Mobile performance: disable expensive fixed/blur effects */
+/* Mobile: remove gradient bg, use plain light/dark color instead */
 @media screen and (max-width: 768px) {
+    html::before {
+        display: none;
+    }
+
     body {
-        background-attachment: scroll;
+        background: #f0f4f8;
+    }
+
+    [data-theme="dark"] body {
+        background: #0f172a;
     }
 
     body::before,
@@ -4541,6 +4559,10 @@ a.contact-info-value:hover {
     background: rgba(30, 41, 59, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+.theme-toggle-btn i {
+    transition: color var(--trans), text-shadow var(--trans);
 }
 
 [data-theme="dark"] .theme-toggle-btn i {

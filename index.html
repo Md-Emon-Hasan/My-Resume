@@ -80,9 +80,6 @@
     <div id="cursor-follower"></div>
     <div id="skill-magnifier"></div>
 
-    <!-- Dynamic Morphing Overlay -->
-
-
     <div id="colorlib-page">
         <div class="container-wrap">
 
@@ -1536,9 +1533,6 @@
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
     <!-- SplitType -->
     <script src="https://unpkg.com/split-type"></script>
     <!-- Odometer -->
@@ -1564,12 +1558,11 @@
         var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
         const lenis = new Lenis({
-            duration: isTouchDevice ? 1.4 : 1.8,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            lerp: isTouchDevice ? 0.10 : 0.075,   /* linear-interpolation factor: lower = smoother */
             smoothWheel: true,
             smoothTouch: false,
-            wheelMultiplier: 1.0,
-            touchMultiplier: isTouchDevice ? 1.0 : 1.5,
+            wheelMultiplier: 0.9,
+            touchMultiplier: 1.5,
         });
 
         // Sidebar smooth scroll — only on desktop (sidebar is hidden on mobile)
@@ -1578,21 +1571,23 @@
             sidebarLenis = new Lenis({
                 wrapper: document.querySelector('#colorlib-aside'),
                 content: document.querySelector('.aside-content'),
-                duration: 1.5,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                lerp: 0.08,
                 smoothWheel: true,
             });
         }
 
-        // Sync Lenis scroll with GSAP ScrollTrigger (required for triggers to fire correctly)
-        lenis.on('scroll', ScrollTrigger.update);
-
-        gsap.ticker.add(time => {
-            lenis.raf(time * 1000);
-            if (sidebarLenis) sidebarLenis.raf(time * 1000);
+        // Keep GSAP ScrollTrigger in sync with Lenis scroll position
+        lenis.on('scroll', function () {
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
         });
 
-        gsap.ticker.lagSmoothing(0);
+        // Run Lenis on its own RAF loop — independent of GSAP ticker to avoid hang on low-end devices
+        function lenisRaf(time) {
+            lenis.raf(time);
+            if (sidebarLenis) sidebarLenis.raf(time);
+            requestAnimationFrame(lenisRaf);
+        }
+        requestAnimationFrame(lenisRaf);
 
 
         document.addEventListener('DOMContentLoaded', () => {
