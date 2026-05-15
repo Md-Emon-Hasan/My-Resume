@@ -5,6 +5,7 @@ ChatEngine — wraps LangChain + Groq with RAG context injection.
 from typing import List, Optional
 from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
+from pydantic import SecretStr
 
 from backend.config import GROQ_API_KEY, GROQ_MODEL, SYSTEM_PROMPT, MAX_HISTORY
 from backend.rag import RAGEngine
@@ -18,10 +19,10 @@ class ChatEngine:
     def _get_llm(self) -> ChatGroq:
         if self._llm is None:
             self._llm = ChatGroq(
-                api_key=GROQ_API_KEY,
+                api_key=SecretStr(GROQ_API_KEY) if GROQ_API_KEY else None,  # type: ignore[arg-type]
                 model=GROQ_MODEL,
                 temperature=0.65,
-                max_tokens=1024,
+                max_tokens=200,
             )
         return self._llm
 
@@ -55,4 +56,5 @@ class ChatEngine:
         messages.append(HumanMessage(content=message))
 
         response = self._get_llm().invoke(messages)
-        return response.content.strip()
+        content = response.content
+        return content.strip() if isinstance(content, str) else str(content)

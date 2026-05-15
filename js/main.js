@@ -747,105 +747,6 @@
         customCursor();
         magneticElements();
 
-    /* ─────────────────────────────────────────────────────────────────
-       SKILL RADAR CHART
-    ───────────────────────────────────────────────────────────────── */
-    var initRadarChart = function () {
-        var canvas = document.getElementById('skill-radar');
-        if (!canvas || typeof Chart === 'undefined') return;
-
-        var DOMAINS = [
-            { label: 'AI & Agents',     skill: 95 },
-            { label: 'LLM Fine-Tuning', skill: 88 },
-            { label: 'NLP',             skill: 87 },
-            { label: 'ML & DL',         skill: 92 },
-            { label: 'Data Science',    skill: 83 },
-            { label: 'Software Eng.',   skill: 80 },
-            { label: 'MLOps',           skill: 82 },
-        ];
-
-        var LABEL_COLORS = [
-            '#6366f1', '#a855f7', '#f43f5e', '#f59e0b',
-            '#10b981', '#3b82f6', '#ec4899'
-        ];
-
-        function gridColor(dark) {
-            return dark ? 'rgba(255,255,255,0.07)' : 'rgba(99,102,241,0.10)';
-        }
-
-        var coloredLabelsPlugin = {
-            id: 'coloredLabels',
-            afterDraw: function (chart) {
-                var scale = chart.scales.r;
-                if (!scale) return;
-                var ctx  = chart.ctx;
-                var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-                chart.data.labels.forEach(function (label, i) {
-                    var angle = scale.getIndexAngle(i) - Math.PI / 2;
-                    var r     = scale.drawingArea + 18;
-                    var x     = scale.xCenter + Math.cos(angle) * r;
-                    var y     = scale.yCenter + Math.sin(angle) * r;
-                    ctx.save();
-                    ctx.fillStyle    = LABEL_COLORS[i % LABEL_COLORS.length];
-                    ctx.font         = '600 11px Inter, sans-serif';
-                    ctx.textAlign    = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.shadowColor  = LABEL_COLORS[i % LABEL_COLORS.length];
-                    ctx.shadowBlur   = dark ? 5 : 0;
-                    ctx.fillText(label, x, y);
-                    ctx.restore();
-                });
-            }
-        };
-
-        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-
-        var chart = new Chart(canvas, {
-            type: 'radar',
-            plugins: [coloredLabelsPlugin],
-            data: {
-                labels: DOMAINS.map(function (d) { return d.label; }),
-                datasets: [{
-                    data:                 DOMAINS.map(function (d) { return d.skill; }),
-                    backgroundColor:      'rgba(99,102,241,0.15)',
-                    borderColor:          'rgba(99,102,241,0.85)',
-                    borderWidth:          2,
-                    pointBackgroundColor: LABEL_COLORS,
-                    pointBorderColor:     'transparent',
-                    pointRadius:          4,
-                    pointHoverRadius:     4,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                animation: { duration: 1200, easing: 'easeInOutQuart' },
-                layout: { padding: { top: 24, bottom: 8, left: 24, right: 24 } },
-                plugins: {
-                    legend:  { display: false },
-                    tooltip: { enabled: false }
-                },
-                scales: {
-                    r: {
-                        min: 0,
-                        max: 100,
-                        ticks:       { stepSize: 25, display: false, backdropPadding: 0 },
-                        grid:        { color: gridColor(dark), lineWidth: 1 },
-                        angleLines:  { color: gridColor(dark), lineWidth: 1 },
-                        pointLabels: { display: false }
-                    }
-                }
-            }
-        });
-
-        new MutationObserver(function () {
-            var d  = document.documentElement.getAttribute('data-theme') === 'dark';
-            var gc = gridColor(d);
-            chart.options.scales.r.grid.color      = gc;
-            chart.options.scales.r.angleLines.color = gc;
-            chart.update();
-        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    };
 
     /* ─────────────────────────────────────────────────────────────────
        AI CHATBOT  (Groq API — llama-3.3-70b-versatile)
@@ -873,6 +774,17 @@
 
         if (!panel || !toggle) return;
 
+        /* Prevent page scroll when mouse wheel is used inside chat messages */
+        messagesEl.addEventListener('wheel', function(e) {
+            var atTop    = messagesEl.scrollTop === 0;
+            var atBottom = messagesEl.scrollTop + messagesEl.clientHeight >= messagesEl.scrollHeight - 1;
+            if (!(atTop && e.deltaY < 0) && !(atBottom && e.deltaY > 0)) {
+                e.stopPropagation();
+            }
+            e.preventDefault();
+            messagesEl.scrollTop += e.deltaY;
+        }, { passive: false });
+
         var history = [];   /* [{role:'user'|'assistant', content:'...'}] */
         var isOpen  = false;
 
@@ -889,6 +801,11 @@
             panel.classList.remove('open');
             panel.setAttribute('aria-hidden', 'true');
         }
+
+        /* Auto-open chatbot after 5 seconds (only once per session) */
+        setTimeout(function () {
+            if (!isOpen) openPanel();
+        }, 5000);
 
         toggle.addEventListener('click', function () {
             isOpen ? closePanel() : openPanel();
@@ -920,11 +837,25 @@
         }
 
         function formatResponse(text) {
-            return escHtml(text)
+            /* Extract markdown links before HTML-escaping so URLs survive */
+            var links = [];
+            var tokenised = text.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, function(_, label, url) {
+                var idx = links.length;
+                links.push({ label: escHtml(label), url: escHtml(url) });
+                return '\x00L' + idx + '\x00';
+            });
+            var out = escHtml(tokenised)
                 .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*(.*?)\*/g,     '<em>$1</em>')
                 .replace(/`(.*?)`/g,       '<code style="background:rgba(99,102,241,0.12);padding:1px 5px;border-radius:4px;font-size:0.9em">$1</code>')
                 .replace(/\n/g, '<br>');
+            /* Re-inject clickable links */
+            links.forEach(function(l, i) {
+                out = out.replace('\x00L' + i + '\x00',
+                    '<a href="' + l.url + '" target="_blank" rel="noopener" ' +
+                    'style="color:#6366f1;font-weight:600;text-decoration:underline">' + l.label + '</a>');
+            });
+            return out;
         }
 
         function hideSuggestions() {
@@ -1017,7 +948,6 @@
             initSpotlightHover();
             initScrollSVG();
             initGlitchTypewriter();
-            initRadarChart();
             initChatbot();
         }, 100);
     });

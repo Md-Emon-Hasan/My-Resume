@@ -38,9 +38,6 @@
     <link rel="stylesheet" href="css/style.css">
     <!-- Scroll Animation System -->
     <link rel="stylesheet" href="css/scroll-animations.css">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
 
 </head>
 
@@ -498,15 +495,6 @@
                             </div>
                         </div>
 
-                        <!-- Skill Radar Chart -->
-                        <div class="row scroll-animate animate-up" data-delay="0.1">
-                            <div class="col-md-8 col-md-offset-2">
-                                <div class="radar-chart-wrap">
-                                    <p class="radar-chart-label">Skill Proficiency Radar</p>
-                                    <canvas id="skill-radar"></canvas>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="skill-categories" data-stagger="0.1">
 
@@ -689,6 +677,34 @@
                                                                 participating in research, and contributing to
                                                                 open-source <strong>AI/ML projects during academic years
                                                                     (2022 – 2025).</strong></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Honors & Awards -->
+                                                    <div class="edu-honors-wrap">
+                                                        <div class="edu-honors-title">
+                                                            <i class="icon-star2"></i>
+                                                            <span>Honors &amp; Awards</span>
+                                                        </div>
+                                                        <div class="edu-honors-grid">
+                                                            <div class="edu-honor-card">
+                                                                <div class="edu-honor-icon">
+                                                                    <i class="icon-ribbon2"></i>
+                                                                </div>
+                                                                <div class="edu-honor-body">
+                                                                    <h5>4× Consecutive Scholarship</h5>
+                                                                    <p>Awarded four consecutive scholarships for outstanding excellence in <strong>Machine Learning</strong> and project performance.</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="edu-honor-card">
+                                                                <div class="edu-honor-icon">
+                                                                    <i class="icon-star2"></i>
+                                                                </div>
+                                                                <div class="edu-honor-body">
+                                                                    <h5>Merit Scholarship</h5>
+                                                                    <p>Recognised with a <strong>Merit Scholarship</strong> for outstanding academic excellence throughout the degree.</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1706,19 +1722,18 @@
             </div>
             <div class="chat-messages" id="chat-messages">
                 <div class="chat-msg bot">
-                    <div class="msg-bubble">Hi! I'm Imon's AI assistant. Ask me anything about his skills, projects, or experience. 🤖</div>
+                    <div class="msg-bubble">Hi! I'm Imon's AI assistant. Ask me anything about me 👋</div>
                 </div>
             </div>
             <div class="chat-suggestions" id="chat-suggestions">
-                <button class="chat-suggest">What are Imon's top skills?</button>
+                <button class="chat-suggest">Where does Imon work now?</button>
                 <button class="chat-suggest">Tell me about MediGenius</button>
                 <button class="chat-suggest">How to contact Imon?</button>
             </div>
             <div class="chat-input-row">
                 <input type="text" id="chat-input" placeholder="Ask about Imon's work…" autocomplete="off" maxlength="300">
-                <button id="chat-send" aria-label="Send"><i class="icon-send"></i></button>
+                <button id="chat-send" aria-label="Send"><i class="icon-paperplane"></i></button>
             </div>
-            <div class="chat-footer">Powered by <strong>Groq</strong> · llama‑3.3‑70b</div>
         </div>
     </div>
 

@@ -13,7 +13,9 @@
       "PowerShell(cd \"C:\\\\Users\\\\emon1\\\\Desktop\\\\New folder\\\\My-Resume\"; [System.Environment]::GetEnvironmentVariable\\(\"GROQ_API_KEY\"\\) 2>&1; $env:GROQ_API_KEY 2>&1)",
       "Bash(git push *)",
       "Bash(vercel ls *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(python -c ' *)",
+      "Bash(python -c \"import sys; data=sys.stdin.buffer.read\\(\\); print\\(data.decode\\('utf-8','replace'\\)\\)\")"
     ]
   }
 }

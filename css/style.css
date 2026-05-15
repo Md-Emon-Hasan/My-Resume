@@ -3883,7 +3883,7 @@ a.contact-info-value:hover {
 .theme-toggle-btn {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    left: 30px;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -3906,7 +3906,7 @@ a.contact-info-value:hover {
 @media screen and (max-width: 768px) {
     .theme-toggle-btn {
         bottom: 18px;
-        right: 18px;
+        left: 18px;
         width: 48px;
         height: 48px;
         font-size: 20px;
@@ -4616,49 +4616,6 @@ a.contact-info-value:hover {
 }
 
 
-/* ========================================
-   SKILL RADAR CHART
-   ======================================== */
-.radar-chart-wrap {
-    background: var(--glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    box-shadow: var(--glass-shadow);
-    padding: 2em 2em 1.5em;
-    margin-bottom: 3em;
-    text-align: center;
-    transition: box-shadow var(--trans);
-}
-
-.radar-chart-wrap:hover {
-    box-shadow: var(--glass-shadow-lg);
-}
-
-.radar-chart-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--indigo);
-    opacity: 0.7;
-    margin-bottom: 1.2em;
-}
-
-[data-theme="dark"] .radar-chart-label {
-    color: #a5b4fc;
-}
-
-#skill-radar {
-    max-height: 400px;
-}
-
-@media screen and (max-width: 768px) {
-    #skill-radar {
-        max-height: 280px;
-    }
-}
 
 
 /* ========================================
@@ -4666,7 +4623,7 @@ a.contact-info-value:hover {
    ======================================== */
 #chat-widget {
     position: fixed;
-    bottom: 110px;
+    bottom: 30px;
     right: 30px;
     z-index: 9998;
     display: flex;
@@ -4719,6 +4676,9 @@ a.contact-info-value:hover {
     bottom: 72px;
     right: 0;
     width: 360px;
+    height: 75vh;
+    max-height: 600px;
+    min-height: 380px;
     background: var(--glass-strong);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
@@ -4771,13 +4731,13 @@ a.contact-info-value:hover {
 
 .chat-header-info h4 {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 16px;
     font-weight: 600;
     color: #fff;
 }
 
 .chat-status {
-    font-size: 0.72rem;
+    font-size: 13px;
     opacity: 0.85;
     display: flex;
     align-items: center;
@@ -4803,14 +4763,14 @@ a.contact-info-value:hover {
     background: rgba(255,255,255,0.15);
     border: none;
     color: #fff;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     transition: background var(--trans);
     flex-shrink: 0;
 }
@@ -4827,9 +4787,8 @@ a.contact-info-value:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 300px;
-    min-height: 180px;
     scroll-behavior: smooth;
+    min-height: 0;
 }
 
 .chat-messages::-webkit-scrollbar { width: 4px; }
@@ -4865,10 +4824,10 @@ a.contact-info-value:hover {
 }
 
 .msg-bubble {
-    padding: 9px 13px;
+    padding: 10px 14px;
     border-radius: 16px;
-    font-size: 0.84rem;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 .chat-msg.bot .msg-bubble {
@@ -4923,8 +4882,8 @@ a.contact-info-value:hover {
     background: var(--glass);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    padding: 5px 12px 5px 10px;
-    font-size: 0.74rem;
+    padding: 7px 14px 7px 11px;
+    font-size: 13px;
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -4963,8 +4922,8 @@ a.contact-info-value:hover {
     background: var(--glass);
     border: 1px solid var(--glass-border);
     border-radius: 22px;
-    padding: 9px 14px;
-    font-size: 0.83rem;
+    padding: 10px 16px;
+    font-size: 14px;
     color: var(--text);
     outline: none;
     transition: border-color var(--trans), box-shadow var(--trans);
@@ -4979,13 +4938,13 @@ a.contact-info-value:hover {
 #chat-input::placeholder { color: var(--text-light); }
 
 #chat-send {
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 50%;
     background: linear-gradient(135deg, #6366f1, #a855f7);
     border: none;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -5008,7 +4967,7 @@ a.contact-info-value:hover {
 /* Mobile adjustments */
 @media screen and (max-width: 768px) {
     #chat-widget {
-        bottom: 80px;
+        bottom: 18px;
         right: 18px;
     }
 
@@ -5020,25 +4979,16 @@ a.contact-info-value:hover {
 
     #chat-panel {
         width: calc(100vw - 36px);
+        height: 75vh;
+        max-height: 520px;
+        min-height: 340px;
         right: 0;
         bottom: 62px;
     }
 }
 
-/* Powered-by footer */
-.chat-footer {
-    text-align: center;
-    padding: 4px 14px 9px;
-    font-size: 0.67rem;
-    color: var(--text-light);
-    opacity: 0.65;
-    letter-spacing: 0.2px;
-}
-
-.chat-footer strong {
-    color: #a855f7;
-    font-weight: 600;
-}
+/* Powered-by footer — removed */
+.chat-footer { display: none; }
 
 [data-theme="dark"] #chat-panel {
     box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
@@ -5047,4 +4997,109 @@ a.contact-info-value:hover {
 /* Bot message bubble bot-border accent */
 .chat-msg.bot .msg-bubble {
     border-left: 2px solid rgba(99,102,241,0.35);
+}
+
+/* Follow-up question gap — double <br> becomes a paragraph break */
+.msg-bubble br + br {
+    display: block;
+    content: '';
+    margin-top: 6px;
+}
+
+/* ========================================
+   EDUCATION — HONORS & AWARDS
+   ======================================== */
+.edu-honors-wrap {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(99,102,241,0.18);
+}
+
+.edu-honors-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #6366f1;
+}
+
+.edu-honors-title i {
+    font-size: 15px;
+    color: #f59e0b;
+    filter: drop-shadow(0 0 4px rgba(245,158,11,0.5));
+}
+
+.edu-honors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .edu-honors-grid { grid-template-columns: 1fr; }
+}
+
+.edu-honor-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.05));
+    border: 1px solid rgba(99,102,241,0.2);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.edu-honor-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, #6366f1, #a855f7);
+    border-radius: 3px 0 0 3px;
+}
+
+.edu-honor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99,102,241,0.18);
+}
+
+.edu-honor-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 16px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.35);
+}
+
+.edu-honor-body h5 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1.3;
+}
+
+.edu-honor-body p {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+[data-theme="dark"] .edu-honor-card {
+    background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.08));
+    border-color: rgba(99,102,241,0.3);
 }
