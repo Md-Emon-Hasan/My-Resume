@@ -10,7 +10,10 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(venv\\\\Scripts\\\\python.exe -c \"import rank_bm25; print\\('rank-bm25 OK'\\)\")",
-      "PowerShell(cd \"C:\\\\Users\\\\emon1\\\\Desktop\\\\New folder\\\\My-Resume\"; [System.Environment]::GetEnvironmentVariable\\(\"GROQ_API_KEY\"\\) 2>&1; $env:GROQ_API_KEY 2>&1)"
+      "PowerShell(cd \"C:\\\\Users\\\\emon1\\\\Desktop\\\\New folder\\\\My-Resume\"; [System.Environment]::GetEnvironmentVariable\\(\"GROQ_API_KEY\"\\) 2>&1; $env:GROQ_API_KEY 2>&1)",
+      "Bash(git push *)",
+      "Bash(vercel ls *)",
+      "Bash(gh api *)"
     ]
   }
 }
