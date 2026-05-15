@@ -5,7 +5,7 @@ GROQ_MODEL   = "llama-3.3-70b-versatile"
 
 MAX_HISTORY  = 20
 HOST         = "0.0.0.0"
-PORT         = 5000
+PORT         = 8080
 
 # ─── System Prompt ────────────────────────────────────────────────────────────
 # Customise this block freely — persona, tone, rules, and contact info.

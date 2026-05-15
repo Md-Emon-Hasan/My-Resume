@@ -7,9 +7,13 @@ Usage:  python run.py
 
 import sys
 import os
+from dotenv import load_dotenv
 
 # Ensure project root is on path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# Load environment variables from .env file
+load_dotenv()
 
 from backend.config import HOST, PORT, GROQ_API_KEY
 
@@ -27,6 +31,16 @@ if not GROQ_API_KEY:
     print()
 
 from api.index import app
+from flask import send_from_directory
+
+# Serve the static frontend for local development
+@app.route("/")
+def serve_index():
+    return send_from_directory(".", "index.html")
+
+@app.route("/<path:path>")
+def serve_static(path):
+    return send_from_directory(".", path)
 
 if __name__ == "__main__":
     print(f"Starting AI Assistant API on http://localhost:{PORT}")

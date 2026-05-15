@@ -1,7 +1,16 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node -e \"const fs = require\\('fs'\\); try { new Function\\(fs.readFileSync\\('c:/Users/codix/OneDrive/Desktop/LLM/My-Resume/js/main.js', 'utf8'\\)\\); console.log\\('main.js: OK'\\); } catch\\(e\\) { console.error\\('main.js ERROR:', e.message\\); }\")"
+      "Bash(node -e \"const fs = require\\('fs'\\); try { new Function\\(fs.readFileSync\\('c:/Users/codix/OneDrive/Desktop/LLM/My-Resume/js/main.js', 'utf8'\\)\\); console.log\\('main.js: OK'\\); } catch\\(e\\) { console.error\\('main.js ERROR:', e.message\\); }\")",
+      "PowerShell(Remove-Item *)",
+      "Bash(findstr -v venv)",
+      "Bash(python -c \"import sys; sys.path.insert\\(0,'backend'\\); from knowledge import PORTFOLIO_DOCS; print\\(f'{len\\(PORTFOLIO_DOCS\\)} docs'\\); from rag import RAGEngine; r=RAGEngine\\(PORTFOLIO_DOCS\\); print\\('RAG OK:', r.retrieve\\('MediGenius project'\\)[:100]\\)\")",
+      "Bash(python -c \"import sys; sys.path.insert\\(0,'.'\\); from api.index import app; print\\('Flask app:', app.name\\); routes=[str\\(r\\) for r in app.url_map.iter_rules\\(\\)]; print\\('Routes:', [r for r in routes if 'api' in r]\\)\")",
+      "Bash(python -c \"import sys; sys.path.insert\\(0,'.'\\); from api.index import app; print\\('Flask app OK:', app.name\\); routes=[str\\(r\\) for r in app.url_map.iter_rules\\(\\)]; print\\('Routes:', [r for r in routes if 'api' in r]\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(venv\\\\Scripts\\\\python.exe -c \"import rank_bm25; print\\('rank-bm25 OK'\\)\")",
+      "PowerShell(cd \"C:\\\\Users\\\\emon1\\\\Desktop\\\\New folder\\\\My-Resume\"; [System.Environment]::GetEnvironmentVariable\\(\"GROQ_API_KEY\"\\) 2>&1; $env:GROQ_API_KEY 2>&1)"
     ]
   }
 }

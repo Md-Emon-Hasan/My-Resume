@@ -84,20 +84,24 @@ Expected response: `{"status": "ok", "model": "llama-3.3-70b-versatile", "docs":
 
 ## Local Development
 
-Run the backend locally before deploying:
+To test the backend and frontend locally before deploying:
 
-```powershell
-# Windows PowerShell
-$env:GROQ_API_KEY = "your_key_here"
+1. Create a `.env` file in the root folder and add your API key:
+   ```env
+   GROQ_API_KEY=your_key_here
+   ```
 
-# Install dependencies
-pip install -r requirements.txt
+2. Install dependencies:
+   ```powershell
+   pip install -r requirements.txt
+   ```
 
-# Start the server
-python run.py
-```
+3. Start the local server:
+   ```powershell
+   python run.py
+   ```
 
-The API runs on **http://localhost:5000**. Open `index.html` in a browser — the chatbot auto-detects localhost and connects to the local server.
+The local integrated server runs on **http://localhost:8080**. Open this URL in your web browser — it serves your portfolio `index.html` and the chatbot connects automatically via the local API.
 
 ---
 
