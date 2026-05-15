@@ -802,10 +802,10 @@
             panel.setAttribute('aria-hidden', 'true');
         }
 
-        /* Auto-open chatbot after 5 seconds (only once per session) */
+        /* Auto-open chatbot after 15 seconds (only once per session) */
         setTimeout(function () {
             if (!isOpen) openPanel();
-        }, 5000);
+        }, 15000);
 
         toggle.addEventListener('click', function () {
             isOpen ? closePanel() : openPanel();
