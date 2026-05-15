@@ -1,157 +1,147 @@
-# Deploying to Vercel — Step-by-Step Guide
+# Vercel-এ Deploy করার সম্পূর্ণ গাইড
 
-This portfolio uses a **static frontend** (HTML/CSS/JS) served by Vercel and a **Python AI backend** deployed as a Vercel serverless function. Both live in the same repository.
+এই project-এ দুটো অংশ আছে:
+- **Frontend** — `index.html`, CSS, JS, Images (static files)
+- **Backend** — Python Flask AI chatbot (`api/index.py`)
 
----
-
-## Prerequisites
-
-| Tool | Install |
-|------|---------|
-| Node.js 18+ | https://nodejs.org |
-| Vercel CLI | `npm install -g vercel` |
-| Git | https://git-scm.com |
-| Groq API Key | https://console.groq.com/keys (free) |
+দুটোই একই GitHub repo থেকে Vercel-এ deploy হবে।
 
 ---
 
-## Step 1 — Get a Groq API Key
+## ধাপ ১ — Groq API Key নাও (AI chatbot-এর জন্য)
 
-1. Go to **https://console.groq.com/keys**
-2. Sign up or log in (free account)
-3. Click **Create API Key**
-4. Copy the key — you will add it to Vercel in Step 4
+> ইতোমধ্যে থাকলে এই ধাপ skip করো।
+
+1. যাও: **https://console.groq.com/keys**
+2. Google বা GitHub দিয়ে Sign up করো (সম্পূর্ণ free)
+3. **"Create API Key"** বাটনে click করো
+4. Key-টা copy করে কোথাও রেখে দাও — পরে লাগবে
 
 ---
 
-## Step 2 — Push Project to GitHub
+## ধাপ ২ — GitHub-এ Code Push করো
+
+> ইতোমধ্যে push করা থাকলে এই ধাপ skip করো।
+
+Terminal/PowerShell খুলে project folder-এ যাও, তারপর:
 
 ```bash
-# From your project root
 git add .
-git commit -m "add AI chatbot backend"
+git commit -m "initial commit"
 git push origin master
 ```
 
-If you haven't set up GitHub yet:
-
-1. Create a new **public** repository at https://github.com/new
-2. Follow GitHub's instructions to push your local repo
-
----
-
-## Step 3 — Import Project on Vercel
-
-1. Go to **https://vercel.com** → Log in (use GitHub account)
-2. Click **Add New → Project**
-3. Select your GitHub repository
-4. Vercel auto-detects the project — **leave all settings as default**
-5. Click **Deploy**
-
-The first deploy will succeed for the static frontend. The chatbot backend needs the API key (Step 4).
+GitHub-এ repo না থাকলে:
+1. যাও: **https://github.com/new**
+2. Repository name দাও (যেমন: `My-Resume`)
+3. **Public** রাখো, তারপর **Create repository**
+4. GitHub-এ যে commands দেখাবে সেগুলো run করো
 
 ---
 
-## Step 4 — Add the Groq API Key as an Environment Variable
+## ধাপ ৩ — Vercel Account তৈরি করো
 
-1. In your Vercel project dashboard, go to **Settings → Environment Variables**
-2. Click **Add**:
-   - **Name**: `GROQ_API_KEY`
-   - **Value**: paste your Groq key
-   - **Environments**: check Production, Preview, Development
-3. Click **Save**
-4. Go to **Deployments** → click the latest → click **Redeploy**
-
-The chatbot will now work on your live site.
+1. যাও: **https://vercel.com**
+2. উপরে-ডানে **"Sign Up"** এ click করো
+3. **"Continue with GitHub"** select করো
+4. GitHub account দিয়ে login করো এবং Vercel-কে permission দাও
 
 ---
 
-## Step 5 — Verify
+## ধাপ ৪ — Project Import করো Vercel-এ
 
-After redeployment, open your live URL and:
+1. Vercel dashboard-এ যাওয়ার পর **"Add New..."** বাটনে click করো
+2. **"Project"** select করো
+3. বাম দিকে তোমার GitHub repositories দেখবে
+4. **`My-Resume`** repository-টা খোঁজো, পাশে **"Import"** বাটনে click করো
 
-- Click the **AI chat button** (bottom-right)
-- Ask a question like "What are Imon's top skills?"
-- You should get a response within a few seconds
+   > যদি repo না দেখাও: **"Adjust GitHub App Permissions"** এ click করে repository access দাও
 
-Check the health endpoint:
+5. **Configure Project** পেজে:
+   - Framework Preset: **Other** (অথবা যা auto-detect করে রাখো)
+   - Root Directory: **ফাঁকা রাখো** (change করো না)
+   - Build Command: **ফাঁকা রাখো**
+   - Output Directory: **ফাঁকা রাখো**
+
+6. **"Deploy"** বাটনে click করো
+
+Vercel কয়েক মিনিট নেবে build করতে।
+
+---
+
+## ধাপ ৫ — GROQ_API_KEY Environment Variable যোগ করো
+
+Deploy শেষ হলে chatbot কাজ করবে না যতক্ষণ API key না দাও।
+
+1. Vercel dashboard-এ তোমার project-এ যাও
+2. উপরে **"Settings"** tab-এ click করো
+3. বাম দিকের menu থেকে **"Environment Variables"** select করো
+4. নিচের মতো fill করো:
+
+   | Field | Value |
+   |-------|-------|
+   | Key | `GROQ_API_KEY` |
+   | Value | তোমার Groq key paste করো |
+   | Environment | Production, Preview, Development সব check করো |
+
+5. **"Save"** বাটনে click করো
+
+---
+
+## ধাপ ৬ — Redeploy করো
+
+Environment variable যোগ করার পর আবার deploy করতে হবে:
+
+1. Vercel project-এ **"Deployments"** tab-এ যাও
+2. সবচেয়ে উপরে যে deployment আছে সেটার ডানে **"..."** (তিনটা dot) click করো
+3. **"Redeploy"** select করো
+4. নতুন popup-এ **"Redeploy"** বাটনে click করো
+
+কয়েক মিনিট অপেক্ষা করো।
+
+---
+
+## ধাপ ৭ — Site Check করো
+
+Deploy সম্পন্ন হলে Vercel একটা URL দেবে, যেমন:
 ```
-https://your-site.vercel.app/api/health
+https://my-resume-xyz.vercel.app
 ```
-Expected response: `{"status": "ok", "model": "llama-3.3-70b-versatile", "docs": 22}`
 
----
+**Check করো:**
 
-## Local Development
-
-To test the backend and frontend locally before deploying:
-
-1. Create a `.env` file in the root folder and add your API key:
-   ```env
-   GROQ_API_KEY=your_key_here
+1. URL-এ গেলে তোমার portfolio দেখা যাচ্ছে কিনা
+2. নিচের health URL-এ যাও (তোমার URL দিয়ে replace করো):
    ```
-
-2. Install dependencies:
-   ```powershell
-   pip install -r requirements.txt
+   https://my-resume-xyz.vercel.app/api/health
    ```
-
-3. Start the local server:
-   ```powershell
-   python run.py
+   এরকম response দেখাবে:
+   ```json
+   {"status": "ok", "model": "llama-3.3-70b-versatile", "docs": 22}
    ```
-
-The local integrated server runs on **http://localhost:8080**. Open this URL in your web browser — it serves your portfolio `index.html` and the chatbot connects automatically via the local API.
-
----
-
-## Project Structure
-
-```
-My-Resume/
-├── api/
-│   ├── __init__.py
-│   └── index.py          ← Vercel serverless entry point (Flask app)
-├── backend/
-│   ├── __init__.py
-│   ├── config.py         ← API key, model, system prompt
-│   ├── knowledge.py      ← Portfolio knowledge base (edit to update AI knowledge)
-│   ├── rag.py            ← BM25 retrieval engine
-│   └── chat.py           ← LangChain + Groq ChatEngine
-├── css/
-├── js/
-├── images/
-├── index.html
-├── run.py                ← Local dev server runner
-├── vercel.json           ← Vercel routing config
-└── requirements.txt      ← Python dependencies
-```
+3. Chatbot button (নিচে-ডানে) click করে একটা question করো
 
 ---
 
-## Customising the AI Assistant
+## সমস্যা হলে কী করবে
 
-### Update AI knowledge
-Edit `backend/knowledge.py` — add, edit, or remove strings in `PORTFOLIO_DOCS`.
-
-### Change AI personality / tone
-Edit the `SYSTEM_PROMPT` string in `backend/config.py`.
-
-### Change the LLM model
-In `backend/config.py`:
-```python
-GROQ_MODEL = "llama-3.3-70b-versatile"  # change to any Groq model
-```
-Available models: https://console.groq.com/docs/models
+| সমস্যা | সমাধান |
+|--------|--------|
+| Site দেখাচ্ছে না / "Not Found" | Vercel → Deployments → সর্বশেষ deployment-এ click করে "Redeploy" করো |
+| Chatbot কাজ করছে না | Settings → Environment Variables-এ `GROQ_API_KEY` ঠিকমতো আছে কিনা দেখো, তারপর Redeploy করো |
+| Build fail হয়েছে | Deployments → failed deployment-এ click করে error log দেখো |
+| API key কাজ করছে না | **https://console.groq.com/keys** থেকে নতুন key তৈরি করো |
 
 ---
 
-## Troubleshooting
+## পরে Code Update করলে কী করবে
 
-| Problem | Fix |
-|---------|-----|
-| Chatbot says "server not reachable" on localhost | Run `python run.py` and confirm it starts on port 5000 |
-| Chatbot says "GROQ_API_KEY not configured" | Add the env variable to Vercel (Step 4) and redeploy |
-| 500 error from `/api/health` | Check Vercel function logs: Dashboard → Deployments → Functions |
-| Static files (CSS/JS/images) not loading | Ensure all files are committed and pushed to GitHub |
-| Python import error on Vercel | Verify `backend/**` is in `vercel.json` `includeFiles` |
+Local-এ code change করে push করলেই Vercel automatically redeploy করবে:
+
+```bash
+git add .
+git commit -m "update resume"
+git push origin master
+```
+
+আর কিছু করতে হবে না — Vercel নিজেই detect করে deploy করে নেবে।
