@@ -295,6 +295,15 @@
             mouseY = e.clientY;
             cursor.style.left = mouseX + 'px';
             cursor.style.top  = mouseY + 'px';
+            
+            // Hide custom cursor inside chat widget
+            if (e.target.closest('#chat-widget')) {
+                cursor.style.display = 'none';
+                follower.style.display = 'none';
+            } else {
+                cursor.style.display = 'block';
+                follower.style.display = 'block';
+            }
         });
 
         (function loop() {

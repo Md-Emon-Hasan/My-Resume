@@ -3281,6 +3281,20 @@ a.contact-info-value:hover {
     select {
         cursor: none;
     }
+
+    /* AI Chatbot Cursor Reset */
+    #chat-widget,
+    #chat-widget * {
+        cursor: auto !important;
+    }
+    #chat-widget a,
+    #chat-widget button {
+        cursor: pointer !important;
+    }
+    #chat-widget input,
+    #chat-widget textarea {
+        cursor: text !important;
+    }
 }
 
 #cursor {
