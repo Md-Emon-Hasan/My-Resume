@@ -27,8 +27,8 @@
     };
 
     var CFG = {
-        threshold:  0.05,
-        rootMargin: '0px 0px 60px 0px'
+        threshold:  0.12,
+        rootMargin: '0px 0px -150px 0px'
     };
 
     /* ── Stagger delay calculator ─────────────────────────────────── */
@@ -118,16 +118,25 @@
         });
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function () { init(); });
-    } else {
-        init();
+    var _initialized = false;
+
+    function safeInit(root) {
+        /* Full-page init: only run once to prevent double-observe */
+        if (!root && _initialized) return;
+        if (!root) _initialized = true;
+        init(root);
     }
 
     /* ── Public API ───────────────────────────────────────────────── */
     window.ScrollAnimator = {
-        refresh: function (root) { init(root); },
+        refresh: function (root) { safeInit(root); },
         observe: function (el)   { observer.observe(el); }
     };
+
+    /* Fallback: if main.js never calls refresh() (e.g. GSAP missing),
+       auto-start 3.5s after window load so animations still work */
+    window.addEventListener('load', function () {
+        setTimeout(function () { safeInit(); }, 3500);
+    });
 
 }());

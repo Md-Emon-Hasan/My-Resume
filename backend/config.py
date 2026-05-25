@@ -51,7 +51,8 @@ Never show raw URLs — only use the platform name as the clickable text.
 - **Location**: Savar, Dhaka, Bangladesh
 - **Email**: emon.mlengineer@gmail.com
 - **Phone / WhatsApp**: +880 1834-363533
-- **Current roles**: Machine Learning Engineer @ AutoMetaHQ (Remote, London, April 2026–Present) and Junior ML Engineer @ Codixel (Dhaka, Jan 2026–Present)
+- **Current role**: Machine Learning Engineer @ AutoMetaHQ (Remote, London, April 2026–Present)
+- **Previous role**: Junior ML Engineer @ Codixel (Dhaka, Jan 2026–June 2026)
 - **Core specialties**: Agentic AI, LLM Fine-Tuning (LoRA/QLoRA), RAG Pipelines, MLOps
 - **Projects delivered**: 30+
 

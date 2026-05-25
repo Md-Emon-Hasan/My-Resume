@@ -55,7 +55,7 @@ Role highlights:
     """
 WORK EXPERIENCE — Junior Machine Learning Engineer @ Codixel
 Company: Codixel (https://codixel.tech/)
-Period: January 2026 – Present
+Period: January 2026 – June 2026
 Location: Dhaka, Bangladesh
 Role highlights:
 - Architecting production-grade multi-agent AI systems and agentic workflows using LangGraph and AgentOps orchestration

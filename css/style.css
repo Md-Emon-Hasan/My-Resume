@@ -7,9 +7,9 @@
    CSS VARIABLES
    ======================================== */
 :root {
-    /* Background mesh */
-    --bg-mesh: linear-gradient(135deg, #e8f4fd 0%, #f0e8ff 30%, #fce4ec 60%, #e8f5e9 100%);
-    --bg-mesh-2: linear-gradient(225deg, #dbeafe 0%, #ede9fe 40%, #fce7f3 70%, #d1fae5 100%);
+    /* Background mesh — subtle, lets content stand out */
+    --bg-mesh: linear-gradient(135deg, #f1f5f9 0%, #eef2ff 40%, #f5f3ff 70%, #f0fdf4 100%);
+    --bg-mesh-2: linear-gradient(225deg, #f0f9ff 0%, #ede9fe 50%, #fdf4ff 100%);
 
     /* Glass surfaces */
     --glass: rgba(255, 255, 255, 0.60);
@@ -34,11 +34,11 @@
     --pink: #ec4899;
 
     /* Accent gradient */
-    --grad-main: linear-gradient(135deg, #334155, #64748b);
-    --grad-cyan: linear-gradient(135deg, #64748b, #334155);
+    --grad-main: linear-gradient(135deg, #6366f1, #8b5cf6);
+    --grad-cyan: linear-gradient(135deg, #0ea5e9, #6366f1);
     --grad-rose: linear-gradient(135deg, var(--rose), var(--pink));
     --grad-amber: linear-gradient(135deg, var(--amber), #f97316);
-    --grad-emerald: linear-gradient(135deg, var(--emerald), var(--cyan));
+    --grad-emerald: linear-gradient(135deg, var(--emerald), #14b8a6);
 
     /* Text */
     --text: #020617;
@@ -124,14 +124,14 @@ body {
     min-height: 100vh;
 }
 
-/* Animated background blobs */
+/* Animated background blobs — kept very subtle */
 body::before,
 body::after {
     content: "";
     position: fixed;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.45;
+    filter: blur(100px);
+    opacity: 0.18;
     z-index: -1;
     pointer-events: none;
 }
@@ -767,13 +767,12 @@ body.offcanvas .colorlib-nav-toggle {
     background: linear-gradient(135deg,
             rgba(255, 255, 255, 0.12) 0%,
             rgba(51, 65, 85, 0.22) 100%);
-    backdrop-filter: blur(1px);
     z-index: 1;
 }
 
 #colorlib-hero .container-fluid {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 
 #colorlib-hero .flexslider .flex-control-nav {
@@ -835,9 +834,8 @@ body.offcanvas .colorlib-nav-toggle {
     font-weight: 700;
     margin: 0 0 16px;
     color: #fff;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.18);
+    text-shadow: none;
     min-height: 280px;
-    /* Highly stable vertical space for multiline typing */
 }
 
 @media screen and (max-width: 768px) {
@@ -859,9 +857,7 @@ body.offcanvas .colorlib-nav-toggle {
 
 #typed-1,
 #typed-2 {
-    background: var(--grad-main);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--indigo);
     display: inline-block;
     font-weight: 800;
 }
@@ -872,7 +868,11 @@ body.offcanvas .colorlib-nav-toggle {
     margin-bottom: 32px;
     font-weight: 400;
     font-family: "Quicksand", Arial, sans-serif;
-    color: rgba(255, 255, 255, 0.88);
+    color: #ffffff;
+    text-shadow:
+        0 0 22px rgba(0, 0, 0, 0.90),
+        0 0 44px rgba(0, 0, 0, 0.65),
+        0 2px 5px  rgba(0, 0, 0, 0.95);
 }
 
 /* Hero CTA button */
@@ -922,29 +922,47 @@ body.offcanvas .colorlib-nav-toggle {
 /* Hire banner */
 .hire {
     padding: 2.2em 2.5em;
-    background: var(--grad-main);
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
     border-radius: var(--radius);
+    border: 1.5px solid var(--glass-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
-    box-shadow: 0 16px 48px rgba(51, 65, 85, 0.30);
+    box-shadow: var(--glass-shadow-lg);
     position: relative;
     overflow: hidden;
 }
 
+/* Gradient accent strip on left edge */
 .hire::before {
     content: "";
     position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--grad-main);
+    border-radius: var(--radius) 0 0 var(--radius);
+}
+
+/* Subtle gradient glow in background */
+.hire::after {
+    content: "";
+    position: absolute;
     inset: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, rgba(139, 92, 246, 0.04) 100%);
+    pointer-events: none;
 }
 
 .hire h2 {
-    color: #fff;
+    color: var(--text);
     margin: 0;
     font-size: 20px;
+    font-weight: 700;
     line-height: 1.4;
     position: relative;
     z-index: 1;
@@ -953,22 +971,22 @@ body.offcanvas .colorlib-nav-toggle {
 .hire .btn-hire {
     position: relative;
     z-index: 1;
-    color: var(--indigo);
-    background: #fff;
+    color: #fff;
+    background: var(--grad-main);
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    padding: 10px 28px;
+    padding: 11px 30px;
     border-radius: 50px;
     font-size: 12px;
     font-weight: 700;
     transition: all var(--trans);
     white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
 }
 
 .hire .btn-hire:hover {
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 8px 28px rgba(99, 102, 241, 0.50);
 }
 
 /* About role cards */
@@ -1303,37 +1321,17 @@ body.offcanvas .colorlib-nav-toggle {
     opacity: 1;
 }
 
-.skill-card:nth-child(1)::before {
-    background: var(--grad-main);
-}
+.skill-card:nth-child(1)::before,
+.skill-card:nth-child(5)::before { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
 
-.skill-card:nth-child(2)::before {
-    background: var(--grad-rose);
-}
+.skill-card:nth-child(2)::before,
+.skill-card:nth-child(6)::before { background: linear-gradient(135deg, #3b82f6, #6366f1); }
 
-.skill-card:nth-child(3)::before {
-    background: var(--grad-amber);
-}
+.skill-card:nth-child(3)::before,
+.skill-card:nth-child(7)::before { background: linear-gradient(135deg, #0891b2, #3b82f6); }
 
-.skill-card:nth-child(4)::before {
-    background: linear-gradient(135deg, #a855f7, #ec4899);
-}
-
-.skill-card:nth-child(5)::before {
-    background: var(--grad-emerald);
-}
-
-.skill-card:nth-child(6)::before {
-    background: var(--grad-cyan);
-}
-
-.skill-card:nth-child(7)::before {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-}
-
-.skill-card:nth-child(8)::before {
-    background: linear-gradient(135deg, #3b82f6, #2dd4bf);
-}
+.skill-card:nth-child(4)::before,
+.skill-card:nth-child(8)::before { background: linear-gradient(135deg, #0d9488, #0891b2); }
 
 /* Icon */
 .skill-card-icon {
@@ -1356,44 +1354,29 @@ body.offcanvas .colorlib-nav-toggle {
     color: #fff;
 }
 
-.skill-card:nth-child(1) .skill-card-icon {
-    background: var(--grad-main);
-    box-shadow: 0 6px 20px rgba(51, 65, 85, 0.28);
-}
-
-.skill-card:nth-child(2) .skill-card-icon {
-    background: var(--grad-rose);
-    box-shadow: 0 6px 20px rgba(244, 63, 94, 0.25);
-}
-
-.skill-card:nth-child(3) .skill-card-icon {
-    background: var(--grad-amber);
-    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.25);
-}
-
-.skill-card:nth-child(4) .skill-card-icon {
-    background: linear-gradient(135deg, #a855f7, #ec4899);
-    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.25);
-}
-
+/* Professional cool-tone cycling icons */
+.skill-card:nth-child(1) .skill-card-icon,
 .skill-card:nth-child(5) .skill-card-icon {
-    background: var(--grad-emerald);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.28);
-}
-
-.skill-card:nth-child(6) .skill-card-icon {
-    background: var(--grad-cyan);
-    box-shadow: 0 6px 20px rgba(100, 116, 139, 0.28);
-}
-
-.skill-card:nth-child(7) .skill-card-icon {
     background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.28);
 }
 
+.skill-card:nth-child(2) .skill-card-icon,
+.skill-card:nth-child(6) .skill-card-icon {
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.28);
+}
+
+.skill-card:nth-child(3) .skill-card-icon,
+.skill-card:nth-child(7) .skill-card-icon {
+    background: linear-gradient(135deg, #0891b2, #3b82f6);
+    box-shadow: 0 6px 20px rgba(8, 145, 178, 0.28);
+}
+
+.skill-card:nth-child(4) .skill-card-icon,
 .skill-card:nth-child(8) .skill-card-icon {
-    background: linear-gradient(135deg, #3b82f6, #2dd4bf);
-    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+    background: linear-gradient(135deg, #0d9488, #0891b2);
+    box-shadow: 0 6px 20px rgba(13, 148, 136, 0.28);
 }
 
 /* Title */
@@ -1433,101 +1416,45 @@ body.offcanvas .colorlib-nav-toggle {
     transform: translateY(-2px);
 }
 
-/* Tag colour variants */
-.skill-tag.color-1 {
-    background: var(--grad-main);
-    border: none;
-}
-
-.skill-tag.color-1:hover {
-    background: var(--grad-main);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(51, 65, 85, 0.30);
-}
-
-.skill-tag.color-2 {
-    background: var(--grad-rose);
-    border: none;
-}
-
-.skill-tag.color-2:hover {
-    background: var(--grad-rose);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(244, 63, 94, 0.30);
-}
-
-.skill-tag.color-3 {
-    background: var(--grad-amber);
-    border: none;
-}
-
-.skill-tag.color-3:hover {
-    background: var(--grad-amber);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.30);
-}
-
-.skill-tag.color-4 {
-    background: linear-gradient(135deg, #a855f7, #ec4899);
-    border: none;
-}
-
-.skill-tag.color-4:hover {
-    background: linear-gradient(135deg, #a855f7, #ec4899);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(168, 85, 247, 0.30);
-}
-
+/* Tag colour variants — professional cool-tone palette */
+.skill-tag.color-1,
 .skill-tag.color-5 {
-    background: var(--grad-emerald);
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     border: none;
 }
-
+.skill-tag.color-1:hover,
 .skill-tag.color-5:hover {
-    background: var(--grad-emerald);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.30);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.38);
 }
 
+.skill-tag.color-2,
 .skill-tag.color-6 {
-    background: var(--grad-cyan);
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
     border: none;
 }
-
+.skill-tag.color-2:hover,
 .skill-tag.color-6:hover {
-    background: var(--grad-cyan);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(100, 116, 139, 0.30);
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.38);
 }
 
+.skill-tag.color-3,
 .skill-tag.color-7 {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    background: linear-gradient(135deg, #0891b2, #3b82f6);
     border: none;
 }
-
+.skill-tag.color-3:hover,
 .skill-tag.color-7:hover {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.30);
+    box-shadow: 0 4px 14px rgba(8, 145, 178, 0.38);
 }
 
+.skill-tag.color-4,
 .skill-tag.color-8 {
-    background: linear-gradient(135deg, #3b82f6, #2dd4bf);
+    background: linear-gradient(135deg, #0d9488, #0891b2);
     border: none;
 }
-
+.skill-tag.color-4:hover,
 .skill-tag.color-8:hover {
-    background: linear-gradient(135deg, #3b82f6, #2dd4bf);
-    color: #fff;
-    border-color: transparent;
-    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.30);
+    box-shadow: 0 4px 14px rgba(13, 148, 136, 0.38);
 }
 
 
@@ -3591,7 +3518,6 @@ a.contact-info-value:hover {
 /* Particles Background */
 /* Flexslider Hero Overlay Adjustment */
 #colorlib-hero .flexslider {
-    z-index: 1;
     position: relative;
 }
 
@@ -3602,7 +3528,6 @@ a.contact-info-value:hover {
     top: 0;
     left: 0;
     z-index: 2;
-    /* Increased z-index to be over the background */
     pointer-events: none;
 }
 

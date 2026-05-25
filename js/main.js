@@ -106,7 +106,12 @@
                     yPercent: -100,
                     duration: 0.8,
                     ease:     'power3.inOut',
-                    onComplete: function () { $('.ai-preloader').remove(); }
+                    onComplete: function () {
+                        $('.ai-preloader').remove();
+                        /* Start scroll animations only NOW — after preloader exits,
+                           so users always see elements animate as they scroll */
+                        if (window.ScrollAnimator) window.ScrollAnimator.refresh();
+                    }
                 });
             }
         });
@@ -119,7 +124,7 @@
             animationSpeed: 700,
             directionNav:   false,
             controlNav:     true,
-            pauseOnHover:   true,
+            pauseOnHover:   false,
             start: function () {
                 setTimeout(function () {
                     $('.slider-text').removeClass('animated fadeInUp');
@@ -515,10 +520,16 @@
     var initTyped = function () {
         if (typeof Typed === 'undefined') return;
         if (document.getElementById('typed-1')) {
-            new Typed('#typed-1', { strings: ['Md. Hasan Imon'],           typeSpeed: 60, backSpeed: 40, backDelay: 2000, loop: true });
+            new Typed('#typed-1', {
+                strings: ['Machine Learning Engineer', 'AI Systems Architect', 'LLM Fine-Tuner'],
+                typeSpeed: 58, backSpeed: 36, backDelay: 2200, startDelay: 300, loop: true
+            });
         }
         if (document.getElementById('typed-2')) {
-            new Typed('#typed-2', { strings: ['Full-Stack AI/ML Engineer'], typeSpeed: 60, backSpeed: 40, backDelay: 2000, loop: true });
+            new Typed('#typed-2', {
+                strings: ['Building Agentic AI', 'Designing LLM Solutions', 'Crafting ML Systems'],
+                typeSpeed: 58, backSpeed: 36, backDelay: 2200, startDelay: 300, loop: true
+            });
         }
     };
 
@@ -569,16 +580,16 @@
         if (window.innerWidth < 480) { $('#particles-js').hide(); return; }
 
         var mobile        = isMobile.any() || window.innerWidth < 768;
-        var particleCount = mobile ? 40 : 90;
+        var particleCount = mobile ? 42 : 95;
 
         particlesJS('particles-js', {
             particles: {
                 number:      { value: particleCount, density: { enable: true, value_area: 1000 } },
-                color:       { value: ['#6366f1', '#ec4899', '#10b981', '#8b5cf6'] },
+                color:       { value: ['#4f46e5', '#db2777', '#059669', '#7c3aed'] },
                 shape:       { type: 'circle' },
-                opacity:     { value: 0.5, random: true, anim: { enable: !mobile, speed: 0.5, opacity_min: 0.1, sync: false } },
-                size:        { value: mobile ? 3 : 4.5, random: true, anim: { enable: false } },
-                line_linked: { enable: !mobile, distance: 180, color: '#64748b', opacity: 0.3, width: 1.2 },
+                opacity:     { value: 0.78, random: true, anim: { enable: !mobile, speed: 0.6, opacity_min: 0.25, sync: false } },
+                size:        { value: mobile ? 3.5 : 5, random: true, anim: { enable: false } },
+                line_linked: { enable: !mobile, distance: 180, color: '#a5b4fc', opacity: 0.45, width: 1.4 },
                 move:        { enable: true, speed: mobile ? 0.8 : 1.5, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
             },
             interactivity: {
@@ -588,7 +599,7 @@
                     onclick: { enable: false },
                     resize:  true
                 },
-                modes: { grab: { distance: 250, line_linked: { opacity: 0.6 } } }
+                modes: { grab: { distance: 250, line_linked: { opacity: 0.7 } } }
             },
             retina_detect: false
         });
@@ -605,11 +616,13 @@
             }
         });
 
-        new MutationObserver(function () {
+        var applyParticleFilter = function () {
             var isDark   = document.documentElement.getAttribute('data-theme') === 'dark';
             var canvasEl = document.querySelector('.particles-js-canvas-el');
-            if (canvasEl) canvasEl.style.filter = isDark ? 'brightness(1.5) contrast(1.2)' : 'none';
-        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+            if (canvasEl) canvasEl.style.filter = isDark ? 'brightness(2.8) contrast(1.2) saturate(1.6)' : 'none';
+        };
+        new MutationObserver(applyParticleFilter).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        applyParticleFilter();
     };
 
     var initSkillSphere = function () {
@@ -767,7 +780,7 @@
            Local dev:  'http://localhost:5000'
            Deployed:   'https://your-server.com'
         ─────────────────────────────────────────────────────── */
-        /* Auto-detect: full URL on localhost, relative URL on Vercel */
+        /* Auto-detect: full URL on localhost, relative URL on production */
         var isLocal      = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
         var CHAT_SERVER  = isLocal ? 'http://localhost:8080' : '';
         var MAX_HISTORY  = 20;   /* message objects to keep in memory */

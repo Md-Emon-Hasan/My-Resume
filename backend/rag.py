@@ -1,5 +1,5 @@
 """
-BM25-based RAG engine — lightweight, no GPU, Vercel-compatible.
+BM25-based RAG engine — lightweight, no GPU.
 Uses rank-bm25 for keyword-weighted retrieval over PORTFOLIO_DOCS.
 """
 

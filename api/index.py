@@ -1,5 +1,5 @@
 """
-Flask API entry point — Vercel serverless function and local dev server.
+Flask API entry point.
 Routes:
   POST /api/chat    → AI assistant response
   GET  /api/health  → service health check
@@ -8,7 +8,6 @@ Routes:
 import sys
 import os
 
-# Ensure project root is on the path so backend.* imports resolve on Vercel
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 from flask import Flask, request, jsonify
@@ -22,7 +21,7 @@ from backend.chat import ChatEngine
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-# Initialise RAG and chat engines once at module load (warm on first request on Vercel)
+# Initialise RAG and chat engines once at module load
 _rag  = RAGEngine(PORTFOLIO_DOCS)
 _chat = ChatEngine(_rag)
 
