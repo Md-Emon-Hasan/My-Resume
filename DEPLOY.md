@@ -1,6 +1,10 @@
-# Hostinger hPanel Deployment Guide
+# Hostinger Deployment Guide
 
-This guide walks through deploying this Node.js portfolio app on Hostinger shared/VPS hosting using hPanel.
+This guide is split into two parts:
+- **Part A — Initial Setup** (one-time, done by the deployer)
+- **Part B — Auto-Deploy Setup** (one-time webhook config so every GitHub push auto-deploys)
+
+After both parts are done, updating the site = just `git push`. Nothing else.
 
 ---
 
@@ -8,77 +12,71 @@ This guide walks through deploying this Node.js portfolio app on Hostinger share
 
 - Hostinger plan that supports **Node.js** (Business Shared or VPS)
 - A **Groq API key** — get one free at https://console.groq.com/keys
-- Git access or File Manager access in hPanel
+- The GitHub repository must be **public** (or connected via GitHub OAuth in hPanel)
 
 ---
 
-## Step 1 — Upload the Project Files
+## Part A — Initial Setup (One-time)
 
-### Option A: Via Git (Recommended)
+### Step 1 — Upload Project via hPanel Git
 
-1. Push your code to GitHub (make sure `.env` and `node_modules/` are NOT committed — they are already in `.gitignore`)
-2. In hPanel, go to **Advanced → Git**
-3. Connect your GitHub repository
-4. Set the branch to `master` (or `main`)
-5. Click **Deploy**
+1. Log in to **hPanel** → go to **Advanced → Git**
+2. Click **Create** or **Connect Repository**
+3. Fill in:
+   - **Repository URL:** your GitHub repo URL (e.g. `https://github.com/yourname/your-repo`)
+   - **Branch:** `master`
+   - **Clone Directory:** the folder assigned to your domain (e.g. `public_nodejs` or your app root)
+4. Click **Create** — hPanel will clone the repo to the server
 
-### Option B: Via File Manager
-
-1. Delete `node_modules/` from your local machine before zipping
-2. Zip the entire project folder
-3. In hPanel, go to **Files → File Manager**
-4. Upload the zip to `public_nodejs/` (or the folder assigned to your domain)
-5. Extract the zip there
+> `.env` and `node_modules/` are already in `.gitignore` so they will not be cloned. That is correct.
 
 ---
 
-## Step 2 — Set Up Node.js App in hPanel
+### Step 2 — Set Up Node.js App
 
 1. In hPanel, go to **Advanced → Node.js**
 2. Click **Create Application**
 3. Fill in:
    - **Node.js version:** `18.x` or higher
    - **Application mode:** `Production`
-   - **Application root:** the folder where you uploaded your files (e.g. `public_nodejs`)
+   - **Application root:** same folder from Step 1 (e.g. `public_nodejs`)
    - **Application URL:** your domain
    - **Application startup file:** `server.js`
 4. Click **Create**
 
 ---
 
-## Step 3 — Set Environment Variables
+### Step 3 — Set Environment Variables
 
-> **Never upload your `.env` file.** Set variables through hPanel instead.
+> Never upload your `.env` file. Set variables through hPanel instead.
 
-1. In hPanel Node.js app settings, find **Environment Variables**
-2. Add the following variable:
+1. In the Node.js app panel, find **Environment Variables**
+2. Add this variable:
 
 | Key | Value |
 |-----|-------|
-| `GROQ_API_KEY` | your actual Groq API key |
+| `GROQ_API_KEY` | your actual Groq API key from https://console.groq.com/keys |
 
-3. Save the variables
+3. Click **Save**
 
 ---
 
-## Step 4 — Install Dependencies
+### Step 4 — Install Dependencies
 
 1. In the Node.js app panel, click **Run NPM command**
-2. Run: `install`
-3. Wait for it to finish (installs `express`, `cors`, `dotenv`, `groq-sdk`)
+2. Type `install` and run it
+3. Wait for it to complete (installs `express`, `cors`, `dotenv`, `groq-sdk`)
 
 ---
 
-## Step 5 — Build & Start the App
+### Step 5 — Start the App
 
 1. In the Node.js app panel, click **Run NPM command**
-2. Run: `run build`
-3. After it succeeds, click **Run NPM command** again
-4. Run: `start`  — OR click the **Start** / **Restart** button in the panel
+2. Type `start` and run it — OR simply click the **Start** button in the panel
 
 ---
 
-## Step 6 — Verify Deployment
+### Step 6 — Verify the App is Running
 
 Open your browser and visit:
 
@@ -86,13 +84,91 @@ Open your browser and visit:
 https://yourdomain.com/api/health
 ```
 
-You should see a JSON response like:
+Expected response:
 
 ```json
 { "status": "ok", "model": "llama-3.3-70b-versatile", "docs": 12 }
 ```
 
-If that works, your chatbot is live at `https://yourdomain.com`.
+If you see this, the app is live. Now proceed to Part B to enable auto-deployment.
+
+---
+
+## Part B — Auto-Deploy Setup (One-time)
+
+This enables automatic deployment every time someone pushes to GitHub. No manual steps needed after this.
+
+### Step 1 — Get the Webhook URL from hPanel
+
+1. In hPanel, go to **Advanced → Git**
+2. Find your connected repository
+3. Look for a **Webhook URL** or **Auto-deployment URL** — copy it
+
+> It will look something like: `https://api.hostinger.com/v1/git/deploy/xxxxxxxxxxxx`
+
+---
+
+### Step 2 — Add the Webhook to GitHub
+
+1. Go to your GitHub repository
+2. Click **Settings** (top menu of the repo)
+3. In the left sidebar, click **Webhooks**
+4. Click **Add webhook**
+5. Fill in:
+   - **Payload URL:** paste the webhook URL from hPanel
+   - **Content type:** `application/json`
+   - **Which events:** select `Just the push event`
+   - **Active:** checked
+6. Click **Add webhook**
+
+GitHub will send a test ping — a green checkmark means it is working.
+
+---
+
+### Step 3 — Confirm Auto-Deploy Works
+
+1. Make any small change in the project (e.g. fix a typo in `index.html`)
+2. Push to GitHub:
+   ```
+   git add .
+   git commit -m "test: verify auto-deploy"
+   git push
+   ```
+3. Wait 15–30 seconds
+4. Visit `https://yourdomain.com/api/health` — the app should reflect the change
+
+> If the Node.js app needs a restart after pull, go to hPanel → Node.js → click **Restart**. Some Hostinger plans restart automatically; others require a manual restart once.
+
+---
+
+## Day-to-Day Workflow (After Setup)
+
+```
+make changes locally → git push → site updates automatically
+```
+
+That is it. No hPanel login needed.
+
+---
+
+## Project Structure (What Gets Deployed)
+
+```
+/
+├── index.html          — Main portfolio page
+├── server.js           — Express server (entry point)
+├── knowledge.js        — AI chatbot knowledge base
+├── package.json        — Dependencies and scripts
+├── css/                — Stylesheets
+├── js/                 — Frontend scripts
+├── images/             — Images and PDFs
+└── fonts/              — Icon fonts
+```
+
+Files excluded from deployment (via `.gitignore`):
+- `node_modules/` — reinstalled via `npm install` on the server
+- `.env` — set via hPanel Environment Variables
+- `.git/` — not needed on the server
 
 ---
 
@@ -100,39 +176,10 @@ If that works, your chatbot is live at `https://yourdomain.com`.
 
 | Problem | Fix |
 |---------|-----|
-| Build failed | Make sure Node.js version is 18+ in hPanel |
-| Chatbot returns 503 | `GROQ_API_KEY` is missing — re-check Step 3 |
+| App not starting | Check Node.js version is 18+ in hPanel Node.js panel |
+| Chatbot returns 503 | `GROQ_API_KEY` is missing — re-check Step 3 of Part A |
 | Site shows blank page | Check that Application root points to the correct folder containing `index.html` |
 | `/api/health` returns 404 | App is not running — go to hPanel Node.js panel and click Restart |
-| Port error in logs | Hostinger sets the PORT automatically via env var — this app already respects `process.env.PORT` |
-
----
-
-## Project Structure (what gets deployed)
-
-```
-/
-├── index.html          ← Main portfolio page
-├── server.js           ← Express server (entry point)
-├── knowledge.js        ← AI chatbot knowledge base
-├── package.json        ← Dependencies & scripts
-├── css/                ← Stylesheets
-├── js/                 ← Frontend scripts
-├── images/             ← Images & PDFs
-└── fonts/              ← Icon fonts
-```
-
-Files that should NOT be uploaded:
-- `node_modules/` — installed by `npm install` on the server
-- `.env` — set via hPanel Environment Variables instead
-- `.git/` — not needed on the server
-
----
-
-## Updating the Site
-
-After making changes locally:
-
-1. Push to GitHub
-2. In hPanel Git panel, click **Pull** (or re-deploy)
-3. In hPanel Node.js panel, click **Restart**
+| Port error in logs | Hostinger sets PORT automatically via env — this app already uses `process.env.PORT` |
+| Webhook not triggering | In GitHub → Settings → Webhooks, check the delivery log for errors |
+| Push deployed but old content shows | hPanel Node.js app needs a manual Restart — do it once from the panel |
