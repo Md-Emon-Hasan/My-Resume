@@ -312,14 +312,14 @@
         });
 
         (function loop() {
-            followerX += (mouseX - followerX) * 0.1;
-            followerY += (mouseY - followerY) * 0.1;
+            followerX += (mouseX - followerX) * 0.14;
+            followerY += (mouseY - followerY) * 0.14;
             follower.style.left = followerX + 'px';
             follower.style.top  = followerY + 'px';
             requestAnimationFrame(loop);
         }());
 
-        var HOVER_TARGETS = 'a, button, input, textarea, select, .project, .skill-tag, .btn, .nav-link, .project-badge, .tag';
+        var HOVER_TARGETS = 'a, button, input, textarea, select, .project, .btn, .nav-link, .project-badge, .tag';
         document.addEventListener('mouseover', function (e) {
             if (e.target.closest(HOVER_TARGETS)) {
                 cursor.classList.add('hovered');
@@ -381,78 +381,6 @@
                 var rect = card.getBoundingClientRect();
                 card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
                 card.style.setProperty('--mouse-y', (e.clientY - rect.top)  + 'px');
-            });
-        });
-    };
-
-    var initSkillMagnifier = function () {
-        if (isMobile.any()) return;
-        var mag = document.getElementById('skill-magnifier');
-        if (!mag) return;
-
-        var ZOOM = 2.0, LENS_R = 75;
-        var clone = null, activeCard = null, hideTimeout = null;
-        var cursorEl   = document.getElementById('cursor');
-        var followerEl = document.getElementById('cursor-follower');
-
-        function buildClone(card) {
-            if (clone) { clone.remove(); clone = null; }
-            clone = card.cloneNode(true);
-            var glare = clone.querySelector('.js-tilt-glare');
-            if (glare) glare.remove();
-            clone.className   = 'mag-clone';
-            clone.style.cssText =
-                'position:absolute;pointer-events:none;user-select:none;' +
-                'transform-origin:0 0;width:' + card.offsetWidth + 'px;height:' + card.offsetHeight + 'px;' +
-                'box-shadow:none;border-radius:0;border:none;transition:none;will-change:transform;' +
-                'backdrop-filter:none;-webkit-backdrop-filter:none;';
-            mag.appendChild(clone);
-            activeCard = card;
-        }
-
-        var moveTicking = false;
-
-        function updateLens(cx, cy) {
-            if (!clone || !activeCard) return;
-            var rect = activeCard.getBoundingClientRect();
-            clone.style.left      = (LENS_R - (cx - rect.left) * ZOOM) + 'px';
-            clone.style.top       = (LENS_R - (cy - rect.top)  * ZOOM) + 'px';
-            clone.style.transform = 'scale(' + ZOOM + ')';
-        }
-
-        document.querySelectorAll('.skill-card').forEach(function (card) {
-            card.addEventListener('mouseenter', function (e) {
-                clearTimeout(hideTimeout);
-                buildClone(card);
-                mag.style.left    = e.clientX + 'px';
-                mag.style.top     = e.clientY + 'px';
-                updateLens(e.clientX, e.clientY);
-                mag.style.display = 'block';
-                void mag.offsetWidth;
-                mag.style.opacity = '1';
-                if (cursorEl)   cursorEl.style.opacity   = '0';
-                if (followerEl) followerEl.style.opacity = '0';
-            });
-            card.addEventListener('mousemove', function (e) {
-                var cx = e.clientX, cy = e.clientY;
-                if (moveTicking) return;
-                moveTicking = true;
-                requestAnimationFrame(function () {
-                    mag.style.left = cx + 'px';
-                    mag.style.top  = cy + 'px';
-                    updateLens(cx, cy);
-                    moveTicking = false;
-                });
-            });
-            card.addEventListener('mouseleave', function () {
-                mag.style.opacity = '0';
-                hideTimeout = setTimeout(function () {
-                    mag.style.display = 'none';
-                    if (clone) { clone.remove(); clone = null; }
-                    activeCard = null;
-                }, 200);
-                if (cursorEl)   cursorEl.style.opacity   = '1';
-                if (followerEl) followerEl.style.opacity = '1';
             });
         });
     };
@@ -965,7 +893,6 @@
             initParallax();
             initMorphingBlob();
             initTextScramble();
-            initSkillMagnifier();
             initThemeToggle();
             initSpotlightHover();
             initScrollSVG();

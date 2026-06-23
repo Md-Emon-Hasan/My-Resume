@@ -77,7 +77,6 @@
     <div id="scroll-progress"></div>
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
-    <div id="skill-magnifier"></div>
 
     <div id="colorlib-page">
         <div class="container-wrap">
@@ -807,7 +806,7 @@
                                                     <a href="https://codixel.tech/" target="_blank">Junior Machine
                                                         Learning Engineer @
                                                         Codixel</a>
-                                                    <span>January 2026 – June 2026 | Dhaka, Bangladesh</span>
+                                                    <span>January 2026 – Present | Dhaka, Bangladesh</span>
                                                 </h2>
                                                 <p>Architecting production-grade multi-agent AI systems and agentic
                                                     workflows using LangGraph and AgentOps orchestration. Engineering
@@ -1592,6 +1591,7 @@
             wheelMultiplier: 0.9,
             touchMultiplier: 1.5,
         });
+        window.lenis = lenis;
 
         // Sidebar smooth scroll — only on desktop (sidebar is hidden on mobile)
         var sidebarLenis = null;
@@ -1616,6 +1616,35 @@
             requestAnimationFrame(lenisRaf);
         }
         requestAnimationFrame(lenisRaf);
+
+        // Recalculate the scrollable page height after fonts and remote assets load.
+        // Without this, Lenis can retain an early (too-short) scroll limit on deployment,
+        // leaving the final Contact section unreachable by normal wheel scrolling.
+        function refreshScrollLayout() {
+            lenis.resize();
+            if (sidebarLenis) sidebarLenis.resize();
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+            if (window.ScrollAnimator) window.ScrollAnimator.refresh();
+        }
+
+        var refreshTimer;
+        function scheduleScrollLayoutRefresh() {
+            clearTimeout(refreshTimer);
+            refreshTimer = setTimeout(refreshScrollLayout, 100);
+        }
+
+        window.addEventListener('load', function () {
+            requestAnimationFrame(function () {
+                requestAnimationFrame(refreshScrollLayout);
+            });
+            setTimeout(refreshScrollLayout, 700);
+        });
+        window.addEventListener('pageshow', scheduleScrollLayoutRefresh);
+        window.addEventListener('resize', scheduleScrollLayoutRefresh, { passive: true });
+
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(scheduleScrollLayoutRefresh);
+        }
 
 
         document.addEventListener('DOMContentLoaded', () => {
