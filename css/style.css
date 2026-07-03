@@ -1,6 +1,6 @@
 /* =======================================================
  * Portfolio â€“ Premium Light Glassmorphism Theme
- * Author: Md. Hasan Imon
+ * Author: Md. Emon Hasan
  * =======================================================*/
 
 /* ========================================
@@ -12,8 +12,8 @@
     --bg-mesh-2: linear-gradient(225deg, #f0f9ff 0%, #ede9fe 50%, #fdf4ff 100%);
 
     /* Glass surfaces */
-    --glass: rgba(255, 255, 255, 0.60);
-    --glass-strong: rgba(255, 255, 255, 0.80);
+    --glass: rgba(255, 255, 255, 0.74);
+    --glass-strong: rgba(255, 255, 255, 0.88);
     --glass-border: rgba(255, 255, 255, 0.75);
     --glass-shadow: 0 8px 32px rgba(51, 65, 85, 0.10), 0 2px 8px rgba(0, 0, 0, 0.06);
     --glass-shadow-lg: 0 20px 60px rgba(51, 65, 85, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08);
@@ -43,8 +43,8 @@
     /* Text */
     --text: #020617;
     --text-sub: #0f172a;
-    --text-muted: #334155;
-    --text-light: #475569;
+    --text-muted: #1e293b;
+    --text-light: #334155;
 
     /* Misc */
     --radius: 18px;
@@ -56,8 +56,8 @@
     --bg-mesh: linear-gradient(135deg, #020617 0%, #0f172a 30%, #1e1b4b 60%, #09090b 100%);
     --bg-mesh-2: linear-gradient(225deg, #0f172a 0%, #312e81 40%, #064e3b 70%, #020617 100%);
 
-    --glass: rgba(15, 23, 42, 0.70);
-    --glass-strong: rgba(15, 23, 42, 0.90);
+    --glass: rgba(15, 23, 42, 0.82);
+    --glass-strong: rgba(15, 23, 42, 0.94);
     --glass-border: rgba(255, 255, 255, 0.15);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.40), 0 2px 8px rgba(0, 0, 0, 0.20);
     --glass-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.60), 0 4px 16px rgba(0, 0, 0, 0.30);
@@ -67,8 +67,8 @@
 
     --text: #f8fafc;
     --text-sub: #f1f5f9;
-    --text-muted: #cbd5e1;
-    --text-light: #94a3b8;
+    --text-muted: #e2e8f0;
+    --text-light: #b6c2d4;
 }
 
 /* ========================================
@@ -428,19 +428,21 @@ h6 {
 /* Social icons */
 /* Footer */
 #colorlib-aside .colorlib-footer {
-    padding: 0 20px;
+    padding: 0 12px;
     width: 100%;
     text-align: center;
 }
 
 #colorlib-aside .colorlib-footer ul {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     padding: 0;
-    margin: 3em 0 0 0;
+    margin: 3em auto 0;
     list-style: none;
+    width: 100%;
 }
 
 #colorlib-aside .colorlib-footer ul li {
@@ -450,9 +452,9 @@ h6 {
 #colorlib-aside .colorlib-footer ul li a {
     color: var(--text-muted) !important;
     font-size: 15px;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
     text-align: center;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.50);
@@ -852,13 +854,15 @@ body.offcanvas .colorlib-nav-toggle {
     color: var(--indigo) !important;
     opacity: 0.9;
     margin-left: 2px;
-    vertical-align: middle;
+    vertical-align: baseline;
 }
 
 #typed-1,
 #typed-2 {
     color: var(--indigo);
-    display: inline-block;
+    /* inline (not inline-block) so the trailing .typed-cursor stays glued to the
+       last typed character instead of wrapping to the next line */
+    display: inline;
     font-weight: 800;
 }
 
@@ -2033,12 +2037,17 @@ p.icon {
 }
 
 .blog-entry .desc span {
-    font-size: 11px;
+    font-size: clamp(10px, 0.75vw, 12px);
     color: var(--text-light);
     margin-bottom: 10px;
     display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-transform: uppercase;
     letter-spacing: 1px;
+    line-height: 1.35;
 }
 
 .blog-entry .desc h3 {
@@ -4584,6 +4593,7 @@ a.contact-info-value:hover {
     flex: 1;
 }
 
+.chat-header-info h3,
 .chat-header-info h4 {
     margin: 0;
     font-size: 16px;
@@ -4957,4 +4967,22 @@ a.contact-info-value:hover {
 [data-theme="dark"] .edu-honor-card {
     background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(168,85,247,0.08));
     border-color: rgba(99,102,241,0.3);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Accessibility: minimum touch-target size for small tap targets
+   (social icons, chat suggestion chips) on touch/mobile viewports.
+   ───────────────────────────────────────────────────────────── */
+.colorlib-footer ul li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+@media (max-width: 768px) {
+    .chat-suggest {
+        min-height: 44px;
+    }
 }

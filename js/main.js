@@ -1,6 +1,6 @@
 /**
  * Portfolio Main JavaScript
- * Author: Md. Hasan Imon
+ * Author: Md. Emon Hasan
  */
 
 ;(function () {
@@ -492,7 +492,7 @@
             onEnter: function () {
                 new Typed('#terminal-typed', {
                     strings: [
-                        'Initializing agent...<br>> Name: Md Hasan Imon<br>> Role: AI/ML Engineer<br>> Specialty: Agentic RAG, LLM Fine-Tuning<br>> Status: Open to build next-gen AI'
+                        'Initializing agent...<br>> Name: Md. Emon Hasan<br>> Role: AI/ML Engineer<br>> Specialty: Agentic RAG, LLM Fine-Tuning<br>> Status: Open to build next-gen AI'
                     ],
                     typeSpeed:  25,
                     startDelay: 500,
@@ -685,6 +685,8 @@
     ───────────────────────────────────────────────────────────────── */
 
     $(function () {
+        var cy = document.getElementById('copyright-year');
+        if (cy) cy.textContent = new Date().getFullYear();
         initPreloader();
         fullHeight();
         burgerMenu();
@@ -743,6 +745,7 @@
             isOpen = true;
             panel.classList.add('open');
             panel.setAttribute('aria-hidden', 'false');
+            panel.removeAttribute('inert');
             inputEl.focus();
         }
 
@@ -750,6 +753,7 @@
             isOpen = false;
             panel.classList.remove('open');
             panel.setAttribute('aria-hidden', 'true');
+            panel.setAttribute('inert', '');
         }
 
         /* Auto-open chatbot after 15 seconds (only once per session) */

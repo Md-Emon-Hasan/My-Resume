@@ -1,6 +1,6 @@
-# Md. Hasan Imon — Personal Portfolio
+# Md. Emon Hasan — Personal Portfolio
 
-Personal portfolio website for **Md. Hasan Imon**, featuring projects, skills, experience, certifications, contact information, and an AI-powered portfolio chatbot.
+Personal portfolio website for **Md. Emon Hasan**, featuring projects, skills, experience, certifications, contact information, and an AI-powered portfolio chatbot.
 
 ## Requirements
 

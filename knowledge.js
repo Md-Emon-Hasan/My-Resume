@@ -4,8 +4,8 @@
 // the information displayed in index.html and the downloadable resume.
 const PORTFOLIO_DOCS = [
   `
-PROFILE & CONTACT — Md. Hasan Imon
-Full name: Md. Hasan Imon (also written as Md Emon Hasan).
+PROFILE & CONTACT — Md. Emon Hasan
+Full name: Md. Emon Hasan.
 Professional title: AI/ML Engineer; portfolio focus includes AI engineering, ML engineering, NLP engineering, backend, and MLOps.
 Location: Savar, Dhaka, Bangladesh.
 Email: emon.mlengineer@gmail.com.
@@ -18,10 +18,16 @@ Facebook: https://www.facebook.com/mdemon.hasan2001/
 Instagram: https://www.instagram.com/md_emon_hasan01/
 `,
   `
-PROFESSIONAL SUMMARY — Md. Hasan Imon
+PROFESSIONAL SUMMARY — Md. Emon Hasan
 AI/ML Engineer from Bangladesh specialising in Machine Learning, NLP, Deep Learning, Generative AI, LLM fine-tuning (LoRA/QLoRA), Agentic RAG pipelines, and vector databases.
 Builds and deploys end-to-end, multi-agent, tool-augmented AI systems. Works with FastAPI, Flask, Docker, CI/CD, and Backend-as-a-Service (BaaS) to create modular, deployable systems.
-The portfolio states that he has delivered 30+ projects and is open to collaborations, freelance work, and new opportunities.
+He is open to collaborations, freelance work, and new opportunities.
+`,
+  `
+AVAILABILITY & HIRING — Md. Emon Hasan
+Md. Emon Hasan is actively open to new opportunities and is ready to join at any time. He welcomes full-time roles, contract and freelance work, and collaborations in AI/ML engineering, NLP, Generative AI, Agentic AI, and MLOps.
+Recruiters and hiring managers are encouraged to reach out directly by email (emon.mlengineer@gmail.com), WhatsApp (+880 1834-363533), or LinkedIn (https://www.linkedin.com/in/md-emon-hasan-695483237/).
+When asked about hiring, job openings, availability, notice period, or joining a company, the answer is that he is available and ready to start immediately.
 `,
   `
 WORK EXPERIENCE — AutoMetaHQ
@@ -60,7 +66,7 @@ Role highlights:
 - Streamlined data preprocessing and model-serving layers for efficient production execution.
 `,
   `
-EDUCATION — Md. Hasan Imon
+EDUCATION — Md. Emon Hasan
 Bachelor of Science in Computer Science and Engineering, City University, Dhaka, Bangladesh.
 Academic years shown on the portfolio: 2022 – 2025. Focus: Software Engineering principles and real-world applications; he built AI systems, participated in research, and contributed to open-source AI/ML projects during these years.
 Honours shown: four consecutive scholarships for Machine Learning and project performance, plus a Merit Scholarship for academic excellence.
@@ -138,7 +144,7 @@ Technology stack shown: statistical analysis, data visualisation, Pandas, Seabor
 Repository: https://github.com/Md-Emon-Hasan/Factify
 `,
   `
-CERTIFICATIONS — Md. Hasan Imon
+CERTIFICATIONS — Md. Emon Hasan
 1. Machine Learning Specialisation — Stanford University via Coursera; type: Specialisation; domain: AI & ML.
    Verify: https://www.coursera.org/account/accomplishments/specialization/W5FZ8XQJZFP3
 2. Programming for Everybody — University of Michigan via Coursera; type: Certificate; domain: Python.
@@ -151,7 +157,7 @@ CERTIFICATIONS — Md. Hasan Imon
   `
 PORTFOLIO STATS
 The portfolio counter displays: 31 projects, 5 clients, 4 partners, and 192 cups of coffee.
-The portfolio introduction also states that 30+ projects have been delivered successfully. Use the exact wording that matches the user's question; do not invent a different count.
+Do not invent a different count than what the counter shows; if asked for a number not listed, say it is not specified on the portfolio.
 `,
 ];
 
