@@ -129,7 +129,9 @@ class BM25 {
 
 // ─── Initialise engines ───────────────────────────────────────────────────────
 const bm25 = new BM25(PORTFOLIO_DOCS);
-const groq  = new Groq({ apiKey: GROQ_API_KEY || undefined });
+// Only construct the client when a key exists — the SDK throws on an empty key,
+// and /api/chat already answers 503 when the key is missing.
+const groq  = GROQ_API_KEY ? new Groq({ apiKey: GROQ_API_KEY }) : null;
 
 // ─── Chat function ────────────────────────────────────────────────────────────
 async function chat(message, history = []) {
