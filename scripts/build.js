@@ -128,7 +128,11 @@ async function buildCss() {
                 ],
             },
         }),
-    ]).process(bundle, { from: undefined });
+    // map: false disables PostCSS's automatic previous-source-map lookup. Without
+    // it, a /*# sourceMappingURL=... */ comment in any bundled CSS file is read off
+    // disk (path traversal) and its sourcesContent folded into the output map.
+    // We do not emit source maps here — CleanCSS minifies the result below.
+    ]).process(bundle, { from: undefined, map: false });
 
     const minified = new CleanCSS({ level: 2 }).minify(purged.css);
     if (minified.errors.length) console.warn('   clean-css errors:', minified.errors);
