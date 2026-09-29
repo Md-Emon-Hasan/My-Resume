@@ -701,7 +701,7 @@
 
 
     /* ─────────────────────────────────────────────────────────────────
-       AI CHATBOT  (Groq API — llama-3.3-70b-versatile)
+       AI CHATBOT  (Groq API — openai/gpt-oss-20b)
        Replace GROQ_API_KEY with your actual key from console.groq.com
     ───────────────────────────────────────────────────────────────── */
     var initChatbot = function () {
@@ -793,6 +793,8 @@
         function formatResponse(text) {
             /* Extract markdown links before HTML-escaping so URLs survive */
             var links = [];
+            /* Normalise literal "\n" escape sequences the model may emit into real newlines */
+            text = String(text).replace(/\\r\\n|\\n|\\r/g, '\n');
             var tokenised = text.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, function(_, label, url) {
                 var idx = links.length;
                 links.push({ label: escHtml(label), url: escHtml(url) });

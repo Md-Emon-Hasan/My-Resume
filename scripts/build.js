@@ -112,6 +112,8 @@ async function buildCss() {
                     'animated', 'preloader', 'loaded', 'to-animate', 'item-animate',
                     'colorlib-nav-toggle', 'dark-theme', 'light-theme',
                     'flex-active', 'flex-active-slide',
+                    // chat message roles, set via 'chat-msg ' + role in main.js
+                    'user', 'bot', 'typing',
                 ],
                 greedy: [
                     /^animated/, /^fade/, /^bounce/, /^flash/, /^pulse/, /^rubberBand/,

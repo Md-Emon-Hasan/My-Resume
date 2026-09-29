@@ -1,8 +1,8 @@
 'use strict';
 
 // This is the single factual source for chatbot answers. Keep it in sync with
-// index.html, the downloadable resume (images/Md-Emon-Hasan.pdf), and the
-// project READMEs on GitHub. Last synced against all three: August 2026.
+// index.html, the downloadable resume (images/Md-Emon-Hasan-Resume.pdf), and the
+// project READMEs on GitHub. Last synced against all three: September 2026.
 const PORTFOLIO_DOCS = [
   `
 PROFILE & CONTACT — Md. Emon Hasan
@@ -19,7 +19,7 @@ Medium: https://medium.com/@emon.mlengineer
 Facebook: https://www.facebook.com/mdemon.hasan2001/
 Instagram: https://www.instagram.com/md_emon_hasan01/
 His personal website / portfolio website URL: https://emonlabs-ai.hitechparks.com — this is the live site this chat assistant runs on.
-Downloadable resume: available on the portfolio as "View Resume" (images/Md-Emon-Hasan.pdf).
+Downloadable resume: available on the portfolio as "View Resume" (images/Md-Emon-Hasan-Resume.pdf).
 `,
   `
 PROFESSIONAL SUMMARY — Md. Emon Hasan
@@ -53,15 +53,16 @@ Role highlights:
   `
 WORK EXPERIENCE — Codixel
 Role: Junior Machine Learning Engineer.
-Period shown on the portfolio and resume: January 2026 – Present.
+Period shown on the portfolio and resume: January 2026 – August 2026.
+Status: this is a past role — he no longer works at Codixel. His only current role is Machine Learning Engineer at AutoMetaHQ.
 Location: Dhaka, Bangladesh.
 Company website: https://codixel.tech/
 Role highlights:
 - Fine-tuned Generative AI and ML models using transformer architectures, improving performance and inference reliability.
 - Built multi-agent RAG systems and multi-agent workflows, improving scalability and production readiness.
 - Collaborated with senior engineers to deploy AI solutions using FastAPI, Docker, and CI/CD pipelines.
-- Architects agentic workflows with LangGraph and AgentOps orchestration, tool-augmented retrieval pipelines, and memory-driven reasoning.
-- Works on LLM fine-tuning for specialised domains, including intelligent financial advisors and medical assistants.
+- Architected agentic workflows with LangGraph and AgentOps orchestration, tool-augmented retrieval pipelines, and memory-driven reasoning.
+- Worked on LLM fine-tuning for specialised domains, including intelligent financial advisors and medical assistants.
 `,
   `
 WORK EXPERIENCE — Hi-Tech Parks
@@ -280,7 +281,7 @@ CERTIFICATIONS — Md. Emon Hasan
    Verify: https://www.coursera.org/account/accomplishments/specialization/certificate/E5WWVDFEAM6S
 4. Google UX Design Professional Certificate — Google via Coursera; type: Professional Certificate; domain: UX Design.
    Verify: https://www.coursera.org/account/accomplishments/specialization/certificate/BDZVJW5D94HT
-The portfolio certifications section shows all four; the one-page downloadable resume lists the first three.
+The portfolio certifications section shows all four; the one-page downloadable resume lists the first three (it labels the Google IT Support credential as a "Specialization").
 `,
   `
 PROJECTS OVERVIEW & COUNTS
@@ -291,7 +292,7 @@ The portfolio project section features eight projects, filterable by category:
 The four projects he highlights on his downloadable resume — his flagship, most advanced work — are MediGenius, InformaTruth, AutoDocThinker, and FraudChurn-Nexus. MediGenius and AutoDocThinker are the largest agentic systems; if asked which project best shows his skills or which is the most impressive, lead with those two. Six are pinned on GitHub: MediGenius, BookSage-AI, Translatica, FraudChurn-Nexus, TrueWealth-AI, and InformaTruth.
 His GitHub account holds around 160 public repositories in total: https://github.com/Md-Emon-Hasan
 The portfolio does not publish counter statistics — the old counters section (clients, partners, cups of coffee) is no longer displayed on the site.
-Counts that can safely be stated: eight featured projects, seven with live demos, three featured Medium articles, four certifications, and three roles in the work-experience timeline (AutoMetaHQ, Codixel, Hi-Tech Parks).
+Counts that can safely be stated: eight featured projects, seven with live demos, three featured Medium articles, four certifications, and three roles in the work-experience timeline (AutoMetaHQ — current; Codixel and Hi-Tech Parks — past).
 Never invent or estimate numbers for clients, years of experience, salary, or team sizes. If asked for a figure that is not listed, say it is not specified on the portfolio.
 `,
 ];

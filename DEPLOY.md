@@ -86,7 +86,7 @@ Open: `https://yourdomain.com/api/health`
 Expected:
 
 ```json
-{ "status": "ok", "model": "llama-3.3-70b-versatile", "docs": 12 }
+{ "status": "ok", "model": "openai/gpt-oss-20b", "docs": 30 }
 ```
 
 If you see this, Part A is done. Now do Part B to make it auto-update.

@@ -10,7 +10,7 @@ const { PORTFOLIO_DOCS } = require('./knowledge');
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
-const GROQ_MODEL   = 'llama-3.3-70b-versatile';
+const GROQ_MODEL   = 'openai/gpt-oss-20b';
 const MAX_HISTORY  = 20;
 const PORT         = process.env.PORT || 8080;
 
@@ -32,7 +32,11 @@ Answer questions about Emon's professional background, technical skills, project
 - ALWAYS **bold** important keywords: technology names, project names, skill areas, company names, numbers, and any standout terms — e.g. **LangGraph**, **Agentic AI**, **AutoMetaHQ**
 - After your answer, add ONE blank line, then ask a short natural follow-up question
 - No long bullet lists — weave info into natural sentences
-- Example structure: "Emon specialises in **Agentic AI** and **LLM Fine-Tuning**, currently working at **AutoMetaHQ** remotely.\\n\\nWant to hear about one of his standout projects?"
+- Use real line breaks — never write the literal characters "\\n"
+- Example structure:
+Emon specialises in **Agentic AI** and **LLM Fine-Tuning**, currently working at **AutoMetaHQ** remotely.
+
+Want to hear about one of his standout projects?
 
 ## Contact Info Format
 When sharing contact information, ALWAYS use markdown link format so they are clickable:
@@ -50,7 +54,7 @@ Never show raw URLs — only use the platform name as the clickable text.
 - You are specialized in Emon's portfolio. For off-topic questions, briefly redirect and ask what they'd like to know about Emon.
 - Treat the retrieved portfolio context as the only factual source. Never invent, estimate, or embellish dates, employers, project features, metrics, awards, availability, credentials, or contact details.
 - If a requested detail is not in the retrieved context, say it is not listed on the portfolio rather than guessing.
-- When information conflicts, the detailed retrieved portfolio entry overrides the Key Facts summary below. If two roles are marked "Present," say both are listed as current and do not infer which is primary or has ended.
+- When information conflicts, the detailed retrieved portfolio entry overrides the Key Facts summary below.
 - **Greetings Mode**: If the user simply says "Hi", "Hello", "How are you?" or similar short greetings, respond with a warm, brief greeting and ask what they would like to know about Emon's skills, projects, or experience. Do not dump unnecessary portfolio info. Example: "Hi there! I'm Emon's AI assistant. What would you like to know about his background, projects, or skills?"
 - **Hiring & Availability Mode**: If the user asks about hiring, job opportunities, availability, joining a company, notice period, or open roles, respond enthusiastically that Emon is **actively open to new opportunities** and is **ready to join at any time**. He welcomes full-time roles, freelance work, and collaborations in AI/ML engineering. Encourage them to reach out via [Email](mailto:emon.mlengineer@gmail.com) or [LinkedIn](https://www.linkedin.com/in/md-emon-hasan-695483237/).
 
@@ -60,7 +64,8 @@ Never show raw URLs — only use the platform name as the clickable text.
 - **Location**: Savar, Dhaka, Bangladesh
 - **Email**: emon.mlengineer@gmail.com
 - **Phone / WhatsApp**: +880 1834-363533
-- **Roles listed as current**: Machine Learning Engineer @ AutoMetaHQ (Remote, London, April 2026–Present) and Junior ML Engineer @ Codixel (Dhaka, January 2026–Present)
+- **Current role**: Machine Learning Engineer @ AutoMetaHQ (Remote, London, April 2026–Present)
+- **Past roles**: Junior ML Engineer @ Codixel (Dhaka, January 2026–August 2026) and Machine Learning Engineer Intern @ Hi-Tech Parks (Dhaka, October 2025–December 2025)
 - **Core specialties**: Agentic AI, LLM Fine-Tuning (LoRA/QLoRA), RAG Pipelines, MLOps
 - **Availability**: Actively open to new opportunities and ready to join at any time — welcomes full-time roles, freelance work, and collaborations in AI/ML engineering
 
@@ -155,10 +160,16 @@ async function chat(message, history = []) {
     model:       GROQ_MODEL,
     messages,
     temperature: 0.65,
-    max_tokens:  200,
+    // gpt-oss is a reasoning model: reasoning tokens count toward the limit,
+    // so keep reasoning light and leave headroom for the visible answer.
+    reasoning_effort:  'low',
+    include_reasoning: false,
+    max_tokens:  1024,
   });
 
-  return (res.choices[0]?.message?.content || '').trim();
+  return (res.choices[0]?.message?.content || '')
+    .replace(/\\r\\n|\\n|\\r/g, '\n')
+    .trim();
 }
 
 // ─── Express app ──────────────────────────────────────────────────────────────
