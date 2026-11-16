@@ -772,6 +772,13 @@ body.offcanvas .colorlib-nav-toggle {
     z-index: 1;
 }
 
+/* Keep the hero image treatment identical in both themes. */
+[data-theme="dark"] #colorlib-hero .overlay {
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.12) 0%,
+            rgba(51, 65, 85, 0.22) 100%);
+}
+
 #colorlib-hero .container-fluid {
     position: relative;
     z-index: 3;
@@ -855,6 +862,32 @@ body.offcanvas .colorlib-nav-toggle {
     opacity: 0.9;
     margin-left: 2px;
     vertical-align: baseline;
+}
+
+/* The hero headline is typed by main.js (initHeroTyping), not Typed.js, so the
+   caret blink is owned here instead of by Typed.js's injected stylesheet.
+   Scoped to the hero — the terminal keeps Typed.js's own cursor. */
+#colorlib-hero .typed-cursor {
+    animation: heroCaretBlink 0.9s steps(1) infinite;
+}
+
+@keyframes heroCaretBlink {
+
+    0%,
+    49% {
+        opacity: 0.9;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #colorlib-hero .typed-cursor {
+        animation: none;
+    }
 }
 
 #typed-1,
@@ -3538,6 +3571,12 @@ a.contact-info-value:hover {
     left: 0;
     z-index: 2;
     pointer-events: none;
+}
+
+/* Pause hero keyframe effects while the hero is away from the viewport. */
+#colorlib-hero.animations-paused,
+#colorlib-hero.animations-paused * {
+    animation-play-state: paused !important;
 }
 
 /* Skill Magnifier Effect â€” Handled globally below */

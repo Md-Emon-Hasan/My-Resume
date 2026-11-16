@@ -110,6 +110,7 @@ async function buildCss() {
                     'active', 'open', 'in', 'show', 'collapse', 'collapsing', 'fade',
                     'offcanvas-visible', 'menu-show', 'js-fullheight', 'sleep', 'awake',
                     'animated', 'preloader', 'loaded', 'to-animate', 'item-animate',
+                    'animations-paused',
                     'colorlib-nav-toggle', 'dark-theme', 'light-theme',
                     'flex-active', 'flex-active-slide',
                     // chat message roles, set via 'chat-msg ' + role in main.js

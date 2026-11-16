@@ -117,11 +117,17 @@
         });
     };
 
+    /* Hero slider cadence. initHeroTyping() budgets its typing against these
+       two numbers, so change them together — never one on its own. */
+    var HERO_SLIDE_MS      = 8000;   // time a slide stays on screen
+    var HERO_TRANSITION_MS = 700;    // slide-to-slide animation
+    var heroTypeActiveSlide = null;  // assigned by initHeroTyping()
+
     var sliderMain = function () {
         $('#colorlib-hero .flexslider').flexslider({
             animation:      'slide',
-            slideshowSpeed: 8000,
-            animationSpeed: 700,
+            slideshowSpeed: HERO_SLIDE_MS,
+            animationSpeed: HERO_TRANSITION_MS,
             directionNav:   false,
             controlNav:     true,
             pauseOnHover:   false,
@@ -136,6 +142,12 @@
                     $('.slider-text').removeClass('animated fadeInUp');
                     $('.flex-active-slide').find('.slider-text').addClass('animated fadeInUp');
                 }, 500);
+            },
+            /* Restart the headline typewriter once the incoming slide has
+               settled, so the text is always typed in step with the slide it
+               belongs to (including manual control-nav clicks). */
+            after: function (slider) {
+                if (heroTypeActiveSlide) heroTypeActiveSlide(slider && slider.currentSlide);
             }
         });
     };
@@ -445,19 +457,160 @@
         }
     };
 
-    var initTyped = function () {
-        if (typeof Typed === 'undefined') return;
-        if (document.getElementById('typed-1')) {
-            new Typed('#typed-1', {
-                strings: ['Machine Learning Engineer', 'AI Systems Architect', 'LLM Fine-Tuner'],
-                typeSpeed: 58, backSpeed: 36, backDelay: 2200, startDelay: 300, loop: true
-            });
+    /* ─────────────────────────────────────────────────────────────────
+       HERO HEADLINE TYPEWRITER
+
+       Replaces the two free-running Typed.js instances that used to drive the
+       hero. They looped on their own ~13s schedule against an 8s slider, so a
+       slide regularly arrived mid-word or mid-erase, and both slides kept
+       typing while off screen.
+
+       Now one phrase is typed per slide appearance, and the hold is derived
+       from the phrase length so every phrase — short or long — occupies the
+       same slice of the slide: type → hold → erase, finished before the next
+       slide moves in.
+    ───────────────────────────────────────────────────────────────── */
+
+    var initHeroTyping = function () {
+        /* Each list keeps one voice: slide 1 is job titles, slide 2 is what
+           those titles actually do. Phrases are kept close in length so the
+           typing rhythm stays even. */
+        var PHRASES = {
+            'typed-1': [
+                'Machine Learning Engineer',
+                'AI Systems Architect',
+                'LLM Fine-Tuning Engineer',
+                'Generative AI Engineer'
+            ],
+            'typed-2': [
+                'Building Agentic AI Systems',
+                'Designing LLM Applications',
+                'Engineering Smarter ML Models',
+                'Shipping AI into Production'
+            ]
+        };
+
+        var TYPE_MS  = 55;   // per character while typing
+        var ERASE_MS = 24;   // per character while erasing
+        var LEAD_IN  = 250;  // beat after the slide settles, before typing
+        var TAIL     = 450;  // erasing ends this long before the slide leaves
+        var MIN_HOLD = 1200; // never flash a finished line away instantly
+
+        var reduceMotion = !!(window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+        var slots = {};
+
+        function addCursor(el) {
+            if (el.parentNode.querySelector('.typed-cursor')) return;
+            var cursor = document.createElement('span');
+            cursor.className = 'typed-cursor typed-cursor--blink';
+            cursor.setAttribute('aria-hidden', 'true');
+            cursor.textContent = '|';
+            el.parentNode.insertBefore(cursor, el.nextSibling);
         }
-        if (document.getElementById('typed-2')) {
-            new Typed('#typed-2', {
-                strings: ['Building Agentic AI', 'Designing LLM Solutions', 'Crafting ML Systems'],
-                typeSpeed: 58, backSpeed: 36, backDelay: 2200, startDelay: 300, loop: true
-            });
+
+        function slot(id) {
+            if (slots[id]) return slots[id];
+            var el = document.getElementById(id);
+            if (!el) return null;
+            addCursor(el);
+            /* FlexSlider clones the first and last slide to make the loop
+               seamless, renaming ids with a _clone suffix. The clone still
+               holds the static markup, so without mirroring you see the
+               fallback text flash during the wrap-around transition. */
+            var clone = document.getElementById(id + '_clone');
+            if (clone) addCursor(clone);
+            slots[id] = { el: el, clone: clone, index: 0, timer: null };
+            return slots[id];
+        }
+
+        function paint(s, text) {
+            s.el.textContent = text;
+            if (s.clone) s.clone.textContent = text;
+        }
+
+        function run(id) {
+            var s = slot(id);
+            if (!s) return;
+            if (s.timer) { clearTimeout(s.timer); s.timer = null; }
+
+            var list   = PHRASES[id];
+            var phrase = list[s.index % list.length];
+            s.index   += 1;
+
+            if (reduceMotion) { paint(s, phrase); return; }
+
+            var typeMs  = phrase.length * TYPE_MS;
+            var eraseMs = phrase.length * ERASE_MS;
+            var holdMs  = Math.max(MIN_HOLD,
+                HERO_SLIDE_MS - LEAD_IN - TAIL - typeMs - eraseMs);
+
+            var i = 0;
+            paint(s, '');
+
+            function typeNext() {
+                paint(s, phrase.slice(0, ++i));
+                s.timer = (i < phrase.length)
+                    ? setTimeout(typeNext,  TYPE_MS)
+                    : setTimeout(eraseNext, holdMs);
+            }
+
+            function eraseNext() {
+                paint(s, phrase.slice(0, --i));
+                s.timer = (i > 0) ? setTimeout(eraseNext, ERASE_MS) : null;
+            }
+
+            s.timer = setTimeout(typeNext, LEAD_IN);
+        }
+
+        /* Slide order, read from the DOM once. The loop clones carry a .clone
+           class and a _clone id suffix, so they are skipped here — the slider's
+           currentSlide index only ever counts the real slides. */
+        var IDS = [];
+        Array.prototype.forEach.call(
+            document.querySelectorAll('#colorlib-hero .slides > li:not(.clone)'),
+            function (li) {
+                var el = li.querySelector('[id^="typed-"]');
+                if (el) IDS.push(el.id);
+            }
+        );
+
+        heroTypeActiveSlide = function (index) {
+            if (!IDS.length) return;
+            var id = IDS[(index || 0) % IDS.length];
+            if (PHRASES[id]) run(id);
+        };
+
+        /* The preloader covers the hero for ~2.6s. Starting on a timer meant
+           the first phrase was typed out of sight and was already finished
+           when the curtain lifted. Hold both the slider clock and the
+           typewriter until the hero is actually visible, then start them
+           together so slide 1 gets a full, seen cycle. */
+        var $slider = $('#colorlib-hero .flexslider');
+
+        function heroStart() {
+            var slider = $slider.data('flexslider');
+            if (slider && typeof slider.play === 'function') slider.play();
+            heroTypeActiveSlide(0);
+        }
+
+        if (document.querySelector('.ai-preloader')) {
+            var paused = $slider.data('flexslider');
+            if (paused && typeof paused.pause === 'function') paused.pause();
+
+            var waited = 0;
+            (function waitForPreloader() {
+                /* Capped so a preloader that never finishes can't freeze the hero. */
+                if (!document.querySelector('.ai-preloader') || waited >= 5000) {
+                    heroStart();
+                    return;
+                }
+                waited += 100;
+                setTimeout(waitForPreloader, 100);
+            }());
+        } else {
+            heroStart();
         }
     };
 
@@ -508,16 +661,16 @@
         if (window.innerWidth < 480) { $('#particles-js').hide(); return; }
 
         var mobile        = isMobile.any() || window.innerWidth < 768;
-        var particleCount = mobile ? 42 : 95;
+        var particleCount = mobile ? 32 : 72;
 
         particlesJS('particles-js', {
             particles: {
                 number:      { value: particleCount, density: { enable: true, value_area: 1000 } },
-                color:       { value: ['#4f46e5', '#db2777', '#059669', '#7c3aed'] },
+                color:       { value: ['#2563eb', '#7c3aed', '#db2777', '#059669', '#f59e0b'] },
                 shape:       { type: 'circle' },
                 opacity:     { value: 0.78, random: true, anim: { enable: !mobile, speed: 0.6, opacity_min: 0.25, sync: false } },
                 size:        { value: mobile ? 3.5 : 5, random: true, anim: { enable: false } },
-                line_linked: { enable: !mobile, distance: 180, color: '#a5b4fc', opacity: 0.45, width: 1.4 },
+                line_linked: { enable: !mobile, distance: 180, color: '#60a5fa', opacity: 0.45, width: 1.4 },
                 move:        { enable: true, speed: mobile ? 0.8 : 1.5, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
             },
             interactivity: {
@@ -544,18 +697,45 @@
             }
         });
 
-        var applyParticleFilter = function () {
-            var isDark   = document.documentElement.getAttribute('data-theme') === 'dark';
-            var canvasEl = document.querySelector('.particles-js-canvas-el');
-            if (canvasEl) canvasEl.style.filter = isDark ? 'brightness(2.8) contrast(1.2) saturate(1.6)' : 'none';
+        /* Keep particle lines and nodes identical in light and dark themes. */
+        var canvasEl = document.querySelector('.particles-js-canvas-el');
+        if (canvasEl) canvasEl.style.filter = 'none';
+
+        /* Stop the canvas RAF while its hero is outside the viewport. */
+        var particleHost = document.getElementById('particles-js');
+        var particleInstance = function () {
+            return window.pJSDom && window.pJSDom.length ? window.pJSDom[0].pJS : null;
         };
-        new MutationObserver(applyParticleFilter).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        applyParticleFilter();
+        var particleActive = null;
+        function setParticlesActive(active) {
+            if (particleActive === active) return;
+            particleActive = active;
+            var hero = document.getElementById('colorlib-hero');
+            if (hero) hero.classList.toggle('animations-paused', !active);
+            var pjs = particleInstance();
+            if (!pjs || !pjs.fn || !pjs.fn.vendors) return;
+            if (active) {
+                pjs.fn.vendors.draw();
+            } else {
+                window.cancelRequestAnimFrame(pjs.fn.drawAnimFrame);
+            }
+        }
+        if ('IntersectionObserver' in window) {
+            var particleVisible = false;
+            var particleObserver = new IntersectionObserver(function (entries) {
+                particleVisible = entries[0].isIntersecting;
+                setParticlesActive(particleVisible && document.visibilityState === 'visible');
+            }, { rootMargin: '100px 0px' });
+            particleObserver.observe(particleHost);
+            document.addEventListener('visibilitychange', function () {
+                setParticlesActive(particleVisible && document.visibilityState === 'visible');
+            });
+        }
     };
 
     var initSkillSphere = function () {
         if (!$('#skill-sphere').length || typeof TagCloud === 'undefined') return;
-        TagCloud('#skill-sphere', [
+        var sphere = TagCloud('#skill-sphere', [
             'Python', 'Machine Learning', 'NLP', 'Deep Learning',
             'LangChain', 'Agentic AI', 'RAG', 'VectorDB', 'Pinecone',
             'FastAPI', 'Docker', 'Generative AI', 'LLM Fine-Tuning',
@@ -567,6 +747,32 @@
             direction: 135,
             keep:      true
         });
+
+        /* TagCloud keeps its own RAF alive; suspend it outside the viewport. */
+        if (sphere && 'IntersectionObserver' in window) {
+            var sphereVisible = false;
+            var sphereActive = null;
+            function setSphereActive(active) {
+                if (sphereActive === active) return;
+                sphereActive = active;
+                sphere.paused = !active;
+                if (active) {
+                    sphere.interval = sphere._requestInterval(function () {
+                        sphere._next.call(sphere);
+                    }, 10);
+                } else if (sphere.interval && sphere.interval.value) {
+                    window.cancelAnimationFrame(sphere.interval.value);
+                }
+            }
+            var sphereObserver = new IntersectionObserver(function (entries) {
+                sphereVisible = entries[0].isIntersecting;
+                setSphereActive(sphereVisible && document.visibilityState === 'visible');
+            }, { rootMargin: '100px 0px' });
+            sphereObserver.observe(document.getElementById('skill-sphere'));
+            document.addEventListener('visibilitychange', function () {
+                setSphereActive(sphereVisible && document.visibilityState === 'visible');
+            });
+        }
     };
 
     /* ─────────────────────────────────────────────────────────────────
@@ -886,7 +1092,7 @@
     };
 
         setTimeout(function () {
-            initTyped();
+            initHeroTyping();
             initTilt();
             initSplitText();
             initOdometer();
